@@ -66,7 +66,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | Handwritten/manuscript OCR | Entirely different problem domain from printed Devanagari |
 | Full syntactic/semantic parsing (kaaraka analysis) | Active research problem, overpromising damages scholar credibility |
 | Spaced repetition / progress tracking | Requires persistent user state, different product category |
-| Audio pronunciation | Separate challenge, IAST serves pronunciation needs for scholars |
+| Audio pronunciation | Separate challenge, IAST transliteration text only |
 | Multi-language translation | Dictionary meanings + contextual interpretation, not full translation |
 | Mobile native app | Web-first serves scholar audience, responsive web suffices |
 | Multiple quiz formats (fill-in-blank, etc.) | Word → meaning MCQ only for v0.1 |
@@ -77,29 +77,29 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INPUT-01 | — | Pending |
-| INPUT-02 | — | Pending |
-| INPUT-03 | — | Pending |
-| ANAL-01 | — | Pending |
-| ANAL-02 | — | Pending |
-| ANAL-03 | — | Pending |
-| ANAL-04 | — | Pending |
-| ANAL-05 | — | Pending |
-| MEAN-01 | — | Pending |
-| MEAN-02 | — | Pending |
-| MEAN-03 | — | Pending |
-| MEAN-04 | — | Pending |
-| STDY-01 | — | Pending |
-| STDY-02 | — | Pending |
-| UI-01 | — | Pending |
-| UI-02 | — | Pending |
-| UI-03 | — | Pending |
+| INPUT-01 | Phase 1 | Pending |
+| INPUT-02 | Phase 3 | Pending |
+| INPUT-03 | Phase 3 | Pending |
+| ANAL-01 | Phase 2 | Pending |
+| ANAL-02 | Phase 2 | Pending |
+| ANAL-03 | Phase 2 | Pending |
+| ANAL-04 | Phase 2 | Pending |
+| ANAL-05 | Phase 1 | Pending |
+| MEAN-01 | Phase 2 | Pending |
+| MEAN-02 | Phase 2 | Pending |
+| MEAN-03 | Phase 2 | Pending |
+| MEAN-04 | Phase 2 | Pending |
+| STDY-01 | Phase 4 | Pending |
+| STDY-02 | Phase 4 | Pending |
+| UI-01 | Phase 1 | Pending |
+| UI-02 | Phase 2 | Pending |
+| UI-03 | Phase 1 | Pending |
 
 **Coverage:**
 - v0.1 requirements: 17 total
-- Mapped to phases: 0
-- Unmapped: 17 ⚠️
+- Mapped to phases: 17
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-06*
-*Last updated: 2026-03-06 after initial definition*
+*Last updated: 2026-03-06 after roadmap creation*
