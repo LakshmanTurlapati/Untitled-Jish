@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .next/
+
+# dictionary data (downloaded by scripts/setup-data.sh, built by scripts)
+data/cdsl/
+data/sanskrit.db
