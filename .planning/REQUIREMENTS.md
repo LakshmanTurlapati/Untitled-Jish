@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Image & Input
 
-- [ ] **INPUT-01**: User can paste or type Devanagari text directly into the app
+- [x] **INPUT-01**: User can paste or type Devanagari text directly into the app
 - [ ] **INPUT-02**: User can upload an image of printed Devanagari text
 - [ ] **INPUT-03**: App extracts Sanskrit text from uploaded image via Grok vision API with high accuracy
 
@@ -19,7 +19,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **ANAL-02**: App identifies vibhakti (case), vacana (number), and linga (gender) for each word
 - [ ] **ANAL-03**: App decomposes samasa compounds with type classification (tatpurusha, dvandva, bahuvrihi, avyayibhava, karmadharaya, dvigu)
 - [ ] **ANAL-04**: App extracts dhatu (verbal root) with gana (class 1-10) classification for verb forms
-- [ ] **ANAL-05**: App generates IAST transliteration for each word
+- [x] **ANAL-05**: App generates IAST transliteration for each word
 
 ### Meanings & Dictionary
 
@@ -35,9 +35,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### UI & Experience
 
-- [ ] **UI-01**: Clean, scholar-friendly interface with proper Devanagari typography
+- [x] **UI-01**: Clean, scholar-friendly interface with proper Devanagari typography
 - [ ] **UI-02**: Word-by-word breakdown view showing all analysis properties
-- [ ] **UI-03**: App works without login or user accounts
+- [x] **UI-03**: App works without login or user accounts
 
 ## v0.2 Requirements
 
@@ -77,23 +77,23 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INPUT-01 | Phase 1 | Pending |
+| INPUT-01 | Phase 1 | Complete |
 | INPUT-02 | Phase 3 | Pending |
 | INPUT-03 | Phase 3 | Pending |
 | ANAL-01 | Phase 2 | Pending |
 | ANAL-02 | Phase 2 | Pending |
 | ANAL-03 | Phase 2 | Pending |
 | ANAL-04 | Phase 2 | Pending |
-| ANAL-05 | Phase 1 | Pending |
+| ANAL-05 | Phase 1 | Complete |
 | MEAN-01 | Phase 2 | Pending |
 | MEAN-02 | Phase 2 | Pending |
 | MEAN-03 | Phase 2 | Pending |
 | MEAN-04 | Phase 2 | Pending |
 | STDY-01 | Phase 4 | Pending |
 | STDY-02 | Phase 4 | Pending |
-| UI-01 | Phase 1 | Pending |
+| UI-01 | Phase 1 | Complete |
 | UI-02 | Phase 2 | Pending |
-| UI-03 | Phase 1 | Pending |
+| UI-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v0.1 requirements: 17 total
