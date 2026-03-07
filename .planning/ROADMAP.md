@@ -12,7 +12,7 @@ This roadmap delivers an end-to-end Sanskrit text analysis web application in fo
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
+- [x] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
 - [ ] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI
 - [ ] **Phase 3: Image Input and OCR** - Image upload with Grok Vision OCR feeding into the analysis pipeline
 - [ ] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz
@@ -31,8 +31,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffold, test infra, Shobhika font, design tokens, transliteration utility, app shell
-- [ ] 01-02-PLAN.md — CDSL dictionary parser, SQLite import pipeline, stem index, lookup module, API route
+- [x] 01-01-PLAN.md — Project scaffold, test infra, Shobhika font, design tokens, transliteration utility, app shell
+- [x] 01-02-PLAN.md — CDSL dictionary parser, SQLite import pipeline, stem index, lookup module, API route
 
 ### Phase 2: Core Analysis Pipeline
 **Goal**: Users get deep grammatical analysis of any Sanskrit text -- sandhi splitting, compound decomposition, morphological breakdown, and hybrid meanings -- displayed in a structured word-by-word view
@@ -84,7 +84,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Text Input | 0/2 | Not started | - |
+| 1. Foundation and Text Input | 2/2 | Complete | 2026-03-07 |
 | 2. Core Analysis Pipeline | 0/3 | Not started | - |
 | 3. Image Input and OCR | 0/1 | Not started | - |
 | 4. Study Features | 0/1 | Not started | - |
