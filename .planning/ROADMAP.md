@@ -22,10 +22,10 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### Phase 1: Foundation and Text Input
 **Goal**: Project scaffold with Shobhika typography, bidirectional IAST transliteration engine, and embedded dictionary infrastructure (MW + Apte via CDSL/SQLite) in a clean, scholar-friendly app shell
 **Depends on**: Nothing (first phase)
-**Requirements**: INPUT-01, ANAL-05, UI-01, UI-03
+**Requirements**: ANAL-05, UI-01, UI-03
 **Success Criteria** (what must be TRUE):
-  1. User can paste or type Devanagari text into the app and see it rendered with proper typography
-  2. User sees accurate IAST transliteration for each word in entered text
+  1. Bidirectional IAST transliteration engine converts Devanagari text accurately (tested programmatically)
+  2. App shell renders with Shobhika Devanagari typography and warm academic design tokens
   3. App works immediately without any login or account creation
   4. Dictionary definitions (Monier-Williams and Apte) are retrievable for Sanskrit stem forms
 **Plans**: 3 plans
@@ -55,11 +55,12 @@ Plans:
 ### Phase 3: Image Input and OCR
 **Goal**: Users can photograph or upload printed Devanagari text and get the full analysis pipeline applied automatically
 **Depends on**: Phase 2
-**Requirements**: INPUT-02, INPUT-03
+**Requirements**: INPUT-01, INPUT-02, INPUT-03
 **Success Criteria** (what must be TRUE):
-  1. User can upload an image of printed Devanagari text and see extracted Sanskrit text appear
-  2. Extracted text feeds directly into the analysis pipeline, producing the same results as manual text input
-  3. OCR extraction handles standard printed Devanagari with high accuracy (Sanskrit, not Hindi correction)
+  1. User can paste or type Devanagari text into the app and see it rendered with proper typography, with IAST transliteration displayed
+  2. User can upload an image of printed Devanagari text and see extracted Sanskrit text appear
+  3. Extracted text feeds directly into the analysis pipeline, producing the same results as manual text input
+  4. OCR extraction handles standard printed Devanagari with high accuracy (Sanskrit, not Hindi correction)
 **Plans**: TBD
 
 Plans:
