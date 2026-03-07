@@ -28,11 +28,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User sees accurate IAST transliteration for each word in entered text
   3. App works immediately without any login or account creation
   4. Dictionary definitions (Monier-Williams and Apte) are retrievable for Sanskrit stem forms
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [x] 01-01-PLAN.md — Project scaffold, test infra, Shobhika font, design tokens, transliteration utility, app shell
 - [x] 01-02-PLAN.md — CDSL dictionary parser, SQLite import pipeline, stem index, lookup module, API route
+- [ ] 01-03-PLAN.md — Gap closure: update ROADMAP and REQUIREMENTS to reflect INPUT-01 deferral to Phase 3
 
 ### Phase 2: Core Analysis Pipeline
 **Goal**: Users get deep grammatical analysis of any Sanskrit text -- sandhi splitting, compound decomposition, morphological breakdown, and hybrid meanings -- displayed in a structured word-by-word view
@@ -84,7 +85,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Text Input | 2/2 | Complete | 2026-03-07 |
+| 1. Foundation and Text Input | 2/3 | Gap closure | - |
 | 2. Core Analysis Pipeline | 0/3 | Not started | - |
 | 3. Image Input and OCR | 0/1 | Not started | - |
 | 4. Study Features | 0/1 | Not started | - |
