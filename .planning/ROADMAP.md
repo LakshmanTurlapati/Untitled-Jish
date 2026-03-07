@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Phase Details
 
 ### Phase 1: Foundation and Text Input
-**Goal**: Users can input Sanskrit text and get IAST transliteration with dictionary lookups in a clean, scholar-friendly interface
+**Goal**: Project scaffold with Shobhika typography, bidirectional IAST transliteration engine, and embedded dictionary infrastructure (MW + Apte via CDSL/SQLite) in a clean, scholar-friendly app shell
 **Depends on**: Nothing (first phase)
 **Requirements**: INPUT-01, ANAL-05, UI-01, UI-03
 **Success Criteria** (what must be TRUE):
@@ -28,11 +28,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User sees accurate IAST transliteration for each word in entered text
   3. App works immediately without any login or account creation
   4. Dictionary definitions (Monier-Williams and Apte) are retrievable for Sanskrit stem forms
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Project scaffold, test infra, Shobhika font, design tokens, transliteration utility, app shell
+- [ ] 01-02-PLAN.md — CDSL dictionary parser, SQLite import pipeline, stem index, lookup module, API route
 
 ### Phase 2: Core Analysis Pipeline
 **Goal**: Users get deep grammatical analysis of any Sanskrit text -- sandhi splitting, compound decomposition, morphological breakdown, and hybrid meanings -- displayed in a structured word-by-word view
