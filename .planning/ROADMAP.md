@@ -45,12 +45,12 @@ Plans:
   3. User sees vibhakti, vacana, linga, and dhatu/gana identification for each word in a structured breakdown view
   4. User sees both dictionary-sourced definitions and LLM-contextual meanings, clearly distinguished from each other
   5. Word-by-word breakdown view shows all analysis properties for each word
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Core analysis pipeline: type contracts, Zod schemas, LLM prompts, sandhi/samasa/morphology with INRIA validation
+- [ ] 02-02-PLAN.md — Meanings enrichment: dictionary lookups (MW + Apte), source tracking, POST /api/analyze endpoint
+- [ ] 02-03-PLAN.md — Word breakdown UI: WordBreakdown/MeaningBadge components, AnalysisView with text input, page integration
 
 ### Phase 3: Image Input and OCR
 **Goal**: Users can photograph or upload printed Devanagari text and get the full analysis pipeline applied automatically
