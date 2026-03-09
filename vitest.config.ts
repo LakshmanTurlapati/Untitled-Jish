@@ -7,6 +7,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "node",
+    environmentMatchGlobs: [
+      ["src/__tests__/word-breakdown.test.tsx", "jsdom"],
+    ],
   },
   resolve: {
     alias: {
