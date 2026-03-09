@@ -1,3 +1,5 @@
+import { AnalysisView } from "./components/AnalysisView";
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center px-6 py-16">
@@ -26,10 +28,16 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="mt-12 w-full max-w-2xl rounded-lg border border-dashed border-parchment-200 bg-parchment-50 p-8 text-center">
-        <p className="text-ink-700">
-          Analysis results will appear here once text is submitted.
+      <hr className="my-12 w-full max-w-4xl border-t border-parchment-200" />
+
+      <section className="w-full max-w-4xl">
+        <h2 className="mb-2 text-center text-sm font-semibold uppercase tracking-widest text-accent-600">
+          Text Analysis
+        </h2>
+        <p className="mb-6 text-center text-sm text-ink-600">
+          Enter Devanagari text below for grammatical analysis
         </p>
+        <AnalysisView />
       </section>
     </main>
   );
