@@ -1,12 +1,12 @@
 /**
  * Tests for VocabularyList component.
- * Validates collapsible word list with Devanagari, IAST, word type tags, and meanings.
+ * Validates card-based word list with Devanagari, IAST, word type tags, and meanings.
  *
  * @vitest-environment jsdom
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import type { EnrichedWord } from "@/lib/analysis/types";
 import type { VocabularyWord } from "@/lib/study/types";
@@ -74,40 +74,22 @@ const mockVocab: VocabularyWord[] = [
 ];
 
 describe("VocabularyList", () => {
-  it("renders 'View Vocabulary (N words)' button with correct count", () => {
-    mockExtractVocabulary.mockReturnValue(mockVocab);
-    render(<VocabularyList words={[makeWord()]} />);
-    expect(
-      screen.getByRole("button", { name: /View Vocabulary \(3 words\)/i })
-    ).toBeInTheDocument();
-  });
-
-  it("word list is hidden by default", () => {
-    mockExtractVocabulary.mockReturnValue(mockVocab);
-    render(<VocabularyList words={[makeWord()]} />);
-    // The word meanings should not be visible until expanded
-    expect(screen.queryByText("righteousness, duty")).not.toBeInTheDocument();
-  });
-
-  it("clicking button reveals word cards", () => {
+  it("renders vocabulary cards directly without toggle", () => {
     mockExtractVocabulary.mockReturnValue(mockVocab);
     render(<VocabularyList words={[makeWord()]} />);
 
-    fireEvent.click(
-      screen.getByRole("button", { name: /View Vocabulary/i })
-    );
+    // No toggle button should exist
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
 
+    // Words should be visible immediately
     expect(screen.getByText("righteousness, duty")).toBeInTheDocument();
     expect(screen.getByText("field, domain")).toBeInTheDocument();
+    expect(screen.getByText("do, perform")).toBeInTheDocument();
   });
 
   it("each card shows Devanagari, IAST, meaning, and word type tag", () => {
     mockExtractVocabulary.mockReturnValue(mockVocab);
     render(<VocabularyList words={[makeWord()]} />);
-
-    fireEvent.click(
-      screen.getByRole("button", { name: /View Vocabulary/i })
-    );
 
     // Devanagari
     expect(screen.getByText("\u0927\u0930\u094D\u092E\u0903")).toBeInTheDocument();
@@ -123,9 +105,9 @@ describe("VocabularyList", () => {
     expect(screen.getByText("righteousness, duty")).toBeInTheDocument();
   });
 
-  it("does not render when vocabulary is empty", () => {
+  it("renders empty message when vocabulary is empty", () => {
     mockExtractVocabulary.mockReturnValue([]);
-    const { container } = render(<VocabularyList words={[]} />);
-    expect(container.innerHTML).toBe("");
+    render(<VocabularyList words={[]} />);
+    expect(screen.getByText("No vocabulary words found.")).toBeInTheDocument();
   });
 });
