@@ -2,7 +2,7 @@
 
 ## Overview
 
-This roadmap delivers an end-to-end Sanskrit text analysis web application in four phases. Phase 1 establishes the foundation: project scaffolding, embedded dictionary infrastructure, text input, and IAST transliteration. Phase 2 builds the core NLP analysis pipeline: sandhi splitting, samasa decomposition, morphological analysis, and hybrid dictionary+LLM meanings. Phase 3 layers image upload and Grok Vision OCR on top of the validated text pipeline. Phase 4 adds study features: vocabulary extraction and MCQ quiz generation. Each phase delivers a coherent, independently verifiable capability.
+This roadmap delivers an end-to-end Sanskrit text analysis web application in four phases. Phase 1 establishes the foundation: project scaffolding, embedded dictionary infrastructure, text input, and IAST transliteration. Phase 2 builds the core NLP analysis pipeline: sandhi splitting, samasa decomposition, morphological analysis, and hybrid dictionary+LLM meanings. Phase 3 layers image upload and Tesseract.js OCR on top of the validated text pipeline. Phase 4 adds study features: vocabulary extraction and MCQ quiz generation. Each phase delivers a coherent, independently verifiable capability.
 
 ## Phases
 
@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
 - [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI (completed 2026-03-09)
-- [ ] **Phase 3: Image Input and OCR** - Image upload with Grok Vision OCR feeding into the analysis pipeline
+- [ ] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline
 - [ ] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz
 
 ## Phase Details
@@ -60,11 +60,11 @@ Plans:
   1. User can paste or type Devanagari text into the app and see it rendered with proper typography, with IAST transliteration displayed
   2. User can upload an image of printed Devanagari text and see extracted Sanskrit text appear
   3. Extracted text feeds directly into the analysis pipeline, producing the same results as manual text input
-  4. OCR extraction handles standard printed Devanagari with high accuracy (Sanskrit, not Hindi correction)
+  4. OCR extraction handles standard printed Devanagari with reasonable accuracy using Tesseract.js with Devanagari traineddata
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — OCR backend: Grok Vision extraction function and /api/ocr API route with FormData handling
+- [ ] 03-01-PLAN.md — OCR backend: Tesseract.js extraction function and /api/ocr API route with FormData handling
 - [ ] 03-02-PLAN.md — Text input IAST preview, ImageUpload component, OCR-to-analysis pipeline integration
 
 ### Phase 4: Study Features
