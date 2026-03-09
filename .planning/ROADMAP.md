@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline (completed 2026-03-09)
 - [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz (completed 2026-03-09)
 - [x] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions (gap closure, completed 2026-03-09)
-- [ ] **Phase 6: Duolingo-Style UI Overhaul** - Redesign interface with Duolingo-inspired UX patterns (gamified feel, progress indicators, card-based layouts) using existing color scheme, no new assets
+- [x] **Phase 6: Duolingo-Style UI Overhaul** - Redesign interface with Duolingo-inspired UX patterns (gamified feel, progress indicators, card-based layouts) using existing color scheme, no new assets (completed 2026-03-09)
 
 ## Phase Details
 
@@ -109,7 +109,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
 | 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
-| 6. Duolingo-Style UI Overhaul | 2/3 | In Progress|  |
+| 6. Duolingo-Style UI Overhaul | 3/3 | Complete   | 2026-03-09 |
 
 ### Phase 6: Duolingo-Style UI Overhaul
 **Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
