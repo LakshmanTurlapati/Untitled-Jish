@@ -72,6 +72,44 @@ describe("ImageUpload component", () => {
     resolveUpload({ ok: true, json: () => Promise.resolve({ text: "test" }) });
   });
 
+  it("renders a camera input with capture=environment attribute", () => {
+    render(<ImageUpload onTextExtracted={vi.fn()} />);
+    const inputs = document.querySelectorAll('input[type="file"]');
+    const cameraInput = Array.from(inputs).find(
+      (input) => (input as HTMLInputElement).getAttribute("capture") === "environment"
+    );
+    expect(cameraInput).toBeTruthy();
+    expect((cameraInput as HTMLInputElement).accept).toBe("image/jpeg,image/png");
+  });
+
+  it("renders a camera button that triggers camera input", () => {
+    render(<ImageUpload onTextExtracted={vi.fn()} />);
+    const cameraButton = screen.getByRole("button", { name: /camera|photo/i });
+    expect(cameraButton).toBeInTheDocument();
+  });
+
+  it("camera input triggers OCR pipeline on file selection", async () => {
+    const mockCallback = vi.fn();
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ text: "test" }),
+    }));
+    vi.stubGlobal("URL", { ...globalThis.URL, createObjectURL: vi.fn(() => "blob:mock") });
+
+    render(<ImageUpload onTextExtracted={mockCallback} />);
+    const inputs = document.querySelectorAll('input[type="file"]');
+    const cameraInput = Array.from(inputs).find(
+      (input) => (input as HTMLInputElement).getAttribute("capture") === "environment"
+    ) as HTMLInputElement;
+
+    const file = new File(["photo"], "camera.jpg", { type: "image/jpeg" });
+    fireEvent.change(cameraInput, { target: { files: [file] } });
+
+    await waitFor(() => {
+      expect(mockCallback).toHaveBeenCalledWith("test");
+    });
+  });
+
   it("shows error message on upload failure", async () => {
     vi.stubGlobal(
       "fetch",

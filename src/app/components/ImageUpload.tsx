@@ -11,6 +11,7 @@ export function ImageUpload({ onTextExtracted }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFile(file: File) {
     // Validate file type
@@ -65,22 +66,39 @@ export function ImageUpload({ onTextExtracted }: ImageUploadProps) {
 
   return (
     <div>
-      <div
-        onClick={() => fileInputRef.current?.click()}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={handleDrop}
-        className="cursor-pointer rounded-lg border-2 border-dashed border-parchment-200 p-6 text-center transition-colors hover:border-accent-500"
-      >
-        <p className="text-sm text-ink-600">
-          Click or drag an image here to extract text
-        </p>
-        <p className="mt-1 text-xs text-ink-600/50">JPEG or PNG, max 20MB</p>
+      <div className="flex gap-2">
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDrop}
+          className="flex-1 cursor-pointer rounded-lg border-2 border-dashed border-parchment-200 p-4 text-center transition-colors hover:border-accent-500"
+        >
+          <p className="text-sm text-ink-600">Upload Image</p>
+          <p className="mt-1 text-xs text-ink-600/50">Click or drag</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => cameraInputRef.current?.click()}
+          className="cursor-pointer rounded-lg border-2 border-dashed border-parchment-200 px-4 py-4 text-center transition-colors hover:border-accent-500"
+          aria-label="Take Photo"
+        >
+          <p className="text-sm text-ink-600">Take Photo</p>
+        </button>
       </div>
 
       <input
         ref={fileInputRef}
         type="file"
         accept="image/jpeg,image/png"
+        onChange={handleInputChange}
+        className="hidden"
+      />
+
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/jpeg,image/png"
+        capture="environment"
         onChange={handleInputChange}
         className="hidden"
       />
