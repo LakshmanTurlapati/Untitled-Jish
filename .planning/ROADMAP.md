@@ -87,6 +87,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
-| 2. Core Analysis Pipeline | 0/3 | Not started | - |
+| 2. Core Analysis Pipeline | 1/3 | In Progress|  |
 | 3. Image Input and OCR | 0/1 | Not started | - |
 | 4. Study Features | 0/1 | Not started | - |

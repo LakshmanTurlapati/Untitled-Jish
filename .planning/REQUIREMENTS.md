@@ -15,10 +15,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Sanskrit Analysis
 
-- [ ] **ANAL-01**: App splits sandhi junctions (vowel, consonant, visarga) into individual words
-- [ ] **ANAL-02**: App identifies vibhakti (case), vacana (number), and linga (gender) for each word
-- [ ] **ANAL-03**: App decomposes samasa compounds with type classification (tatpurusha, dvandva, bahuvrihi, avyayibhava, karmadharaya, dvigu)
-- [ ] **ANAL-04**: App extracts dhatu (verbal root) with gana (class 1-10) classification for verb forms
+- [x] **ANAL-01**: App splits sandhi junctions (vowel, consonant, visarga) into individual words
+- [x] **ANAL-02**: App identifies vibhakti (case), vacana (number), and linga (gender) for each word
+- [x] **ANAL-03**: App decomposes samasa compounds with type classification (tatpurusha, dvandva, bahuvrihi, avyayibhava, karmadharaya, dvigu)
+- [x] **ANAL-04**: App extracts dhatu (verbal root) with gana (class 1-10) classification for verb forms
 - [x] **ANAL-05**: App generates IAST transliteration for each word
 
 ### Meanings & Dictionary
@@ -80,10 +80,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | INPUT-01 | Phase 3 | Pending |
 | INPUT-02 | Phase 3 | Pending |
 | INPUT-03 | Phase 3 | Pending |
-| ANAL-01 | Phase 2 | Pending |
-| ANAL-02 | Phase 2 | Pending |
-| ANAL-03 | Phase 2 | Pending |
-| ANAL-04 | Phase 2 | Pending |
+| ANAL-01 | Phase 2 | Complete |
+| ANAL-02 | Phase 2 | Complete |
+| ANAL-03 | Phase 2 | Complete |
+| ANAL-04 | Phase 2 | Complete |
 | ANAL-05 | Phase 1 | Complete |
 | MEAN-01 | Phase 2 | Pending |
 | MEAN-02 | Phase 2 | Pending |

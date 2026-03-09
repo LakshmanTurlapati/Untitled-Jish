@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 01-03-PLAN.md (Phase 1 fully complete)
-last_updated: "2026-03-07T21:36:09.465Z"
-last_activity: 2026-03-07 -- Completed Phase 1 Plan 03 (gap closure - INPUT-01 deferral)
+status: in-progress
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-09T04:39:00Z"
+last_activity: 2026-03-08 -- Completed Phase 2 Plan 01 (core analysis pipeline)
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 38
+  total_plans: 4
+  completed_plans: 4
+  percent: 50
 ---
 
 # Project State
@@ -21,32 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-06)
 
 **Core value:** Accurate extraction and deep grammatical analysis of Sanskrit text from images -- sandhi splitting, samasa decomposition, and morphological breakdown must be linguistically correct.
-**Current focus:** Phase 1: Foundation and Text Input
+**Current focus:** Phase 2: Core Analysis Pipeline
 
 ## Current Position
 
-Phase: 1 of 4 (Foundation and Text Input) -- COMPLETE
-Plan: 3 of 3 in current phase (all plans complete)
-Status: Phase 1 Complete
-Last activity: 2026-03-07 -- Completed Phase 1 Plan 03 (gap closure - INPUT-01 deferral)
+Phase: 2 of 4 (Core Analysis Pipeline)
+Plan: 1 of 1 in current phase (all plans complete)
+Status: Phase 2 Plan 01 Complete
+Last activity: 2026-03-08 -- Completed Phase 2 Plan 01 (core analysis pipeline)
 
-Progress: [████░░░░░░] 38%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Average duration: ~8 min
-- Total execution time: ~0.4 hours
+- Total execution time: ~0.5 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3/3 | ~24 min | ~8 min |
+| 02-core-analysis | 1/1 | ~7 min | ~7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (8min), 01-02 (15min), 01-03 (1min)
+- Last 5 plans: 01-01 (8min), 01-02 (15min), 01-03 (1min), 02-01 (7min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -68,6 +69,10 @@ Recent decisions affecting current work:
 - [01-02]: AP90 headwords include visarga (e.g. dharmaH) unlike MW bare stems -- FTS5 bridges this.
 - [01-02]: INRIA stem index provides 1.9M inflection-to-stem mappings as baseline for morphological analysis.
 - [01-03]: INPUT-01 (text input UI) deferred to Phase 3 per user decision -- ROADMAP and REQUIREMENTS updated accordingly.
+- [02-01]: Used AI SDK 6.x generateText + Output.object() pattern (not deprecated generateObject).
+- [02-01]: Grok-3-mini as default model for cost-effective structured analysis.
+- [02-01]: Mock-based LLM testing with BG 1.1 fixture for deterministic test results.
+- [02-01]: INRIA validation as post-LLM enrichment step, not a blocking gate.
 
 ### Pending Todos
 
@@ -81,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T21:31:00Z
-Stopped at: Completed 01-03-PLAN.md (Phase 1 fully complete)
-Resume file: Phase 2 planning needed
+Last session: 2026-03-09T04:39:00Z
+Stopped at: Completed 02-01-PLAN.md
+Resume file: Phase 2 complete, proceed to next phase
