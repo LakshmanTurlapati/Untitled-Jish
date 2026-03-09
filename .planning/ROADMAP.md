@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz (completed 2026-03-09)
 - [x] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions (gap closure, completed 2026-03-09)
 - [x] **Phase 6: Duolingo-Style UI Overhaul** - Redesign interface with Duolingo-inspired UX patterns (gamified feel, progress indicators, card-based layouts) using existing color scheme, no new assets (completed 2026-03-09)
-- [ ] **Phase 7: UI Navigation & Polish** - Tabbed sections, analysis button gated to page, camera capture, checkmark color alignment
+- [x] **Phase 7: UI Navigation & Polish** - Tabbed sections, analysis button gated to page, camera capture, checkmark color alignment (completed 2026-03-09)
 
 ## Phase Details
 
@@ -111,7 +111,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
 | 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
 | 6. Duolingo-Style UI Overhaul | 3/3 | Complete   | 2026-03-09 |
-| 7. UI Navigation & Polish | 1/2 | In Progress|  |
+| 7. UI Navigation & Polish | 2/2 | Complete | 2026-03-09 |
 
 ### Phase 6: Duolingo-Style UI Overhaul
 **Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
@@ -140,8 +140,8 @@ Plans:
   2. Sticky Analyze button only appears on the Analyze tab
   3. Camera capture button enables direct photo taking on mobile
   4. Progress step checkmarks use accent colors matching the app's palette
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans executed
 
 Plans:
-- [ ] 07-01-PLAN.md — Top-level Analyze/Study tab navigation, sticky bar gating, checkmark color fix
-- [ ] 07-02-PLAN.md — Camera capture button in ImageUpload with capture=environment attribute
+- [x] 07-01-PLAN.md — Top-level Analyze/Study tab navigation, sticky bar gating, checkmark color fix
+- [x] 07-02-PLAN.md — Camera capture button in ImageUpload with capture=environment attribute
