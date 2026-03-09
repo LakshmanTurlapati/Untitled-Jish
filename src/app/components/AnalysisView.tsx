@@ -188,7 +188,12 @@ export function AnalysisView() {
             <VocabularyList words={analysisResult} />
           )}
 
-          {activeTab === "quiz" && <QuizView words={analysisResult} />}
+          {activeTab === "quiz" && (
+                <QuizView
+                  words={analysisResult}
+                  onBackToText={() => setActiveTab("words")}
+                />
+              )}
         </div>
       )}
 
