@@ -37,25 +37,38 @@ function makeWord(overrides: Partial<EnrichedWord> = {}): EnrichedWord {
 }
 
 describe("MeaningBadge", () => {
-  it("renders 'MW Dictionary' with green styling for mw source", () => {
-    render(<MeaningBadge source="mw" />);
-    const badge = screen.getByText("MW Dictionary");
-    expect(badge).toBeInTheDocument();
-    expect(badge.className).toMatch(/green/);
+  it("renders 'Monier-Williams' label with green dot for mw source", () => {
+    const { container } = render(
+      <MeaningBadge source="mw">some definition</MeaningBadge>
+    );
+    expect(screen.getByText("Monier-Williams")).toBeInTheDocument();
+    const dot = container.querySelector(".bg-green-500");
+    expect(dot).toBeInTheDocument();
   });
 
-  it("renders 'Apte Dictionary' with blue styling for apte source", () => {
-    render(<MeaningBadge source="apte" />);
-    const badge = screen.getByText("Apte Dictionary");
-    expect(badge).toBeInTheDocument();
-    expect(badge.className).toMatch(/blue/);
+  it("renders 'Apte' label with blue dot for apte source", () => {
+    const { container } = render(
+      <MeaningBadge source="apte">some definition</MeaningBadge>
+    );
+    expect(screen.getByText("Apte")).toBeInTheDocument();
+    const dot = container.querySelector(".bg-blue-500");
+    expect(dot).toBeInTheDocument();
   });
 
-  it("renders 'AI Interpretation' with amber styling for ai source", () => {
-    render(<MeaningBadge source="ai" />);
-    const badge = screen.getByText("AI Interpretation");
-    expect(badge).toBeInTheDocument();
-    expect(badge.className).toMatch(/amber/);
+  it("renders 'AI Interpretation' label with amber dot for ai source", () => {
+    const { container } = render(
+      <MeaningBadge source="ai">some definition</MeaningBadge>
+    );
+    expect(screen.getByText("AI Interpretation")).toBeInTheDocument();
+    const dot = container.querySelector(".bg-amber-500");
+    expect(dot).toBeInTheDocument();
+  });
+
+  it("renders children as definition text", () => {
+    render(
+      <MeaningBadge source="mw">law, duty, righteousness</MeaningBadge>
+    );
+    expect(screen.getByText("law, duty, righteousness")).toBeInTheDocument();
   });
 });
 
@@ -73,27 +86,27 @@ describe("WordBreakdown", () => {
     expect(screen.getByText("pullinga")).toBeInTheDocument();
   });
 
-  it("renders MW definition with 'MW Dictionary' badge when mw_definitions present", () => {
+  it("renders MW definition with 'Monier-Williams' label when mw_definitions present", () => {
     render(<WordBreakdown word={makeWord()} />);
-    expect(screen.getByText("MW Dictionary")).toBeInTheDocument();
+    expect(screen.getByText("Monier-Williams")).toBeInTheDocument();
     expect(screen.getByText("law, duty, righteousness")).toBeInTheDocument();
   });
 
-  it("renders Apte definition with 'Apte Dictionary' badge when apte_definitions present", () => {
+  it("renders Apte definition with 'Apte' label when apte_definitions present", () => {
     render(<WordBreakdown word={makeWord()} />);
-    expect(screen.getByText("Apte Dictionary")).toBeInTheDocument();
+    expect(screen.getByText("Apte")).toBeInTheDocument();
     expect(screen.getByText("virtue, moral merit")).toBeInTheDocument();
   });
 
-  it("renders AI interpretation with 'AI Interpretation' badge", () => {
+  it("renders AI interpretation with 'AI Interpretation' label", () => {
     render(<WordBreakdown word={makeWord()} />);
     expect(screen.getByText("AI Interpretation")).toBeInTheDocument();
     expect(screen.getByText("righteousness, duty")).toBeInTheDocument();
   });
 
-  it("does NOT render MW badge when mw_definitions is empty", () => {
+  it("does NOT render Monier-Williams label when mw_definitions is empty", () => {
     render(<WordBreakdown word={makeWord({ mw_definitions: [] })} />);
-    expect(screen.queryByText("MW Dictionary")).not.toBeInTheDocument();
+    expect(screen.queryByText("Monier-Williams")).not.toBeInTheDocument();
   });
 
   it("renders samasa info for compound words", () => {
