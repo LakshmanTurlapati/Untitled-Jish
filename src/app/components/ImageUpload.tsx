@@ -1,0 +1,109 @@
+"use client";
+
+import { useState, useRef } from "react";
+
+interface ImageUploadProps {
+  onTextExtracted: (text: string) => void;
+}
+
+export function ImageUpload({ onTextExtracted }: ImageUploadProps) {
+  const [isUploading, setIsUploading] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFile(file: File) {
+    // Validate file type
+    if (file.type !== "image/jpeg" && file.type !== "image/png") {
+      setError("Unsupported file type. Only JPEG and PNG images are accepted.");
+      return;
+    }
+
+    // Validate file size (20MB max)
+    if (file.size > 20 * 1024 * 1024) {
+      setError("File too large. Maximum size is 20MB.");
+      return;
+    }
+
+    setPreview(URL.createObjectURL(file));
+    setIsUploading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await fetch("/api/ocr", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error || "OCR processing failed");
+      }
+
+      const data = await response.json();
+      onTextExtracted(data.text);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setIsUploading(false);
+    }
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) handleFile(file);
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  }
+
+  return (
+    <div>
+      <div
+        onClick={() => fileInputRef.current?.click()}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleDrop}
+        className="cursor-pointer rounded-lg border-2 border-dashed border-parchment-200 p-6 text-center transition-colors hover:border-accent-500"
+      >
+        <p className="text-sm text-ink-600">
+          Click or drag an image here to extract text
+        </p>
+        <p className="mt-1 text-xs text-ink-600/50">JPEG or PNG, max 20MB</p>
+      </div>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png"
+        onChange={handleInputChange}
+        className="hidden"
+      />
+
+      {preview && (
+        <div className="mt-3">
+          <img
+            src={preview}
+            alt="Upload preview"
+            className="max-h-48 rounded"
+          />
+        </div>
+      )}
+
+      {isUploading && (
+        <p className="mt-2 text-sm text-ink-600 animate-pulse">
+          Extracting text...
+        </p>
+      )}
+
+      {error && (
+        <p className="mt-2 text-sm text-red-600">{error}</p>
+      )}
+    </div>
+  );
+}

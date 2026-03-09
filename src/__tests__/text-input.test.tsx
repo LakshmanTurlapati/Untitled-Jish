@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { AnalysisView } from "@/app/components/AnalysisView";
@@ -7,6 +8,11 @@ import { AnalysisView } from "@/app/components/AnalysisView";
 beforeEach(() => {
   vi.stubGlobal("fetch", vi.fn());
 });
+
+// Mock ImageUpload to avoid OCR dependencies in text input tests
+vi.mock("@/app/components/ImageUpload", () => ({
+  ImageUpload: () => <div data-testid="mock-image-upload" />,
+}));
 
 // Mock transliteration module
 vi.mock("@/lib/transliteration", () => ({
@@ -36,6 +42,6 @@ describe("AnalysisView IAST preview", () => {
     render(<AnalysisView />);
     const textarea = screen.getByPlaceholderText("Enter Sanskrit text in Devanagari...");
     fireEvent.change(textarea, { target: { value: "\u0915\u094D\u0937\u0947\u0924\u094D\u0930\u0947" } });
-    expect(textarea).toHaveValue("\u0915\u094D\u0937\u0947\u0924\u094D\u0930\u0947");
+    expect((textarea as HTMLTextAreaElement).value).toBe("\u0915\u094D\u0937\u0947\u0924\u094D\u0930\u0947");
   });
 });

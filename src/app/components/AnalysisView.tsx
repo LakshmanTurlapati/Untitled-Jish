@@ -3,6 +3,8 @@
 import { useState } from "react";
 import type { EnrichedWord } from "@/lib/analysis/types";
 import { WordBreakdown } from "./WordBreakdown";
+import { devanagariToIast } from "@/lib/transliteration";
+import { ImageUpload } from "./ImageUpload";
 
 export function AnalysisView() {
   const [inputText, setInputText] = useState("");
@@ -41,8 +43,17 @@ export function AnalysisView() {
     }
   }
 
+  const iastPreview = inputText ? devanagariToIast(inputText) : "";
+
   return (
     <div className="w-full max-w-4xl">
+      <div className="mb-6">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-600">
+          Upload Image
+        </p>
+        <ImageUpload onTextExtracted={(text) => setInputText(text)} />
+      </div>
+
       <form onSubmit={handleSubmit} className="mb-8">
         <textarea
           value={inputText}
@@ -51,6 +62,11 @@ export function AnalysisView() {
           rows={4}
           className="w-full rounded-lg border border-parchment-200 bg-parchment-100 p-4 font-sanskrit text-lg text-ink-900 placeholder:text-ink-600/50 focus:border-accent-500 focus:outline-none focus:ring-1 focus:ring-accent-500"
         />
+        {iastPreview && (
+          <p className="mt-2 rounded bg-parchment-50 px-3 py-2 text-sm italic text-ink-600">
+            {iastPreview}
+          </p>
+        )}
         <button
           type="submit"
           disabled={isLoading || !inputText.trim()}
