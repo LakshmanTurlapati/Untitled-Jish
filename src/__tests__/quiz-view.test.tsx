@@ -5,8 +5,8 @@
  * @vitest-environment jsdom
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import type { EnrichedWord } from "@/lib/analysis/types";
 import type { VocabularyWord } from "@/lib/study/types";
@@ -171,5 +171,99 @@ describe("QuizView", () => {
     expect(screen.getByText(/Quiz Complete/i)).toBeInTheDocument();
     expect(screen.getByText(/2\/2/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Retake Quiz/i })).toBeInTheDocument();
+  });
+});
+
+describe("QuizView fallback distractors", () => {
+  const fallbackResponse = {
+    meanings: ["a river", "fire", "king", "wisdom", "battle", "virtue"],
+  };
+
+  let originalFetch: typeof global.fetch;
+
+  beforeEach(() => {
+    originalFetch = global.fetch;
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+    vi.restoreAllMocks();
+  });
+
+  it("fetches fallback distractors when vocabulary < 4", () => {
+    mockExtractVocabulary.mockReturnValue(threeWordVocab);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: () => Promise.resolve(fallbackResponse),
+    });
+
+    render(<QuizView words={[makeWord()]} />);
+
+    expect(global.fetch).toHaveBeenCalledWith("/api/distractors?count=6");
+  });
+
+  it("shows loading state while fetching fallbacks", () => {
+    mockExtractVocabulary.mockReturnValue(threeWordVocab);
+    // Never-resolving promise to keep loading state
+    global.fetch = vi.fn().mockReturnValue(new Promise(() => {}));
+
+    render(<QuizView words={[makeWord()]} />);
+
+    expect(screen.getByText(/Loading quiz/i)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Start Quiz/i })).not.toBeInTheDocument();
+  });
+
+  it("shows Start Quiz after fallbacks load", async () => {
+    mockExtractVocabulary.mockReturnValue(threeWordVocab);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: () => Promise.resolve(fallbackResponse),
+    });
+
+    render(<QuizView words={[makeWord()]} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: /Start Quiz/i })).toBeInTheDocument();
+    });
+  });
+
+  it("passes fallbackMeanings to generateQuiz", async () => {
+    mockExtractVocabulary.mockReturnValue(threeWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    global.fetch = vi.fn().mockResolvedValue({
+      json: () => Promise.resolve(fallbackResponse),
+    });
+
+    render(<QuizView words={[makeWord()]} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: /Start Quiz/i })).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+
+    expect(mockGenerateQuiz).toHaveBeenCalledWith(
+      threeWordVocab,
+      fallbackResponse.meanings
+    );
+  });
+
+  it("shows disabled message when fetch fails", async () => {
+    mockExtractVocabulary.mockReturnValue(threeWordVocab);
+    global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
+
+    render(<QuizView words={[makeWord()]} />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Need at least 4 words for quiz/i)).toBeInTheDocument();
+    });
+  });
+
+  it("does not fetch when vocabulary >= 4", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    global.fetch = vi.fn();
+
+    render(<QuizView words={[makeWord()]} />);
+
+    expect(global.fetch).not.toHaveBeenCalled();
   });
 });
