@@ -61,10 +61,11 @@ Plans:
   2. User can upload an image of printed Devanagari text and see extracted Sanskrit text appear
   3. Extracted text feeds directly into the analysis pipeline, producing the same results as manual text input
   4. OCR extraction handles standard printed Devanagari with high accuracy (Sanskrit, not Hindi correction)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md — OCR backend: Grok Vision extraction function and /api/ocr API route with FormData handling
+- [ ] 03-02-PLAN.md — Text input IAST preview, ImageUpload component, OCR-to-analysis pipeline integration
 
 ### Phase 4: Study Features
 **Goal**: Users can study vocabulary extracted from analyzed texts through filtered word lists and interactive quizzes
@@ -88,5 +89,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
 | 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
-| 3. Image Input and OCR | 0/1 | Not started | - |
+| 3. Image Input and OCR | 0/2 | Not started | - |
 | 4. Study Features | 0/1 | Not started | - |
