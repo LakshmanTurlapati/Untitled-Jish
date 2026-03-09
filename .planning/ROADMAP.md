@@ -16,7 +16,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI (completed 2026-03-09)
 - [x] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline (completed 2026-03-09)
 - [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz (completed 2026-03-09)
-- [ ] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions (gap closure)
+- [x] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions (gap closure, completed 2026-03-09)
+- [ ] **Phase 6: Duolingo-Style UI Overhaul** - Redesign interface with Duolingo-inspired UX patterns (gamified feel, progress indicators, card-based layouts) using existing color scheme, no new assets
 
 ## Phase Details
 
@@ -98,7 +99,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 (Note: Phases 3 and 4 both depend on Phase 2 and could execute in either order)
 
 | Phase | Plans Complete | Status | Completed |
@@ -107,4 +108,20 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
-| 5. Wire Quiz Fallback Distractors | 0/1 | Pending | — |
+| 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
+| 6. Duolingo-Style UI Overhaul | 0/? | Pending | — |
+
+### Phase 6: Duolingo-Style UI Overhaul
+**Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
+**Depends on**: Phase 5
+**Requirements**: UI-01, UI-02
+**Success Criteria** (what must be TRUE):
+  1. Interface uses card-based layouts with clear visual hierarchy inspired by Duolingo
+  2. Analysis flow feels guided and gamified with progress indicators and encouraging feedback
+  3. Quiz experience has Duolingo-style answer selection, feedback animations, and score tracking
+  4. Existing warm academic color scheme (design tokens) is preserved throughout
+  5. No new image/icon assets are introduced — CSS/SVG-only visual enhancements
+**Plans**: TBD
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 6 to break down)

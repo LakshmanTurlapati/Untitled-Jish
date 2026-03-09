@@ -88,6 +88,10 @@ Recent decisions affecting current work:
 - [04-02]: fireEvent over userEvent for component tests (matches existing project patterns)
 - [Phase 05]: Updated existing 'disabled message' test to reflect new loading-first behavior for vocab < 4
 
+### Roadmap Evolution
+
+- Phase 6 added: Duolingo-Style UI Overhaul — gamified UX patterns, card-based layouts, progress indicators, existing color scheme, no new assets
+
 ### Pending Todos
 
 None yet.
