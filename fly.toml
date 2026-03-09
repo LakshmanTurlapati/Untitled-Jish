@@ -18,3 +18,5 @@ primary_region = "sjc"
 [env]
   NODE_ENV = "production"
   NEXT_TELEMETRY_DISABLED = "1"
+  HOSTNAME = "0.0.0.0"
+  PORT = "3000"
