@@ -135,19 +135,17 @@ function quizReducer(state: QuizGameState, action: QuizAction): QuizGameState {
         hearts: 3,
       };
 
-    case "SELECT":
+    case "SELECT": {
       if (state.phase !== "selecting") return state;
-      return { ...state, selectedOption: action.option };
-
-    case "CHECK": {
-      if (state.phase !== "selecting" || state.selectedOption === null) return state;
+      // Auto-check: selecting an option immediately checks the answer
       const currentQ = state.questions[state.currentIndex];
-      const correct = state.selectedOption === currentQ.correctAnswer;
+      const correct = action.option === currentQ.correctAnswer;
       const newStreak = correct ? state.streak + 1 : 0;
       const newMaxStreak = Math.max(state.maxStreak, newStreak);
       return {
         ...state,
         phase: "checked",
+        selectedOption: action.option,
         score: correct ? state.score + 1 : state.score,
         xp: correct ? state.xp + 10 : state.xp,
         hearts: correct ? state.hearts : Math.max(0, state.hearts - 1),
@@ -156,6 +154,11 @@ function quizReducer(state: QuizGameState, action: QuizAction): QuizGameState {
         lastAnswerCorrect: correct,
         encouragement: getEncouragement(correct, newStreak),
       };
+    }
+
+    case "CHECK": {
+      // Legacy — no longer used, SELECT auto-checks
+      return state;
     }
 
     case "NEXT":
@@ -368,16 +371,6 @@ export function QuizView({ words, onBackToText }: QuizViewProps) {
           );
         })}
       </div>
-
-      {/* Check button (only when option selected and phase is selecting) */}
-      {phase === "selecting" && selectedOption !== null && (
-        <button
-          onClick={() => dispatch({ type: "CHECK" })}
-          className="w-full rounded-xl bg-accent-600 text-white font-bold px-8 py-3 border-b-4 border-accent-800 active:border-b-2 active:translate-y-[2px] transition-all duration-75"
-        >
-          Check
-        </button>
-      )}
 
       {/* Feedback section (only in checked phase) */}
       {phase === "checked" && (

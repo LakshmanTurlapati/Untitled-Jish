@@ -1,6 +1,6 @@
 /**
  * Tests for QuizView component.
- * Validates gamified quiz flow: start, tap-to-select + Check, hearts, XP,
+ * Validates gamified quiz flow: start, tap-to-auto-check, hearts, XP,
  * streaks, encouragement, completion, practice again, fallback distractors.
  *
  * @vitest-environment jsdom
@@ -135,44 +135,28 @@ describe("QuizView", () => {
     expect(filledHearts).toHaveLength(3);
   });
 
-  it("selecting option highlights it but does not show feedback", () => {
+  it("tapping an option auto-checks and shows feedback immediately", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    // Click "duty" to select
+    // Tap correct answer — should auto-check
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
 
-    // Check button should appear
-    expect(screen.getByRole("button", { name: /Check/i })).toBeInTheDocument();
-    // No feedback yet
-    expect(screen.queryByText(/Sadhu/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Not quite/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/The answer is/i)).not.toBeInTheDocument();
-  });
-
-  it("clicking Check after selecting correct answer shows encouragement", () => {
-    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
-    mockGenerateQuiz.mockReturnValue(twoQuestions);
-    render(<QuizView words={[makeWord()]} />);
-
-    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
-
-    // Math.random mocked to 0 => first message "Sadhu! (Well done!)"
+    // Feedback appears immediately (no Check button needed)
     expect(screen.getByText("Sadhu! (Well done!)")).toBeInTheDocument();
+    // No Check button should exist
+    expect(screen.queryByRole("button", { name: /Check/i })).not.toBeInTheDocument();
   });
 
-  it("clicking Check after selecting wrong answer shows 'The answer is'", () => {
+  it("tapping wrong answer shows 'The answer is'", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
     expect(screen.getByText(/The answer is: duty/i)).toBeInTheDocument();
   });
@@ -183,9 +167,7 @@ describe("QuizView", () => {
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    // Answer wrong
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
     const filledHearts = screen.getAllByTestId("heart-filled");
     expect(filledHearts).toHaveLength(2);
@@ -198,7 +180,6 @@ describe("QuizView", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
     expect(screen.getByText("10 XP")).toBeInTheDocument();
   });
@@ -210,7 +191,6 @@ describe("QuizView", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
 
     expect(screen.getByText(/Question 2 of 2/i)).toBeInTheDocument();
@@ -225,19 +205,15 @@ describe("QuizView", () => {
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     // Q1 correct
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q2 correct
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
 
     expect(screen.getByText(/Quiz Complete/i)).toBeInTheDocument();
     expect(screen.getByText("2/2")).toBeInTheDocument();
     expect(screen.getByText("+20 XP")).toBeInTheDocument();
-    // Hearts still showing
     expect(screen.getByTestId("hearts")).toBeInTheDocument();
-    // Practice Again button
     expect(screen.getByRole("button", { name: /Practice Again/i })).toBeInTheDocument();
   });
 
@@ -249,17 +225,13 @@ describe("QuizView", () => {
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     // Q1
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q2
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
 
-    // At completion, click Practice Again
     fireEvent.click(screen.getByRole("button", { name: /Practice Again/i }));
 
-    // Should be back at question 1
     expect(screen.getByText(/Question 1 of 2/i)).toBeInTheDocument();
   });
 
@@ -270,23 +242,17 @@ describe("QuizView", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
 
-    // Answer 3 questions wrong to try to get hearts below 0
     // Q1 wrong
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q2 wrong
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q3 wrong
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
-    // Hearts should be 0, not negative
     const filledHearts = screen.queryAllByTestId("heart-filled");
     expect(filledHearts).toHaveLength(0);
-    // Quiz should still show Continue (not blocked)
     expect(screen.getByRole("button", { name: /Continue/i })).toBeInTheDocument();
   });
 
@@ -299,15 +265,12 @@ describe("QuizView", () => {
 
     // Q1 correct
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q2 correct
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q3 correct (streak = 3)
     fireEvent.click(screen.getByRole("button", { name: "do" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
     expect(screen.getByText(/On fire! 3x streak!/i)).toBeInTheDocument();
   });
@@ -320,14 +283,11 @@ describe("QuizView", () => {
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     // Q1 correct (+10)
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
     // Q2 wrong (+0)
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
     fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
 
-    // Completion shows +10 XP
     expect(screen.getByText("+10 XP")).toBeInTheDocument();
   });
 });
