@@ -100,6 +100,7 @@ Recent decisions affecting current work:
 ### Roadmap Evolution
 
 - Phase 6 added: Duolingo-Style UI Overhaul — gamified UX patterns, card-based layouts, progress indicators, existing color scheme, no new assets
+- Phase 7 added: UI Navigation & Polish — tabbed sections, analysis button gated to page, camera capture, checkmark color scheme alignment
 
 ### Pending Todos
 
