@@ -30,12 +30,9 @@ import type { AnalysisResult, AnalyzedWord } from "./types";
 export async function analyzeText(text: string): Promise<AnalysisResult> {
   // Step 1: LLM analysis with structured output
   const { output } = await generateText({
-    model: xai("grok-3-mini"),
+    model: xai("grok-4-1-fast-non-reasoning"),
     output: Output.object({ schema: FullAnalysisSchema }),
     prompt: buildAnalysisPrompt(text),
-    providerOptions: {
-      xai: { reasoningEffort: "high" },
-    },
   });
 
   if (!output) {

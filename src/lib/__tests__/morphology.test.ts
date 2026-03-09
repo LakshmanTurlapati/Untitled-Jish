@@ -122,7 +122,7 @@ vi.mock("ai", () => ({
 
 // Mock the xai provider
 vi.mock("@ai-sdk/xai", () => ({
-  xai: vi.fn().mockReturnValue({ modelId: "grok-3-mini" }),
+  xai: vi.fn().mockReturnValue({ modelId: "grok-4-1-fast-non-reasoning" }),
 }));
 
 // Mock the dictionary lookup module
