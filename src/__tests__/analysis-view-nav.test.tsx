@@ -1,12 +1,12 @@
 /**
- * Tests for AnalysisView top-level tab navigation,
+ * Tests for AnalysisView bottom nav navigation,
  * sticky bar gating, and progress checkmark colors.
  *
  * @vitest-environment jsdom
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 
 // Mock child components to isolate AnalysisView behavior
@@ -64,19 +64,21 @@ const mockAnalysisResponse = {
   ],
 };
 
-/** Helper: get the page-level tab buttons (first set of Analyze/Study buttons) */
-function getPageTabs() {
-  // The page tabs are the first set of buttons; the sticky bar button is inside .fixed.bottom-0
-  const analyzeButtons = screen.getAllByRole("button", { name: "Analyze" });
-  // First "Analyze" button is the page tab, second (if present) is sticky bar submit
-  const analyzeTab = analyzeButtons[0];
-  const studyTab = screen.getByRole("button", { name: "Study" });
-  return { analyzeTab, studyTab };
+/** Helper: get nav buttons from the bottom nav bar */
+function getNavButtons() {
+  const nav = document.querySelector('nav[aria-label="Main navigation"]')!;
+  const buttons = nav.querySelectorAll("button");
+  return {
+    analyzeNav: buttons[0],
+    wordsNav: buttons[1],
+    quizNav: buttons[2],
+  };
 }
 
 /** Helper: get the sticky bar submit button */
 function getSubmitButton() {
-  const stickyBar = document.querySelector(".fixed.bottom-0");
+  // The sticky analyze button is in a .fixed.bottom-16 container (above nav)
+  const stickyBar = document.querySelector(".fixed.bottom-16");
   return stickyBar?.querySelector("button") ?? null;
 }
 
@@ -98,66 +100,71 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe("AnalysisView top-level tab navigation", () => {
-  it("renders Analyze and Study tab buttons", () => {
+describe("AnalysisView bottom navigation", () => {
+  it("renders bottom nav with Analyze, Words, and Quiz buttons", () => {
     render(<AnalysisView />);
-    const { analyzeTab, studyTab } = getPageTabs();
-    expect(analyzeTab).toBeInTheDocument();
-    expect(studyTab).toBeInTheDocument();
+    const { analyzeNav, wordsNav, quizNav } = getNavButtons();
+    expect(analyzeNav).toBeInTheDocument();
+    expect(wordsNav).toBeInTheDocument();
+    expect(quizNav).toBeInTheDocument();
   });
 
-  it("Study tab is disabled when no analysis results exist", () => {
+  it("shows analyze page by default with input card visible", () => {
     render(<AnalysisView />);
-    const { studyTab } = getPageTabs();
-    expect(studyTab).toBeDisabled();
+    expect(screen.getByPlaceholderText("Enter Sanskrit text in Devanagari...")).toBeInTheDocument();
   });
 
-  it("Study tab becomes enabled after analysis results arrive", async () => {
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockAnalysisResponse,
-    });
-
+  it("clicking Words nav shows empty state when no results", () => {
     render(<AnalysisView />);
-    await typeAndSubmit("dharma");
-
-    await vi.waitFor(() => {
-      const { studyTab } = getPageTabs();
-      expect(studyTab).not.toBeDisabled();
-    });
-  });
-
-  it("clicking Study tab shows vocabulary/quiz content and hides input card", async () => {
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockAnalysisResponse,
-    });
-
-    render(<AnalysisView />);
-    await typeAndSubmit("dharma");
-
-    await vi.waitFor(() => {
-      const { studyTab } = getPageTabs();
-      expect(studyTab).not.toBeDisabled();
-    });
-
-    const { studyTab } = getPageTabs();
-    fireEvent.click(studyTab);
-
-    // Input card (textarea) should not be visible
+    const { wordsNav } = getNavButtons();
+    fireEvent.click(wordsNav);
+    expect(screen.getByText("No vocabulary yet")).toBeInTheDocument();
     expect(screen.queryByPlaceholderText("Enter Sanskrit text in Devanagari...")).not.toBeInTheDocument();
+  });
 
-    // Vocabulary sub-content should be present (default study sub-tab)
+  it("clicking Words nav shows vocabulary after analysis", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockAnalysisResponse,
+    });
+
+    render(<AnalysisView />);
+    await typeAndSubmit("dharma");
+
+    await vi.waitFor(() => {
+      expect(screen.queryByTestId("word-breakdown")).toBeInTheDocument();
+    });
+
+    const { wordsNav } = getNavButtons();
+    fireEvent.click(wordsNav);
     expect(screen.getByTestId("vocabulary-list")).toBeInTheDocument();
   });
 
-  it("sticky bottom bar renders when on Analyze tab", () => {
+  it("sticky analyze button only shows on analyze page", async () => {
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockAnalysisResponse,
+    });
+
     render(<AnalysisView />);
-    const stickyBar = document.querySelector(".fixed.bottom-0");
-    expect(stickyBar).toBeInTheDocument();
+
+    // Sticky button visible on analyze page
+    expect(getSubmitButton()).toBeInTheDocument();
+
+    await typeAndSubmit("dharma");
+    await vi.waitFor(() => {
+      expect(screen.queryByTestId("word-breakdown")).toBeInTheDocument();
+    });
+
+    // Switch to Words page
+    const { wordsNav } = getNavButtons();
+    fireEvent.click(wordsNav);
+
+    // Sticky button should be gone
+    expect(getSubmitButton()).toBeNull();
   });
 
-  it("sticky bottom bar does NOT render when on Study tab", async () => {
+  it("switching pages preserves analysis state", async () => {
     (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: true,
       json: async () => mockAnalysisResponse,
@@ -167,15 +174,18 @@ describe("AnalysisView top-level tab navigation", () => {
     await typeAndSubmit("dharma");
 
     await vi.waitFor(() => {
-      const { studyTab } = getPageTabs();
-      expect(studyTab).not.toBeDisabled();
+      expect(screen.queryByTestId("word-breakdown")).toBeInTheDocument();
     });
 
-    const { studyTab } = getPageTabs();
-    fireEvent.click(studyTab);
+    // Go to Words then back to Analyze
+    const { wordsNav, analyzeNav } = getNavButtons();
+    fireEvent.click(wordsNav);
+    fireEvent.click(analyzeNav);
 
-    const stickyBar = document.querySelector(".fixed.bottom-0");
-    expect(stickyBar).not.toBeInTheDocument();
+    // Input and results should still be there
+    const textarea = screen.getByPlaceholderText("Enter Sanskrit text in Devanagari...") as HTMLTextAreaElement;
+    expect(textarea.value).toBe("dharma");
+    expect(screen.getByTestId("word-breakdown")).toBeInTheDocument();
   });
 
   it("progress step checkmarks use accent color (bg-accent-600), not green", () => {

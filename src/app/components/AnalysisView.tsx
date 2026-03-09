@@ -23,8 +23,7 @@ export function AnalysisView() {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [pageTab, setPageTab] = useState<"analyze" | "study">("analyze");
-  const [studyTab, setStudyTab] = useState<"vocabulary" | "quiz">("vocabulary");
+  const [page, setPage] = useState<"analyze" | "words" | "quiz">("analyze");
   const [completedSteps, setCompletedSteps] = useState(0);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -35,10 +34,8 @@ export function AnalysisView() {
         setTimeout(() => setCompletedSteps(i + 1), delay)
       );
     } else {
-      // Clear any pending timers
       timersRef.current.forEach(clearTimeout);
       timersRef.current = [];
-      // If we were loading, mark all steps complete
       if (completedSteps > 0 && completedSteps < 3) {
         setCompletedSteps(3);
       }
@@ -56,7 +53,7 @@ export function AnalysisView() {
     setIsLoading(true);
     setError(null);
     setAnalysisResult(null);
-    setPageTab("analyze");
+    setPage("analyze");
 
     try {
       const response = await fetch("/api/analyze", {
@@ -84,159 +81,131 @@ export function AnalysisView() {
 
   return (
     <>
-      {/* Top-level Page Tabs */}
-      <div className="flex gap-2 justify-center mb-6">
-        <button
-          onClick={() => setPageTab("analyze")}
-          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-            pageTab === "analyze"
-              ? "bg-accent-600 text-white"
-              : "text-ink-700 hover:bg-parchment-200"
-          }`}
-        >
-          Analyze
-        </button>
-        <button
-          onClick={() => setPageTab("study")}
-          disabled={!hasResults}
-          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
-            pageTab === "study"
-              ? "bg-accent-600 text-white"
-              : "text-ink-700 hover:bg-parchment-200"
-          }`}
-        >
-          Study
-        </button>
-      </div>
-
-      {/* Analyze Tab Content */}
-      {pageTab === "analyze" && (
-        <>
-          {/* Hero Input Card */}
-          <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-6">
-            <textarea
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="Enter Sanskrit text in Devanagari..."
-              rows={4}
-              className="w-full rounded-lg border border-parchment-200 bg-parchment-100 p-4 font-sanskrit text-lg text-ink-900 placeholder:text-ink-600/50 focus:border-accent-500 focus:outline-none focus:ring-1 focus:ring-accent-500"
-            />
-            {iastPreview && (
-              <p className="mt-2 rounded bg-parchment-100 px-3 py-2 text-sm italic text-ink-600">
-                {iastPreview}
-              </p>
-            )}
-            <div className="mt-4">
-              <ImageUpload onTextExtracted={(text) => setInputText(text)} />
-            </div>
-          </div>
-
-          {/* Error State */}
-          {error && (
-            <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-              {error}
-            </div>
-          )}
-
-          {/* Analysis Progress Steps */}
-          {isLoading && (
-            <div className="mt-6 rounded-2xl border border-parchment-200 bg-parchment-50 p-6">
-              <div className="space-y-3">
-                {PROGRESS_STEPS.map((step, i) => {
-                  const isComplete = completedSteps > i;
-                  const isCurrent = completedSteps === i;
-                  return (
-                    <div key={i} className="flex items-center gap-3">
-                      {isComplete ? (
-                        <span
-                          className="flex h-6 w-6 items-center justify-center rounded-full bg-accent-600 text-white text-xs"
-                          style={{ animation: "check-appear 0.3s ease-out" }}
-                        >
-                          ✓
-                        </span>
-                      ) : isCurrent ? (
-                        <span className="flex h-6 w-6 items-center justify-center">
-                          <span className="h-5 w-5 animate-spin rounded-full border-2 border-accent-600 border-t-transparent" />
-                        </span>
-                      ) : (
-                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-parchment-200 text-xs text-ink-700">
-                          {i + 1}
-                        </span>
-                      )}
-                      <span
-                        className={`text-sm ${
-                          isComplete
-                            ? "text-ink-900 font-medium"
-                            : isCurrent
-                              ? "text-ink-800"
-                              : "text-ink-600"
-                        }`}
-                      >
-                        {step}
-                      </span>
-                    </div>
-                  );
-                })}
+      {/* Page Content */}
+      <div className="pb-40">
+        {/* Analyze Page */}
+        {page === "analyze" && (
+          <>
+            {/* Hero Input Card */}
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-6">
+              <textarea
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Enter Sanskrit text in Devanagari..."
+                rows={4}
+                className="w-full rounded-lg border border-parchment-200 bg-parchment-100 p-4 font-sanskrit text-lg text-ink-900 placeholder:text-ink-600/50 focus:border-accent-500 focus:outline-none focus:ring-1 focus:ring-accent-500"
+              />
+              {iastPreview && (
+                <p className="mt-2 rounded bg-parchment-100 px-3 py-2 text-sm italic text-ink-600">
+                  {iastPreview}
+                </p>
+              )}
+              <div className="mt-4">
+                <ImageUpload onTextExtracted={(text) => setInputText(text)} />
               </div>
             </div>
-          )}
 
-          {/* Word Results (shown directly on Analyze tab) */}
-          {hasResults && (
-            <div className="mt-6 space-y-4">
-              {analysisResult.map((word, index) => (
-                <WordBreakdown key={index} word={word} />
-              ))}
-            </div>
-          )}
+            {/* Error State */}
+            {error && (
+              <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                {error}
+              </div>
+            )}
 
-          {/* Empty Results */}
-          {analysisResult && analysisResult.length === 0 && (
-            <div className="mt-6 rounded-2xl border border-parchment-200 bg-parchment-50 p-6 text-center text-ink-600">
-              <p>No words found in the analysis result.</p>
-            </div>
-          )}
-        </>
-      )}
+            {/* Analysis Progress Steps */}
+            {isLoading && (
+              <div className="mt-6 rounded-2xl border border-parchment-200 bg-parchment-50 p-6">
+                <div className="space-y-3">
+                  {PROGRESS_STEPS.map((step, i) => {
+                    const isComplete = completedSteps > i;
+                    const isCurrent = completedSteps === i;
+                    return (
+                      <div key={i} className="flex items-center gap-3">
+                        {isComplete ? (
+                          <span
+                            className="flex h-6 w-6 items-center justify-center rounded-full bg-accent-600 text-white text-xs"
+                            style={{ animation: "check-appear 0.3s ease-out" }}
+                          >
+                            ✓
+                          </span>
+                        ) : isCurrent ? (
+                          <span className="flex h-6 w-6 items-center justify-center">
+                            <span className="h-5 w-5 animate-spin rounded-full border-2 border-accent-600 border-t-transparent" />
+                          </span>
+                        ) : (
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-parchment-200 text-xs text-ink-700">
+                            {i + 1}
+                          </span>
+                        )}
+                        <span
+                          className={`text-sm ${
+                            isComplete
+                              ? "text-ink-900 font-medium"
+                              : isCurrent
+                                ? "text-ink-800"
+                                : "text-ink-600"
+                          }`}
+                        >
+                          {step}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
-      {/* Study Tab Content */}
-      {pageTab === "study" && hasResults && (
-        <div>
-          {/* Study Sub-tabs */}
-          <div className="flex gap-2 justify-center mb-6">
-            {(["vocabulary", "quiz"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setStudyTab(tab)}
-                className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                  studyTab === tab
-                    ? "bg-accent-600 text-white"
-                    : "text-ink-700 hover:bg-parchment-200"
-                }`}
-              >
-                {tab === "vocabulary" ? "Vocabulary" : "Quiz"}
-              </button>
-            ))}
+            {/* Word Results */}
+            {hasResults && (
+              <div className="mt-6 space-y-4">
+                {analysisResult.map((word, index) => (
+                  <WordBreakdown key={index} word={word} />
+                ))}
+              </div>
+            )}
+
+            {/* Empty Results */}
+            {analysisResult && analysisResult.length === 0 && (
+              <div className="mt-6 rounded-2xl border border-parchment-200 bg-parchment-50 p-6 text-center text-ink-600">
+                <p>No words found in the analysis result.</p>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Words Page */}
+        {page === "words" && hasResults && (
+          <VocabularyList words={analysisResult} />
+        )}
+
+        {page === "words" && !hasResults && (
+          <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-8 text-center">
+            <p className="text-2xl mb-2">📖</p>
+            <p className="text-ink-700 font-medium">No vocabulary yet</p>
+            <p className="text-ink-500 text-sm mt-1">Analyze a text first to see vocabulary here</p>
           </div>
+        )}
 
-          {studyTab === "vocabulary" && (
-            <VocabularyList words={analysisResult} />
-          )}
+        {/* Quiz Page */}
+        {page === "quiz" && hasResults && (
+          <QuizView
+            words={analysisResult}
+            onBackToText={() => setPage("analyze")}
+          />
+        )}
 
-          {studyTab === "quiz" && (
-            <QuizView
-              words={analysisResult}
-              onBackToText={() => {
-                setPageTab("analyze");
-              }}
-            />
-          )}
-        </div>
-      )}
+        {page === "quiz" && !hasResults && (
+          <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-8 text-center">
+            <p className="text-2xl mb-2">🎯</p>
+            <p className="text-ink-700 font-medium">No quiz available</p>
+            <p className="text-ink-500 text-sm mt-1">Analyze a text first to start a quiz</p>
+          </div>
+        )}
+      </div>
 
-      {/* Sticky Bottom Action Bar - only on Analyze tab */}
-      {pageTab === "analyze" && (
-        <div className="fixed bottom-0 left-0 right-0 bg-parchment-50/95 backdrop-blur-sm border-t border-parchment-200 p-4 z-50">
+      {/* Sticky Analyze Button — only on Analyze page, sits above bottom nav */}
+      {page === "analyze" && (
+        <div className="fixed bottom-16 left-0 right-0 bg-parchment-50/95 backdrop-blur-sm border-t border-parchment-200 p-4 z-40">
           <div className="mx-auto max-w-[640px]">
             <button
               onClick={handleSubmit}
@@ -248,6 +217,36 @@ export function AnalysisView() {
           </div>
         </div>
       )}
+
+      {/* Bottom Navigation Bar — Duolingo-style */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-parchment-50 border-t border-parchment-200 z-50" aria-label="Main navigation">
+        <div className="mx-auto max-w-[640px] flex justify-around py-2">
+          {([
+            { id: "analyze" as const, label: "Analyze", icon: "🔍" },
+            { id: "words" as const, label: "Words", icon: "📖" },
+            { id: "quiz" as const, label: "Quiz", icon: "🎯" },
+          ]).map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setPage(item.id)}
+              aria-label={item.label}
+              className={`flex flex-col items-center gap-0.5 px-6 py-1 rounded-lg transition-colors ${
+                page === item.id
+                  ? "text-accent-700"
+                  : "text-ink-500 hover:text-ink-700"
+              }`}
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span className={`text-xs font-semibold ${
+                page === item.id ? "text-accent-700" : ""
+              }`}>{item.label}</span>
+              {page === item.id && (
+                <span className="h-0.5 w-6 rounded-full bg-accent-600 mt-0.5" />
+              )}
+            </button>
+          ))}
+        </div>
+      </nav>
     </>
   );
 }
