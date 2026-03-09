@@ -64,8 +64,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — OCR backend: Tesseract.js extraction function and /api/ocr API route with FormData handling
-- [ ] 03-02-PLAN.md — Text input IAST preview, ImageUpload component, OCR-to-analysis pipeline integration
+- [x] 03-01-PLAN.md — OCR backend: Tesseract.js extraction function and /api/ocr API route with FormData handling
+- [x] 03-02-PLAN.md — Text input IAST preview, ImageUpload component, OCR-to-analysis pipeline integration
 
 ### Phase 4: Study Features
 **Goal**: Users can study vocabulary extracted from analyzed texts through filtered word lists and interactive quizzes
@@ -74,10 +74,11 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. User sees a list of unique words extracted from analyzed text with common particles (ca, tu, hi, eva, api, etc.) filtered out
   2. User can take a word-to-meaning MCQ quiz generated from extracted vocabulary with plausible distractors
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
+- [ ] 04-01-PLAN.md — Study feature logic: type contracts, vocabulary extraction, quiz generation, fallback distractor API
+- [ ] 04-02-PLAN.md — Study feature UI: VocabularyList and QuizView components, AnalysisView integration
 
 ## Progress
 
@@ -90,4 +91,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
 | 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
-| 4. Study Features | 0/1 | Not started | - |
+| 4. Study Features | 0/2 | Not started | - |
