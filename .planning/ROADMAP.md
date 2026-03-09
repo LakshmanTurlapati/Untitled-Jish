@@ -13,7 +13,7 @@ This roadmap delivers an end-to-end Sanskrit text analysis web application in fo
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
-- [ ] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI
+- [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI (completed 2026-03-09)
 - [ ] **Phase 3: Image Input and OCR** - Image upload with Grok Vision OCR feeding into the analysis pipeline
 - [ ] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz
 
@@ -87,6 +87,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
-| 2. Core Analysis Pipeline | 2/3 | In Progress|  |
+| 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
 | 3. Image Input and OCR | 0/1 | Not started | - |
 | 4. Study Features | 0/1 | Not started | - |

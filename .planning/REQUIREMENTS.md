@@ -36,7 +36,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### UI & Experience
 
 - [x] **UI-01**: Clean, scholar-friendly interface with proper Devanagari typography
-- [ ] **UI-02**: Word-by-word breakdown view showing all analysis properties
+- [x] **UI-02**: Word-by-word breakdown view showing all analysis properties
 - [x] **UI-03**: App works without login or user accounts
 
 ## v0.2 Requirements
@@ -92,7 +92,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | STDY-01 | Phase 4 | Pending |
 | STDY-02 | Phase 4 | Pending |
 | UI-01 | Phase 1 | Complete |
-| UI-02 | Phase 2 | Pending |
+| UI-02 | Phase 2 | Complete |
 | UI-03 | Phase 1 | Complete |
 
 **Coverage:**
