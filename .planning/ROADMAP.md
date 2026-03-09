@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
 - [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI (completed 2026-03-09)
 - [x] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline (completed 2026-03-09)
-- [ ] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz
+- [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz (completed 2026-03-09)
 
 ## Phase Details
 
@@ -91,4 +91,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
 | 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
-| 4. Study Features | 1/2 | In Progress|  |
+| 4. Study Features | 2/2 | Complete   | 2026-03-09 |
