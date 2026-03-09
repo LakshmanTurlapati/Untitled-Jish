@@ -14,9 +14,16 @@
   <img src="https://img.shields.io/badge/SQLite-591MB_Dictionary-003B57?logo=sqlite&logoColor=white" alt="SQLite" />
   <img src="https://img.shields.io/badge/Tests-148_passing-brightgreen?logo=vitest" alt="148 Tests" />
   <img src="https://img.shields.io/badge/OCR-Tesseract.js_7-FF6F00" alt="Tesseract.js" />
-  <img src="https://img.shields.io/badge/LLM-Grok_(AI_SDK)-8B5CF6" alt="Grok via AI SDK" />
+  <img src="https://img.shields.io/badge/LLM-Grok_4.1_(AI_SDK)-8B5CF6" alt="Grok via AI SDK" />
+  <img src="https://img.shields.io/badge/Deploy-Fly.io-7B3EE3?logo=flydotio" alt="Fly.io" />
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License" />
 </p>
+
+---
+
+## Live Demo
+
+**https://sanskrit-analyzer.fly.dev/**
 
 ---
 
@@ -25,6 +32,7 @@
 - [What It Does](#what-it-does)
 - [Architecture Overview](#architecture-overview)
 - [Getting Started](#getting-started)
+- [Deployment](#deployment)
 - [Data Pipeline](#data-pipeline)
 - [Core Analysis Pipeline](#core-analysis-pipeline)
 - [Dictionary System](#dictionary-system)
@@ -150,6 +158,37 @@ Open [http://localhost:3000](http://localhost:3000). No login or account require
 
 ---
 
+## Deployment
+
+The app is deployed on **Fly.io** as a Docker container with the SQLite database baked into the image.
+
+### Deploy to Fly.io
+
+```bash
+# Install Fly CLI and authenticate
+curl -L https://fly.io/install.sh | sh
+fly auth login
+
+# Create the app
+fly apps create sanskrit-analyzer
+
+# Set your Grok API key
+fly secrets set XAI_API_KEY=your_key_here
+
+# Deploy (first deploy builds the 591MB database from source — ~10 min)
+fly deploy
+```
+
+The Dockerfile handles everything: installs native dependencies for `better-sqlite3`, downloads dictionary sources, builds the SQLite database, and produces a standalone Next.js image (~362MB).
+
+### Configuration
+
+- **`fly.toml`** — 1GB shared-cpu VM, auto-stop on idle, auto-start on request, HTTPS
+- **`Dockerfile`** — Multi-stage build (builder + slim runner)
+- **`next.config.ts`** — `output: "standalone"` for minimal production bundle
+
+---
+
 ## Core Analysis Pipeline
 
 The analysis pipeline lives in `src/lib/analysis/` and orchestrates a multi-stage NLP process.
@@ -245,8 +284,8 @@ interface EnrichedWord {
 
 Analysis uses the **Vercel AI SDK** with **Grok** (`@ai-sdk/xai`):
 
+- **Model**: `grok-4-1-fast-non-reasoning` for fast, structured grammatical analysis
 - **Structured output** via `Output.object()` with Zod schemas — no prompt-based JSON parsing
-- **Reasoning effort** set to "high" for complex grammatical analysis
 - **Prompt engineering** includes detailed examples of Paninian grammar terminology, sandhi rules, and compound classification
 
 ---
@@ -569,7 +608,10 @@ sanskrit-analyzer/
 │   └── sanskrit.db                   # Compiled SQLite (591MB)
 ├── public/fonts/shobhika/            # Shobhika OTF (Regular, Bold)
 ├── scripts/                          # Data import & build scripts
-├── next.config.ts
+├── Dockerfile                   # Multi-stage Docker build
+├── fly.toml                     # Fly.io deployment config
+├── .dockerignore
+├── next.config.ts               # Standalone output mode
 ├── vitest.config.ts
 ├── tsconfig.json
 └── package.json
@@ -585,7 +627,7 @@ sanskrit-analyzer/
 | **UI** | React 19 | Component rendering |
 | **Styling** | Tailwind CSS 4 | Utility-first CSS with custom theme |
 | **Language** | TypeScript 5.8 | Type safety throughout |
-| **LLM** | Grok via `@ai-sdk/xai` | Sanskrit grammatical analysis |
+| **LLM** | Grok 4.1 via `@ai-sdk/xai` | Sanskrit grammatical analysis |
 | **AI SDK** | Vercel AI SDK 6 | Structured output with Zod schemas |
 | **Database** | SQLite via `better-sqlite3` | Dictionary & stem index (591MB) |
 | **OCR** | Tesseract.js 7 | Local Devanagari text extraction |
