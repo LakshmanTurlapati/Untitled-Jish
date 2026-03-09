@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **INPUT-01**: User can paste or type Devanagari text directly into the app
 - [ ] **INPUT-02**: User can upload an image of printed Devanagari text
-- [ ] **INPUT-03**: App extracts Sanskrit text from uploaded image via Grok vision API with high accuracy
+- [x] **INPUT-03**: App extracts Sanskrit text from uploaded image via Grok vision API with high accuracy
 
 ### Sanskrit Analysis
 
@@ -79,7 +79,7 @@ Deferred to future release. Tracked but not in current roadmap.
 |-------------|-------|--------|
 | INPUT-01 | Phase 3 | Pending |
 | INPUT-02 | Phase 3 | Pending |
-| INPUT-03 | Phase 3 | Pending |
+| INPUT-03 | Phase 3 | Complete |
 | ANAL-01 | Phase 2 | Complete |
 | ANAL-02 | Phase 2 | Complete |
 | ANAL-03 | Phase 2 | Complete |
