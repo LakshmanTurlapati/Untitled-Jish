@@ -16,6 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI (completed 2026-03-09)
 - [x] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline (completed 2026-03-09)
 - [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz (completed 2026-03-09)
+- [ ] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions (gap closure)
 
 ## Phase Details
 
@@ -80,10 +81,24 @@ Plans:
 - [ ] 04-01-PLAN.md — Study feature logic: type contracts, vocabulary extraction, quiz generation, fallback distractor API
 - [ ] 04-02-PLAN.md — Study feature UI: VocabularyList and QuizView components, AnalysisView integration
 
+### Phase 5: Wire Quiz Fallback Distractors
+**Goal**: QuizView fetches fallback distractors from /api/distractors so short passages (< 4 unique words) can still generate quiz questions
+**Depends on**: Phase 4
+**Requirements**: STDY-02
+**Gap Closure**: Closes integration and flow gaps from v1.0 audit
+**Success Criteria** (what must be TRUE):
+  1. QuizView fetches fallback meanings from GET /api/distractors when vocabulary has fewer than 4 unique meanings
+  2. Fetched fallback meanings are passed to generateQuiz() as fallbackMeanings parameter
+  3. Short passages produce quiz questions instead of "Need at least 4 words" message
+**Plans**: 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — Wire QuizView to /api/distractors for fallback distractor fetching
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 (Note: Phases 3 and 4 both depend on Phase 2 and could execute in either order)
 
 | Phase | Plans Complete | Status | Completed |
@@ -92,3 +107,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
+| 5. Wire Quiz Fallback Distractors | 0/1 | Pending | — |
