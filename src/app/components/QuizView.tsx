@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import type { EnrichedWord } from "@/lib/analysis/types";
 import type { QuizQuestion, QuizPhase } from "@/lib/study/types";
 import { extractVocabulary } from "@/lib/study/vocabulary";
@@ -18,15 +18,28 @@ export function QuizView({ words }: QuizViewProps) {
   const [phase, setPhase] = useState<QuizPhase>("ready");
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
+  const [fallbackMeanings, setFallbackMeanings] = useState<string[] | null>(null);
+  const [loadingFallbacks, setLoadingFallbacks] = useState(false);
+  const needsFallback = vocabulary.length < 4;
+
+  useEffect(() => {
+    if (!needsFallback) return;
+    setLoadingFallbacks(true);
+    fetch('/api/distractors?count=6')
+      .then(res => res.json())
+      .then(data => setFallbackMeanings(data.meanings))
+      .catch(() => setFallbackMeanings([]))
+      .finally(() => setLoadingFallbacks(false));
+  }, [needsFallback]);
 
   const startQuiz = useCallback(() => {
-    const q = generateQuiz(vocabulary);
+    const q = generateQuiz(vocabulary, needsFallback ? (fallbackMeanings ?? undefined) : undefined);
     setQuestions(q);
     setCurrentIndex(0);
     setScore(0);
     setSelectedAnswer(null);
     setPhase("active");
-  }, [vocabulary]);
+  }, [vocabulary, needsFallback, fallbackMeanings]);
 
   const handleAnswer = useCallback(
     (answer: string) => {
@@ -50,13 +63,25 @@ export function QuizView({ words }: QuizViewProps) {
     }
   }, [currentIndex, questions.length]);
 
-  // Not enough words for quiz
-  if (vocabulary.length < 4) {
-    return (
-      <p className="text-sm text-ink-600">
-        Need at least 4 words for quiz.
-      </p>
-    );
+  // Handle small vocabulary with fallback distractors
+  if (needsFallback) {
+    if (loadingFallbacks) {
+      return (
+        <p className="text-sm text-ink-600">Loading quiz...</p>
+      );
+    }
+    // Fallback loaded but still not enough unique meanings
+    const totalUnique = new Set([
+      ...vocabulary.map(w => w.contextualMeaning),
+      ...(fallbackMeanings ?? [])
+    ]).size;
+    if (totalUnique < 4) {
+      return (
+        <p className="text-sm text-ink-600">
+          Need at least 4 words for quiz.
+        </p>
+      );
+    }
   }
 
   // Ready state: show start button

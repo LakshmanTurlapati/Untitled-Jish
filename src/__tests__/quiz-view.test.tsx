@@ -74,8 +74,14 @@ const twoQuestions: QuizQuestion[] = [
 
 const threeWordVocab = fiveWordVocab.slice(0, 3);
 
+const _originalFetch = global.fetch;
+
 beforeEach(() => {
   vi.clearAllMocks();
+});
+
+afterEach(() => {
+  global.fetch = _originalFetch;
 });
 
 describe("QuizView", () => {
@@ -85,10 +91,11 @@ describe("QuizView", () => {
     expect(screen.getByRole("button", { name: /Start Quiz/i })).toBeInTheDocument();
   });
 
-  it("shows disabled message when vocabulary < 4", () => {
+  it("shows loading state when vocabulary < 4 (fetching fallbacks)", () => {
     mockExtractVocabulary.mockReturnValue(threeWordVocab);
+    global.fetch = vi.fn().mockReturnValue(new Promise(() => {}));
     render(<QuizView words={[makeWord()]} />);
-    expect(screen.getByText(/Need at least 4 words for quiz/i)).toBeInTheDocument();
+    expect(screen.getByText(/Loading quiz/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Start Quiz/i })).not.toBeInTheDocument();
   });
 
