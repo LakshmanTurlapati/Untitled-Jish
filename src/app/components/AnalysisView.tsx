@@ -7,6 +7,7 @@ import { devanagariToIast } from "@/lib/transliteration";
 import { ImageUpload } from "./ImageUpload";
 import { VocabularyList } from "./VocabularyList";
 import { QuizView } from "./QuizView";
+import { FaSearch, FaBook, FaBullseye } from "react-icons/fa";
 
 const PROGRESS_STEPS = [
   "Splitting sandhi...",
@@ -180,7 +181,7 @@ export function AnalysisView() {
 
         {page === "words" && !hasResults && (
           <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-8 text-center">
-            <p className="text-2xl mb-2">📖</p>
+            <FaBook className="text-2xl mb-2 text-ink-400 mx-auto" />
             <p className="text-ink-700 font-medium">No vocabulary yet</p>
             <p className="text-ink-500 text-sm mt-1">Analyze a text first to see vocabulary here</p>
           </div>
@@ -196,7 +197,7 @@ export function AnalysisView() {
 
         {page === "quiz" && !hasResults && (
           <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-8 text-center">
-            <p className="text-2xl mb-2">🎯</p>
+            <FaBullseye className="text-2xl mb-2 text-ink-400 mx-auto" />
             <p className="text-ink-700 font-medium">No quiz available</p>
             <p className="text-ink-500 text-sm mt-1">Analyze a text first to start a quiz</p>
           </div>
@@ -222,9 +223,9 @@ export function AnalysisView() {
       <nav className="fixed bottom-0 left-0 right-0 bg-parchment-50 border-t border-parchment-200 z-50" aria-label="Main navigation">
         <div className="mx-auto max-w-[640px] flex justify-around py-2">
           {([
-            { id: "analyze" as const, label: "Analyze", icon: "🔍" },
-            { id: "words" as const, label: "Words", icon: "📖" },
-            { id: "quiz" as const, label: "Quiz", icon: "🎯" },
+            { id: "analyze" as const, label: "Analyze", Icon: FaSearch },
+            { id: "words" as const, label: "Words", Icon: FaBook },
+            { id: "quiz" as const, label: "Quiz", Icon: FaBullseye },
           ]).map((item) => (
             <button
               key={item.id}
@@ -233,10 +234,10 @@ export function AnalysisView() {
               className={`flex flex-col items-center gap-0.5 px-6 py-1 rounded-lg transition-colors ${
                 page === item.id
                   ? "text-accent-700"
-                  : "text-ink-500 hover:text-ink-700"
+                  : "text-ink-400 hover:text-ink-600"
               }`}
             >
-              <span className="text-xl">{item.icon}</span>
+              <item.Icon className="text-xl" />
               <span className={`text-xs font-semibold ${
                 page === item.id ? "text-accent-700" : ""
               }`}>{item.label}</span>
