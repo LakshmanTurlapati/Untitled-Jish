@@ -79,8 +79,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Study feature logic: type contracts, vocabulary extraction, quiz generation, fallback distractor API
-- [ ] 04-02-PLAN.md — Study feature UI: VocabularyList and QuizView components, AnalysisView integration
+- [x] 04-01-PLAN.md — Study feature logic: type contracts, vocabulary extraction, quiz generation, fallback distractor API
+- [x] 04-02-PLAN.md — Study feature UI: VocabularyList and QuizView components, AnalysisView integration
 
 ### Phase 5: Wire Quiz Fallback Distractors
 **Goal**: QuizView fetches fallback distractors from /api/distractors so short passages (< 4 unique words) can still generate quiz questions
@@ -94,7 +94,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 05-01-PLAN.md — Wire QuizView to /api/distractors for fallback distractor fetching
+- [x] 05-01-PLAN.md — Wire QuizView to /api/distractors for fallback distractor fetching
 
 ## Progress
 
@@ -109,7 +109,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
 | 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
-| 6. Duolingo-Style UI Overhaul | 0/? | Pending | — |
+| 6. Duolingo-Style UI Overhaul | 0/3 | Planned | — |
 
 ### Phase 6: Duolingo-Style UI Overhaul
 **Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
@@ -121,7 +121,9 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
   3. Quiz experience has Duolingo-style answer selection, feedback animations, and score tracking
   4. Existing warm academic color scheme (design tokens) is preserved throughout
   5. No new image/icon assets are introduced — CSS/SVG-only visual enhancements
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 6 to break down)
+- [ ] 06-01-PLAN.md — Page layout restructure: minimal header, hero input card, tabs, sticky bottom bar, analysis progress steps
+- [ ] 06-02-PLAN.md — Component restyling: WordBreakdown/MeaningBadge with big cards, pill badges, stacked meaning dots
+- [ ] 06-03-PLAN.md — Quiz gamification: hearts, XP, streaks, tap-to-select+Check, celebration screen with confetti
