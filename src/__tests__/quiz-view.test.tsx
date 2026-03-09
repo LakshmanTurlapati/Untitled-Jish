@@ -1,6 +1,7 @@
 /**
  * Tests for QuizView component.
- * Validates quiz flow: start, questions, feedback, completion, retake.
+ * Validates gamified quiz flow: start, tap-to-select + Check, hearts, XP,
+ * streaks, encouragement, completion, practice again, fallback distractors.
  *
  * @vitest-environment jsdom
  */
@@ -72,16 +73,27 @@ const twoQuestions: QuizQuestion[] = [
   },
 ];
 
+const threeQuestions: QuizQuestion[] = [
+  ...twoQuestions,
+  {
+    word: { original: "\u0915\u0941\u0930\u0941", iast: "kuru" },
+    correctAnswer: "do",
+    options: ["duty", "field", "do", "battle"],
+  },
+];
+
 const threeWordVocab = fiveWordVocab.slice(0, 3);
 
 const _originalFetch = global.fetch;
 
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.spyOn(Math, "random").mockReturnValue(0); // deterministic encouragement
 });
 
 afterEach(() => {
   global.fetch = _originalFetch;
+  vi.restoreAllMocks();
 });
 
 describe("QuizView", () => {
@@ -89,14 +101,6 @@ describe("QuizView", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     render(<QuizView words={[makeWord()]} />);
     expect(screen.getByRole("button", { name: /Start Quiz/i })).toBeInTheDocument();
-  });
-
-  it("shows loading state when vocabulary < 4 (fetching fallbacks)", () => {
-    mockExtractVocabulary.mockReturnValue(threeWordVocab);
-    global.fetch = vi.fn().mockReturnValue(new Promise(() => {}));
-    render(<QuizView words={[makeWord()]} />);
-    expect(screen.getByText(/Loading quiz/i)).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /Start Quiz/i })).not.toBeInTheDocument();
   });
 
   it("clicking Start shows first question with Devanagari and IAST", () => {
@@ -110,7 +114,7 @@ describe("QuizView", () => {
     expect(screen.getByText("dharma")).toBeInTheDocument();
   });
 
-  it("shows progress indicator (1/N)", () => {
+  it("shows progress indicator (Question 1 of N)", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
@@ -120,64 +124,211 @@ describe("QuizView", () => {
     expect(screen.getByText(/Question 1 of 2/i)).toBeInTheDocument();
   });
 
-  it("selecting correct answer shows green feedback with 'Correct!'", () => {
+  it("displays 3 hearts at quiz start", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    // Click the correct answer "duty"
-    fireEvent.click(screen.getByRole("button", { name: "duty" }));
 
-    expect(screen.getByText("Correct!")).toBeInTheDocument();
+    const filledHearts = screen.getAllByTestId("heart-filled");
+    expect(filledHearts).toHaveLength(3);
   });
 
-  it("selecting wrong answer shows red feedback with 'Not quite' and correct answer", () => {
+  it("selecting option highlights it but does not show feedback", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    // Click a wrong answer "field"
+    // Click "duty" to select
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+
+    // Check button should appear
+    expect(screen.getByRole("button", { name: /Check/i })).toBeInTheDocument();
+    // No feedback yet
+    expect(screen.queryByText(/Sadhu/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Not quite/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/The answer is/i)).not.toBeInTheDocument();
+  });
+
+  it("clicking Check after selecting correct answer shows encouragement", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+
+    // Math.random mocked to 0 => first message "Sadhu! (Well done!)"
+    expect(screen.getByText("Sadhu! (Well done!)")).toBeInTheDocument();
+  });
+
+  it("clicking Check after selecting wrong answer shows 'The answer is'", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
     fireEvent.click(screen.getByRole("button", { name: "field" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
-    expect(screen.getByText(/Not quite/i)).toBeInTheDocument();
-    expect(screen.getByText(/the answer is: duty/i)).toBeInTheDocument();
+    expect(screen.getByText(/The answer is: duty/i)).toBeInTheDocument();
   });
 
-  it("'Next' button advances to next question", () => {
+  it("wrong answer decreases hearts by 1", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    // Answer first question
-    fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    // Click Next
-    fireEvent.click(screen.getByRole("button", { name: /Next/i }));
+    // Answer wrong
+    fireEvent.click(screen.getByRole("button", { name: "field" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
 
-    // Should now show question 2
+    const filledHearts = screen.getAllByTestId("heart-filled");
+    expect(filledHearts).toHaveLength(2);
+  });
+
+  it("correct answer awards 10 XP", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+
+    expect(screen.getByText("10 XP")).toBeInTheDocument();
+  });
+
+  it("Continue button advances to next question", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+
     expect(screen.getByText(/Question 2 of 2/i)).toBeInTheDocument();
     expect(screen.getByText("\u0915\u094D\u0937\u0947\u0924\u094D\u0930")).toBeInTheDocument();
   });
 
-  it("completion screen shows score and 'Retake Quiz' button", () => {
+  it("completion screen shows score, XP, hearts, and Quiz Complete!", () => {
     mockExtractVocabulary.mockReturnValue(fiveWordVocab);
     mockGenerateQuiz.mockReturnValue(twoQuestions);
     render(<QuizView words={[makeWord()]} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
-    // Answer question 1 correctly
+    // Q1 correct
     fireEvent.click(screen.getByRole("button", { name: "duty" }));
-    fireEvent.click(screen.getByRole("button", { name: /Next/i }));
-    // Answer question 2 correctly
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q2 correct
     fireEvent.click(screen.getByRole("button", { name: "field" }));
-    fireEvent.click(screen.getByRole("button", { name: /Next/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
 
-    // Should show completion
     expect(screen.getByText(/Quiz Complete/i)).toBeInTheDocument();
-    expect(screen.getByText(/2\/2/)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Retake Quiz/i })).toBeInTheDocument();
+    expect(screen.getByText("2/2")).toBeInTheDocument();
+    expect(screen.getByText("+20 XP")).toBeInTheDocument();
+    // Hearts still showing
+    expect(screen.getByTestId("hearts")).toBeInTheDocument();
+    // Practice Again button
+    expect(screen.getByRole("button", { name: /Practice Again/i })).toBeInTheDocument();
+  });
+
+  it("Practice Again restarts quiz", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+    // Q1
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q2
+    fireEvent.click(screen.getByRole("button", { name: "field" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+
+    // At completion, click Practice Again
+    fireEvent.click(screen.getByRole("button", { name: /Practice Again/i }));
+
+    // Should be back at question 1
+    expect(screen.getByText(/Question 1 of 2/i)).toBeInTheDocument();
+  });
+
+  it("hearts never go below 0 and quiz continues", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(threeQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+
+    // Answer 3 questions wrong to try to get hearts below 0
+    // Q1 wrong
+    fireEvent.click(screen.getByRole("button", { name: "field" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q2 wrong
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q3 wrong
+    fireEvent.click(screen.getByRole("button", { name: "field" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+
+    // Hearts should be 0, not negative
+    const filledHearts = screen.queryAllByTestId("heart-filled");
+    expect(filledHearts).toHaveLength(0);
+    // Quiz should still show Continue (not blocked)
+    expect(screen.getByRole("button", { name: /Continue/i })).toBeInTheDocument();
+  });
+
+  it("streak counter shows message at 3 consecutive correct", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(threeQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+
+    // Q1 correct
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q2 correct
+    fireEvent.click(screen.getByRole("button", { name: "field" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q3 correct (streak = 3)
+    fireEvent.click(screen.getByRole("button", { name: "do" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+
+    expect(screen.getByText(/On fire! 3x streak!/i)).toBeInTheDocument();
+  });
+
+  it("XP shows total on completion screen", () => {
+    mockExtractVocabulary.mockReturnValue(fiveWordVocab);
+    mockGenerateQuiz.mockReturnValue(twoQuestions);
+    render(<QuizView words={[makeWord()]} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Start Quiz/i }));
+    // Q1 correct (+10)
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+    // Q2 wrong (+0)
+    fireEvent.click(screen.getByRole("button", { name: "duty" }));
+    fireEvent.click(screen.getByRole("button", { name: /Check/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Continue/i }));
+
+    // Completion shows +10 XP
+    expect(screen.getByText("+10 XP")).toBeInTheDocument();
   });
 });
 
@@ -191,6 +342,7 @@ describe("QuizView fallback distractors", () => {
   beforeEach(() => {
     originalFetch = global.fetch;
     vi.clearAllMocks();
+    vi.spyOn(Math, "random").mockReturnValue(0);
   });
 
   afterEach(() => {
@@ -211,7 +363,6 @@ describe("QuizView fallback distractors", () => {
 
   it("shows loading state while fetching fallbacks", () => {
     mockExtractVocabulary.mockReturnValue(threeWordVocab);
-    // Never-resolving promise to keep loading state
     global.fetch = vi.fn().mockReturnValue(new Promise(() => {}));
 
     render(<QuizView words={[makeWord()]} />);
