@@ -21,7 +21,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-06)
 
 **Core value:** Accurate extraction and deep grammatical analysis of Sanskrit text from images -- sandhi splitting, samasa decomposition, and morphological breakdown must be linguistically correct.
-**Current focus:** Phase 6 - Duolingo-Style UI Overhaul
+**Current focus:** Phase 6 complete — all phases done
 
 ## Current Position
 

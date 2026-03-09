@@ -125,5 +125,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 Plans:
 - [x] 06-01-PLAN.md — Page layout restructure: minimal header, hero input card, tabs, sticky bottom bar, analysis progress steps
-- [ ] 06-02-PLAN.md — Component restyling: WordBreakdown/MeaningBadge with big cards, pill badges, stacked meaning dots
-- [ ] 06-03-PLAN.md — Quiz gamification: hearts, XP, streaks, tap-to-select+Check, celebration screen with confetti
+- [x] 06-02-PLAN.md — Component restyling: WordBreakdown/MeaningBadge with big cards, pill badges, stacked meaning dots
+- [x] 06-03-PLAN.md — Quiz gamification: hearts, XP, streaks, tap-to-select+Check, celebration screen with confetti
