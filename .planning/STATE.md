@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-09T04:39:00Z"
-last_activity: 2026-03-08 -- Completed Phase 2 Plan 01 (core analysis pipeline)
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-09T04:43:40Z"
+last_activity: 2026-03-08 -- Completed Phase 2 Plan 02 (meanings enrichment + API endpoint)
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 50
+  total_plans: 5
+  completed_plans: 5
+  percent: 56
 ---
 
 # Project State
@@ -26,17 +26,17 @@ See: .planning/PROJECT.md (updated 2026-03-06)
 ## Current Position
 
 Phase: 2 of 4 (Core Analysis Pipeline)
-Plan: 1 of 1 in current phase (all plans complete)
-Status: Phase 2 Plan 01 Complete
-Last activity: 2026-03-08 -- Completed Phase 2 Plan 01 (core analysis pipeline)
+Plan: 2 of 3 in current phase
+Status: Phase 2 Plan 02 Complete
+Last activity: 2026-03-08 -- Completed Phase 2 Plan 02 (meanings enrichment + API endpoint)
 
-Progress: [█████░░░░░] 50%
+Progress: [█████▌░░░░] 56%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: ~8 min
+- Total plans completed: 5
+- Average duration: ~7 min
 - Total execution time: ~0.5 hours
 
 **By Phase:**
@@ -44,11 +44,11 @@ Progress: [█████░░░░░] 50%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3/3 | ~24 min | ~8 min |
-| 02-core-analysis | 1/1 | ~7 min | ~7 min |
+| 02-core-analysis | 2/3 | ~9 min | ~4.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (8min), 01-02 (15min), 01-03 (1min), 02-01 (7min)
-- Trend: stable
+- Last 5 plans: 01-01 (8min), 01-02 (15min), 01-03 (1min), 02-01 (7min), 02-02 (2min)
+- Trend: stable/accelerating
 
 *Updated after each plan completion*
 
@@ -73,6 +73,8 @@ Recent decisions affecting current work:
 - [02-01]: Grok-3-mini as default model for cost-effective structured analysis.
 - [02-01]: Mock-based LLM testing with BG 1.1 fixture for deterministic test results.
 - [02-01]: INRIA validation as post-LLM enrichment step, not a blocking gate.
+- [02-02]: meaning_source='both' whenever any dictionary definitions exist (since LLM contextual_meaning is always present).
+- [02-02]: Stem-based lookup first with headword fallback for maximum dictionary coverage.
 
 ### Pending Todos
 
@@ -86,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T04:39:00Z
-Stopped at: Completed 02-01-PLAN.md
-Resume file: Phase 2 complete, proceed to next phase
+Last session: 2026-03-09T04:43:40Z
+Stopped at: Completed 02-02-PLAN.md
+Resume file: Phase 2 Plan 03 next (word breakdown UI)

@@ -23,10 +23,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Meanings & Dictionary
 
-- [ ] **MEAN-01**: App provides Monier-Williams dictionary definitions for each word
-- [ ] **MEAN-02**: App provides Apte dictionary definitions as secondary source
-- [ ] **MEAN-03**: App provides LLM-generated contextual meaning for polysemous words in passage context
-- [ ] **MEAN-04**: App clearly distinguishes dictionary-verified meanings from AI-interpreted meanings
+- [x] **MEAN-01**: App provides Monier-Williams dictionary definitions for each word
+- [x] **MEAN-02**: App provides Apte dictionary definitions as secondary source
+- [x] **MEAN-03**: App provides LLM-generated contextual meaning for polysemous words in passage context
+- [x] **MEAN-04**: App clearly distinguishes dictionary-verified meanings from AI-interpreted meanings
 
 ### Study Features
 
@@ -85,10 +85,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | ANAL-03 | Phase 2 | Complete |
 | ANAL-04 | Phase 2 | Complete |
 | ANAL-05 | Phase 1 | Complete |
-| MEAN-01 | Phase 2 | Pending |
-| MEAN-02 | Phase 2 | Pending |
-| MEAN-03 | Phase 2 | Pending |
-| MEAN-04 | Phase 2 | Pending |
+| MEAN-01 | Phase 2 | Complete |
+| MEAN-02 | Phase 2 | Complete |
+| MEAN-03 | Phase 2 | Complete |
+| MEAN-04 | Phase 2 | Complete |
 | STDY-01 | Phase 4 | Pending |
 | STDY-02 | Phase 4 | Pending |
 | UI-01 | Phase 1 | Complete |

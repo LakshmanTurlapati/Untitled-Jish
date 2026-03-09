@@ -48,8 +48,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Core analysis pipeline: type contracts, Zod schemas, LLM prompts, sandhi/samasa/morphology with INRIA validation
-- [ ] 02-02-PLAN.md — Meanings enrichment: dictionary lookups (MW + Apte), source tracking, POST /api/analyze endpoint
+- [x] 02-01-PLAN.md — Core analysis pipeline: type contracts, Zod schemas, LLM prompts, sandhi/samasa/morphology with INRIA validation
+- [x] 02-02-PLAN.md — Meanings enrichment: dictionary lookups (MW + Apte), source tracking, POST /api/analyze endpoint
 - [ ] 02-03-PLAN.md — Word breakdown UI: WordBreakdown/MeaningBadge components, AnalysisView with text input, page integration
 
 ### Phase 3: Image Input and OCR
@@ -87,6 +87,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
-| 2. Core Analysis Pipeline | 1/3 | In Progress|  |
+| 2. Core Analysis Pipeline | 2/3 | In Progress|  |
 | 3. Image Input and OCR | 0/1 | Not started | - |
 | 4. Study Features | 0/1 | Not started | - |
