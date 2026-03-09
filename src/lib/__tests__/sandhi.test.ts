@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import { z } from "zod";
+import type { SandhiInfo } from "@/lib/analysis/types";
 
 describe("analysis schemas and types", () => {
   let FullAnalysisSchema: z.ZodType;
@@ -157,6 +158,67 @@ describe("analysis schemas and types", () => {
 
     const result = FullAnalysisSchema.safeParse(data);
     expect(result.success).toBe(true);
+  });
+});
+
+describe("parseSandhiFromLLM", () => {
+  let parseSandhiFromLLM: typeof import("@/lib/analysis/sandhi").parseSandhiFromLLM;
+
+  beforeAll(async () => {
+    const mod = await import("@/lib/analysis/sandhi");
+    parseSandhiFromLLM = mod.parseSandhiFromLLM;
+  });
+
+  it("extracts vowel sandhi type from LLM word", () => {
+    const llmWord = {
+      original: "धर्मक्षेत्रे",
+      iast: "dharmakṣetre",
+      sandhi_type: "vowel" as const,
+      is_compound: true,
+      morphology: { stem: "dharmakṣetra", word_type: "noun" as const },
+      contextual_meaning: "in the field of dharma",
+    };
+    const result: SandhiInfo = parseSandhiFromLLM(llmWord);
+    expect(result.sandhi_type).toBe("vowel");
+  });
+
+  it("extracts consonant sandhi type from LLM word", () => {
+    const llmWord = {
+      original: "तत्",
+      iast: "tat",
+      sandhi_type: "consonant" as const,
+      is_compound: false,
+      morphology: { stem: "tad", word_type: "pronoun" as const },
+      contextual_meaning: "that",
+    };
+    const result: SandhiInfo = parseSandhiFromLLM(llmWord);
+    expect(result.sandhi_type).toBe("consonant");
+  });
+
+  it("extracts visarga sandhi type from LLM word", () => {
+    const llmWord = {
+      original: "समवेताः",
+      iast: "samavetāḥ",
+      sandhi_type: "visarga" as const,
+      is_compound: false,
+      morphology: { stem: "samavetā", word_type: "participle" as const },
+      contextual_meaning: "assembled",
+    };
+    const result: SandhiInfo = parseSandhiFromLLM(llmWord);
+    expect(result.sandhi_type).toBe("visarga");
+  });
+
+  it("handles 'none' sandhi type", () => {
+    const llmWord = {
+      original: "कुरुक्षेत्रे",
+      iast: "kurukṣetre",
+      sandhi_type: "none" as const,
+      is_compound: true,
+      morphology: { stem: "kurukṣetra", word_type: "noun" as const },
+      contextual_meaning: "in Kurukshetra",
+    };
+    const result: SandhiInfo = parseSandhiFromLLM(llmWord);
+    expect(result.sandhi_type).toBe("none");
   });
 });
 
