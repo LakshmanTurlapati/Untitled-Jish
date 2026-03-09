@@ -9,6 +9,8 @@ export default defineConfig({
     environment: "node",
     environmentMatchGlobs: [
       ["src/__tests__/word-breakdown.test.tsx", "jsdom"],
+      ["src/__tests__/text-input.test.tsx", "jsdom"],
+      ["src/__tests__/image-upload.test.tsx", "jsdom"],
     ],
   },
   resolve: {
