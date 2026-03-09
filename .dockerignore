@@ -1,0 +1,7 @@
+node_modules
+.next
+.git
+.planning
+.env.local
+data/sanskrit.db-shm
+data/sanskrit.db-wal
