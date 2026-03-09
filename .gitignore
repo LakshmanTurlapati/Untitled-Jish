@@ -44,3 +44,4 @@ next-env.d.ts
 # dictionary data (downloaded by scripts/setup-data.sh, built by scripts)
 data/cdsl/
 data/sanskrit.db
+.env.local
