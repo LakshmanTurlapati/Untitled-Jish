@@ -109,7 +109,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
 | 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
-| 6. Duolingo-Style UI Overhaul | 0/3 | Planned | — |
+| 6. Duolingo-Style UI Overhaul | 1/3 | In Progress | — |
 
 ### Phase 6: Duolingo-Style UI Overhaul
 **Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
@@ -124,6 +124,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 **Plans**: 3 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Page layout restructure: minimal header, hero input card, tabs, sticky bottom bar, analysis progress steps
+- [x] 06-01-PLAN.md — Page layout restructure: minimal header, hero input card, tabs, sticky bottom bar, analysis progress steps
 - [ ] 06-02-PLAN.md — Component restyling: WordBreakdown/MeaningBadge with big cards, pill badges, stacked meaning dots
 - [ ] 06-03-PLAN.md — Quiz gamification: hearts, XP, streaks, tap-to-select+Check, celebration screen with confetti
