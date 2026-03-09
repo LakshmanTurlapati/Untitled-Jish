@@ -5,6 +5,8 @@ import type { EnrichedWord } from "@/lib/analysis/types";
 import { WordBreakdown } from "./WordBreakdown";
 import { devanagariToIast } from "@/lib/transliteration";
 import { ImageUpload } from "./ImageUpload";
+import { VocabularyList } from "./VocabularyList";
+import { QuizView } from "./QuizView";
 
 export function AnalysisView() {
   const [inputText, setInputText] = useState("");
@@ -89,11 +91,17 @@ export function AnalysisView() {
       )}
 
       {analysisResult && analysisResult.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {analysisResult.map((word, index) => (
-            <WordBreakdown key={index} word={word} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {analysisResult.map((word, index) => (
+              <WordBreakdown key={index} word={word} />
+            ))}
+          </div>
+          <div className="mt-8 space-y-6">
+            <VocabularyList words={analysisResult} />
+            <QuizView words={analysisResult} />
+          </div>
+        </>
       )}
 
       {analysisResult && analysisResult.length === 0 && (
