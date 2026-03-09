@@ -91,4 +91,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
 | 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
 | 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
-| 4. Study Features | 0/2 | Not started | - |
+| 4. Study Features | 1/2 | In Progress|  |

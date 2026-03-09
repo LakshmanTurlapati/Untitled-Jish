@@ -30,8 +30,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Study Features
 
-- [ ] **STDY-01**: App extracts unique words from analyzed text, filtering common particles (ca, tu, hi, eva, api, etc.)
-- [ ] **STDY-02**: App generates word → meaning MCQ quiz from extracted vocabulary with plausible distractors
+- [x] **STDY-01**: App extracts unique words from analyzed text, filtering common particles (ca, tu, hi, eva, api, etc.)
+- [x] **STDY-02**: App generates word → meaning MCQ quiz from extracted vocabulary with plausible distractors
 
 ### UI & Experience
 
@@ -89,8 +89,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | MEAN-02 | Phase 2 | Complete |
 | MEAN-03 | Phase 2 | Complete |
 | MEAN-04 | Phase 2 | Complete |
-| STDY-01 | Phase 4 | Pending |
-| STDY-02 | Phase 4 | Pending |
+| STDY-01 | Phase 4 | Complete |
+| STDY-02 | Phase 4 | Complete |
 | UI-01 | Phase 1 | Complete |
 | UI-02 | Phase 2 | Complete |
 | UI-03 | Phase 1 | Complete |

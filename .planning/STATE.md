@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 4 context gathered
-last_updated: "2026-03-09T08:55:05.926Z"
-last_activity: 2026-03-09 -- Phase 3 Plan 1 complete, OCR backend with Tesseract.js
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-09T09:41:23Z"
+last_activity: 2026-03-09 -- Phase 4 Plan 1 complete, study feature logic
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
-  percent: 88
+  total_plans: 10
+  completed_plans: 9
+  percent: 90
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-06)
 
 **Core value:** Accurate extraction and deep grammatical analysis of Sanskrit text from images -- sandhi splitting, samasa decomposition, and morphological breakdown must be linguistically correct.
-**Current focus:** Phase 3: Image Input and OCR
+**Current focus:** Phase 4: Study Features
 
 ## Current Position
 
-Phase: 3 of 4 (Image Input and OCR)
+Phase: 4 of 4 (Study Features)
 Plan: 1 of 2 in current phase (1 complete)
-Status: Phase 3 in progress, OCR backend done
-Last activity: 2026-03-09 -- Phase 3 Plan 1 complete, OCR backend with Tesseract.js
+Status: Phase 4 in progress, study feature logic done
+Last activity: 2026-03-09 -- Phase 4 Plan 1 complete, study feature logic
 
-Progress: [█████████░] 88%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -46,13 +46,13 @@ Progress: [█████████░] 88%
 | 01-foundation | 3/3 | ~24 min | ~8 min |
 | 02-core-analysis | 3/3 | ~17 min | ~5.7 min |
 | 03-image-input-and-ocr | 1/2 | ~14 min | ~14 min |
+| 04-study-features | 1/2 | ~3 min | ~3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (1min), 02-01 (7min), 02-02 (2min), 02-03 (8min), 03-01 (14min)
+- Last 5 plans: 02-01 (7min), 02-02 (2min), 02-03 (8min), 03-01 (14min), 04-01 (3min)
 - Trend: stable
 
 *Updated after each plan completion*
-| Phase 03 P02 | 12 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -82,6 +82,8 @@ Recent decisions affecting current work:
 - [03-01]: vi.hoisted() pattern for mocking tesseract.js createWorker (avoids hoisting issues).
 - [03-01]: script/Devanagari traineddata for Sanskrit OCR (not 'san' which misses characters).
 - [Phase 03-02]: ImageUpload uses onTextExtracted callback to populate parent textarea, letting user review OCR output before analyzing
+- [04-01]: Fisher-Yates shuffle for quiz option randomization
+- [04-01]: Distractor API truncates MW definitions at first comma or 80 chars for readable quiz options
 
 ### Pending Todos
 
@@ -95,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-09T08:55:05.906Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-study-features/04-CONTEXT.md
+Last session: 2026-03-09T09:41:23Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: .planning/phases/04-study-features/04-01-SUMMARY.md
