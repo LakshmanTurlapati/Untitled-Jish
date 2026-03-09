@@ -111,7 +111,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | 4. Study Features | 2/2 | Complete   | 2026-03-09 |
 | 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
 | 6. Duolingo-Style UI Overhaul | 3/3 | Complete   | 2026-03-09 |
-| 7. UI Navigation & Polish | 0/2 | In Progress | — |
+| 7. UI Navigation & Polish | 1/2 | In Progress|  |
 
 ### Phase 6: Duolingo-Style UI Overhaul
 **Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
@@ -140,7 +140,7 @@ Plans:
   2. Sticky Analyze button only appears on the Analyze tab
   3. Camera capture button enables direct photo taking on mobile
   4. Progress step checkmarks use accent colors matching the app's palette
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 07-01-PLAN.md — Top-level Analyze/Study tab navigation, sticky bar gating, checkmark color fix
