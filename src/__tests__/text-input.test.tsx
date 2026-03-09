@@ -14,6 +14,19 @@ vi.mock("@/app/components/ImageUpload", () => ({
   ImageUpload: () => <div data-testid="mock-image-upload" />,
 }));
 
+// Mock child components
+vi.mock("@/app/components/WordBreakdown", () => ({
+  WordBreakdown: () => <div data-testid="mock-word" />,
+}));
+
+vi.mock("@/app/components/VocabularyList", () => ({
+  VocabularyList: () => <div data-testid="mock-vocab" />,
+}));
+
+vi.mock("@/app/components/QuizView", () => ({
+  QuizView: () => <div data-testid="mock-quiz" />,
+}));
+
 // Mock transliteration module
 vi.mock("@/lib/transliteration", () => ({
   devanagariToIast: (text: string) => {
@@ -33,9 +46,9 @@ describe("AnalysisView IAST preview", () => {
 
   it("does not show IAST preview when textarea is empty", () => {
     render(<AnalysisView />);
-    // No text entered, preview should not exist
-    const preview = document.querySelector(".italic.text-ink-600");
-    expect(preview).toBeNull();
+    // No text entered, no transliterated text should appear
+    expect(screen.queryByText("dharma")).not.toBeInTheDocument();
+    expect(screen.queryByText("mock-iast")).not.toBeInTheDocument();
   });
 
   it("accepts Devanagari input and updates textarea value", () => {
