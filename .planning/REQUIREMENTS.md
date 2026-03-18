@@ -1,37 +1,37 @@
-# Requirements: Sanskrit Text Analyzer
+# Requirements: Sanskrit Learning Platform
 
-**Defined:** 2026-03-06
-**Core Value:** Accurate extraction and deep grammatical analysis of Sanskrit text from images — sandhi splitting, samasa decomposition, and morphological breakdown must be linguistically correct.
+**Defined:** 2026-03-18
+**Core Value:** Enable users to master Sanskrit vocabulary and comprehend kaavyas independently through quiz-driven spaced repetition, with all meanings backed by pramaana.
 
-## v0.1 Requirements
+## v1.0 Requirements (Complete)
 
-Requirements for initial release. Each maps to roadmap phases.
+All v1.0 requirements shipped and verified.
 
 ### Image & Input
 
 - [x] **INPUT-01**: User can paste or type Devanagari text directly into the app
 - [x] **INPUT-02**: User can upload an image of printed Devanagari text
-- [x] **INPUT-03**: App extracts Sanskrit text from uploaded image via Grok vision API with high accuracy
+- [x] **INPUT-03**: App extracts Sanskrit text from uploaded image via OCR with high accuracy
 
 ### Sanskrit Analysis
 
 - [x] **ANAL-01**: App splits sandhi junctions (vowel, consonant, visarga) into individual words
 - [x] **ANAL-02**: App identifies vibhakti (case), vacana (number), and linga (gender) for each word
-- [x] **ANAL-03**: App decomposes samasa compounds with type classification (tatpurusha, dvandva, bahuvrihi, avyayibhava, karmadharaya, dvigu)
-- [x] **ANAL-04**: App extracts dhatu (verbal root) with gana (class 1-10) classification for verb forms
+- [x] **ANAL-03**: App decomposes samasa compounds with type classification
+- [x] **ANAL-04**: App extracts dhatu (verbal root) with gana classification for verb forms
 - [x] **ANAL-05**: App generates IAST transliteration for each word
 
 ### Meanings & Dictionary
 
 - [x] **MEAN-01**: App provides Monier-Williams dictionary definitions for each word
 - [x] **MEAN-02**: App provides Apte dictionary definitions as secondary source
-- [x] **MEAN-03**: App provides LLM-generated contextual meaning for polysemous words in passage context
+- [x] **MEAN-03**: App provides LLM-generated contextual meaning for polysemous words
 - [x] **MEAN-04**: App clearly distinguishes dictionary-verified meanings from AI-interpreted meanings
 
 ### Study Features
 
-- [x] **STDY-01**: App extracts unique words from analyzed text, filtering common particles (ca, tu, hi, eva, api, etc.)
-- [x] **STDY-02**: App generates word → meaning MCQ quiz from extracted vocabulary with plausible distractors
+- [x] **STDY-01**: App extracts unique words from analyzed text, filtering common particles
+- [x] **STDY-02**: App generates word → meaning MCQ quiz with plausible distractors
 
 ### UI & Experience
 
@@ -39,67 +39,83 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **UI-02**: Word-by-word breakdown view showing all analysis properties
 - [x] **UI-03**: App works without login or user accounts
 
-## v0.2 Requirements
+## v1.1 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roadmap phases.
 
-### Enhanced Input
+### Kaavya Reader
 
-- **INPUT-04**: User can capture image directly from device camera
-- **INPUT-05**: Post-OCR correction interface for user to fix extraction errors
+- [ ] **READ-01**: User can upload a PDF of a Sanskrit kaavya/purana for reading
+- [ ] **READ-02**: User can paste Sanskrit text as a kaavya document
+- [ ] **READ-03**: User can read uploaded texts in a Kindle-like page-by-page UI (easy on the eyes)
+- [ ] **READ-04**: User can select a shloka and submit their interpretation for AI validation
+- [ ] **READ-05**: AI searches internet for pramaana and gives hints/nudges about user's interpretation — never the direct answer
+- [ ] **READ-06**: User can browse their library of uploaded kaavyas
 
-### Enhanced Analysis
+### Quiz Engine
 
-- **ANAL-06**: Multi-candidate sandhi splitting with user choice among alternatives
-- **ANAL-07**: Vedic Sanskrit detection guard with user warning
+- [ ] **QUIZ-01**: User can provide a document/shlokas to populate quiz vocabulary (e.g., Ramayana first kaanda)
+- [ ] **QUIZ-02**: Quiz shows all meanings of a word (when a word has multiple meanings in context), sourced from MW/Apte dictionaries
+- [ ] **QUIZ-03**: Quiz includes grammar facts (word breakdown, vibhakti, dhatu) in the question — meaning is always MCQ
+- [ ] **QUIZ-04**: Daily mixed vocabulary review mode — words from all vocabulary seen so far
+- [ ] **QUIZ-05**: Kaavya-specific quiz mode — words specific to a particular kaavya/purana
+- [ ] **QUIZ-06**: Spaced repetition scheduling based on forgetting curves — quiz only when user is likely to forget
+- [ ] **QUIZ-07**: Mastery timeline estimate shown after sufficient quiz data (not from the start)
+- [ ] **QUIZ-08**: Track vocabulary mastery — words learned, words remaining, new words added from new shlokas
+- [ ] **QUIZ-09**: All quiz meanings sourced from dictionaries (MW/Apte) or verified internet sources — one/two-word meanings, never conjured
 
-### Enhanced Study
+### Gamification
 
-- **STDY-03**: Export vocabulary list as CSV/JSON
-- **STDY-04**: Reverse quiz format (English meaning → Sanskrit word)
+- [ ] **GAME-01**: Personal rank/tier progression system (unlockable levels)
+- [ ] **GAME-02**: XP system — words give less XP than kaavyas completed
+- [ ] **GAME-03**: Rank updates based on word mastery count and kaavyas/puranas read
+- [ ] **GAME-04**: Game-like feel with dopamine-driven engagement (progress, achievements, streaks)
+
+### Metrics & Trends
+
+- [ ] **METR-01**: Forgetting curve visualization — track how quickly user forgets words over different time frames
+- [ ] **METR-02**: Smart quiz prompting — only notify when analysis shows user is likely to forget
+- [ ] **METR-03**: Kaavya comprehension tracking — how well user understands texts (via AI agent feedback)
+- [ ] **METR-04**: Rank progress and XP needed for next tier
+- [ ] **METR-05**: Vocabulary growth trends — words over time, mastery rate
+
+### Storage
+
+- [ ] **STOR-01**: Persistent local storage (IndexedDB) for quiz history, vocabulary state, forgetting curves, XP/rank
+- [ ] **STOR-02**: Uploaded kaavya library persisted locally
+
+## Future Requirements
+
+### v2 Candidates
+
+- **NOTF-01**: Push notifications for quiz reminders (requires service worker)
+- **SOCIAL-01**: Competitive leaderboard with other users
+- **AUDIO-01**: Audio pronunciation of Sanskrit words
+- **EXPORT-01**: Export vocabulary lists and progress data
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| User authentication/accounts | Adds friction, no persistent state needed |
-| Handwritten/manuscript OCR | Entirely different problem domain from printed Devanagari |
-| Full syntactic/semantic parsing (kaaraka analysis) | Active research problem, overpromising damages scholar credibility |
-| Spaced repetition / progress tracking | Requires persistent user state, different product category |
-| Audio pronunciation | Separate challenge, IAST transliteration text only |
-| Multi-language translation | Dictionary meanings + contextual interpretation, not full translation |
-| Mobile native app | Web-first serves scholar audience, responsive web suffices |
-| Multiple quiz formats (fill-in-blank, etc.) | Word → meaning MCQ only for v0.1 |
-| Verse meter analysis | Tangential to core text analysis pipeline |
-| Collaborative annotation | Requires accounts, real-time sync — different product |
+| User authentication/accounts | Local browser storage sufficient for single-user learning |
+| Competitive leaderboard | No backend, personal progression only |
+| Handwritten/manuscript OCR | Printed Devanagari only |
+| Audio pronunciation | IAST transliteration text only |
+| Mobile native app | Web only |
+| AI giving direct shloka answers | Hints/nudges only — user learns independently |
+| Generated/conjured meanings | All meanings must have pramaana from dictionaries or verified sources |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INPUT-01 | Phase 3 | Complete |
-| INPUT-02 | Phase 3 | Complete |
-| INPUT-03 | Phase 3 | Complete |
-| ANAL-01 | Phase 2 | Complete |
-| ANAL-02 | Phase 2 | Complete |
-| ANAL-03 | Phase 2 | Complete |
-| ANAL-04 | Phase 2 | Complete |
-| ANAL-05 | Phase 1 | Complete |
-| MEAN-01 | Phase 2 | Complete |
-| MEAN-02 | Phase 2 | Complete |
-| MEAN-03 | Phase 2 | Complete |
-| MEAN-04 | Phase 2 | Complete |
-| STDY-01 | Phase 4 | Complete |
-| STDY-02 | Phase 4 | Complete |
-| UI-01 | Phase 1 | Complete |
-| UI-02 | Phase 2 | Complete |
-| UI-03 | Phase 1 | Complete |
+| (populated by roadmapper) | | |
 
 **Coverage:**
-- v0.1 requirements: 17 total
-- Mapped to phases: 17
-- Unmapped: 0
+- v1.1 requirements: 22 total
+- Mapped to phases: 0
+- Unmapped: 22 ⚠️
 
 ---
-*Requirements defined: 2026-03-06*
-*Last updated: 2026-03-06 after roadmap creation*
+*Requirements defined: 2026-03-18*
+*Last updated: 2026-03-18 after initial definition*
