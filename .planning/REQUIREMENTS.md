@@ -60,8 +60,8 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 - [x] **QUIZ-04**: Daily mixed vocabulary review mode — words from all vocabulary seen so far
 - [x] **QUIZ-05**: Kaavya-specific quiz mode — words specific to a particular kaavya/purana
 - [x] **QUIZ-06**: Spaced repetition scheduling based on forgetting curves — quiz only when user is likely to forget
-- [ ] **QUIZ-07**: Mastery timeline estimate shown after sufficient quiz data (not from the start)
-- [ ] **QUIZ-08**: Track vocabulary mastery — words learned, words remaining, new words added from new shlokas
+- [x] **QUIZ-07**: Mastery timeline estimate shown after sufficient quiz data (not from the start)
+- [x] **QUIZ-08**: Track vocabulary mastery — words learned, words remaining, new words added from new shlokas
 - [x] **QUIZ-09**: All quiz meanings sourced from dictionaries (MW/Apte) or verified internet sources — one/two-word meanings, never conjured
 
 ### Gamification
@@ -123,8 +123,8 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 | QUIZ-04 | Phase 9 | Complete |
 | QUIZ-05 | Phase 9 | Complete |
 | QUIZ-06 | Phase 9 | Complete |
-| QUIZ-07 | Phase 9 | Pending |
-| QUIZ-08 | Phase 9 | Pending |
+| QUIZ-07 | Phase 9 | Complete |
+| QUIZ-08 | Phase 9 | Complete |
 | QUIZ-09 | Phase 9 | Complete |
 | GAME-01 | Phase 10 | Pending |
 | GAME-02 | Phase 10 | Pending |
