@@ -136,12 +136,12 @@ Plans:
   3. User can take kaavya-specific quizzes focusing on words from a particular text
   4. Quiz questions include grammar facts (word breakdown, vibhakti, dhatu) alongside meaning MCQs
   5. Spaced repetition schedules quizzes based on forgetting curves, and mastery timeline estimates appear after sufficient quiz data
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 09-01: TBD
-- [ ] 09-02: TBD
-- [ ] 09-03: TBD
+- [ ] 09-01-PLAN.md — Data foundation: type contracts, Dexie schema v2, ts-fsrs SRS wrapper, vocabulary population pipeline
+- [ ] 09-02-PLAN.md — Quiz engine: dual-mode quiz generation (daily mixed + kaavya-specific), grammar facts, mastery stats, /api/quiz/populate endpoint
+- [ ] 09-03-PLAN.md — Quiz UI: QuizModeSelector, SRSRatingBar, VocabularyDashboard, VocabPopulateButton, QuizView refactor, Quiz tab navigation
 
 ### Phase 10: Gamification and Metrics Dashboard
 **Goal**: Users feel motivated through XP/rank progression and can track their learning with forgetting curve analysis, vocabulary growth trends, and kaavya comprehension metrics
@@ -173,6 +173,6 @@ Phases execute in numeric order: 8 → 9 → 10
 | 5. Wire Quiz Fallback Distractors | v1.0 | 1/1 | Complete | 2026-03-09 |
 | 6. Duolingo-Style UI Overhaul | v1.0 | 3/3 | Complete | 2026-03-09 |
 | 7. UI Navigation & Polish | v1.0 | 2/2 | Complete | 2026-03-09 |
-| 8. Kaavya Reader and Storage Foundation | 3/4 | In Progress|  | - |
-| 9. Quiz Engine and Spaced Repetition | v1.1 | 0/? | Not started | - |
+| 8. Kaavya Reader and Storage Foundation | v1.1 | 3/4 | In Progress | - |
+| 9. Quiz Engine and Spaced Repetition | v1.1 | 0/3 | Planned | - |
 | 10. Gamification and Metrics Dashboard | v1.1 | 0/? | Not started | - |
