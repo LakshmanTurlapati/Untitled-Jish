@@ -55,10 +55,10 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 ### Quiz Engine
 
 - [x] **QUIZ-01**: User can provide a document/shlokas to populate quiz vocabulary (e.g., Ramayana first kaanda)
-- [ ] **QUIZ-02**: Quiz shows all meanings of a word (when a word has multiple meanings in context), sourced from MW/Apte dictionaries
-- [ ] **QUIZ-03**: Quiz includes grammar facts (word breakdown, vibhakti, dhatu) in the question — meaning is always MCQ
-- [ ] **QUIZ-04**: Daily mixed vocabulary review mode — words from all vocabulary seen so far
-- [ ] **QUIZ-05**: Kaavya-specific quiz mode — words specific to a particular kaavya/purana
+- [x] **QUIZ-02**: Quiz shows all meanings of a word (when a word has multiple meanings in context), sourced from MW/Apte dictionaries
+- [x] **QUIZ-03**: Quiz includes grammar facts (word breakdown, vibhakti, dhatu) in the question — meaning is always MCQ
+- [x] **QUIZ-04**: Daily mixed vocabulary review mode — words from all vocabulary seen so far
+- [x] **QUIZ-05**: Kaavya-specific quiz mode — words specific to a particular kaavya/purana
 - [x] **QUIZ-06**: Spaced repetition scheduling based on forgetting curves — quiz only when user is likely to forget
 - [ ] **QUIZ-07**: Mastery timeline estimate shown after sufficient quiz data (not from the start)
 - [ ] **QUIZ-08**: Track vocabulary mastery — words learned, words remaining, new words added from new shlokas
@@ -118,10 +118,10 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 | STOR-01 | Phase 8 | Complete |
 | STOR-02 | Phase 8 | Complete |
 | QUIZ-01 | Phase 9 | Complete |
-| QUIZ-02 | Phase 9 | Pending |
-| QUIZ-03 | Phase 9 | Pending |
-| QUIZ-04 | Phase 9 | Pending |
-| QUIZ-05 | Phase 9 | Pending |
+| QUIZ-02 | Phase 9 | Complete |
+| QUIZ-03 | Phase 9 | Complete |
+| QUIZ-04 | Phase 9 | Complete |
+| QUIZ-05 | Phase 9 | Complete |
 | QUIZ-06 | Phase 9 | Complete |
 | QUIZ-07 | Phase 9 | Pending |
 | QUIZ-08 | Phase 9 | Pending |
