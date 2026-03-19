@@ -4,25 +4,42 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useKaavyaLibrary } from "@/lib/kaavya/hooks/useKaavyaLibrary";
 import { deleteKaavya } from "@/lib/kaavya/db/kaavyaStore";
 import { db } from "@/lib/kaavya/db/schema";
+import { isDue } from "@/lib/quiz/srs";
+import { State } from "ts-fsrs";
 import { LibraryCard } from "./LibraryCard";
 import type { ReadingState } from "@/lib/kaavya/types";
 
 interface KaavyaLibraryProps {
   onOpenKaavya: (id: number) => void;
   onAddKaavya: () => void;
+  onQuizKaavya?: (kaavyaId: number) => void;
 }
 
-export function KaavyaLibrary({ onOpenKaavya, onAddKaavya }: KaavyaLibraryProps) {
+export function KaavyaLibrary({ onOpenKaavya, onAddKaavya, onQuizKaavya }: KaavyaLibraryProps) {
   const { kaavyas, isLoading } = useKaavyaLibrary();
 
   const readingStates = useLiveQuery(
     () => db.readingStates.toArray()
   );
 
+  const vocabItems = useLiveQuery(
+    () => db.vocabItems.toArray()
+  );
+
   const readingStateMap = new Map<number, ReadingState>();
   if (readingStates) {
     for (const rs of readingStates) {
       readingStateMap.set(rs.kaavyaId, rs);
+    }
+  }
+
+  // Compute per-kaavya due counts
+  const dueCounts = new Map<number, number>();
+  if (vocabItems) {
+    for (const item of vocabItems) {
+      if (isDue(item.due) || item.state === State.New) {
+        dueCounts.set(item.kaavyaId, (dueCounts.get(item.kaavyaId) ?? 0) + 1);
+      }
     }
   }
 
@@ -102,8 +119,10 @@ export function KaavyaLibrary({ onOpenKaavya, onAddKaavya }: KaavyaLibraryProps)
             key={kaavya.id}
             kaavya={kaavya}
             readingState={readingStateMap.get(kaavya.id!)}
+            dueCount={dueCounts.get(kaavya.id!) ?? 0}
             onOpen={onOpenKaavya}
             onDelete={handleDelete}
+            onQuiz={onQuizKaavya ? () => onQuizKaavya(kaavya.id!) : undefined}
           />
         ))}
       </div>

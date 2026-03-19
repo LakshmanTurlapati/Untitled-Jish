@@ -3,18 +3,23 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { AnalysisView } from "./components/AnalysisView";
-import { FaSearch, FaBook } from "react-icons/fa";
+import { FaSearch, FaBook, FaBrain } from "react-icons/fa";
 
 // Dynamic imports to avoid SSR/prerender issues with IndexedDB and pdfjs-dist
 const KaavyaLibrary = dynamic(() => import("./components/KaavyaLibrary").then(m => ({ default: m.KaavyaLibrary })), { ssr: false });
 const KaavyaUploader = dynamic(() => import("./components/KaavyaUploader").then(m => ({ default: m.KaavyaUploader })), { ssr: false });
 const KaavyaReader = dynamic(() => import("./components/KaavyaReader").then(m => ({ default: m.KaavyaReader })), { ssr: false });
+const QuizModeSelector = dynamic(() => import("./components/QuizModeSelector").then(m => ({ default: m.QuizModeSelector })), { ssr: false });
+const VocabularyDashboard = dynamic(() => import("./components/VocabularyDashboard").then(m => ({ default: m.VocabularyDashboard })), { ssr: false });
+const QuizView = dynamic(() => import("./components/QuizView").then(m => ({ default: m.QuizView })), { ssr: false });
 
-type AppView = "analyze" | "library" | "uploader" | "reader";
+type AppView = "analyze" | "library" | "uploader" | "reader" | "quiz" | "quiz-session";
 
 export default function Home() {
   const [view, setView] = useState<AppView>("analyze");
   const [selectedKaavyaId, setSelectedKaavyaId] = useState<number | null>(null);
+  const [quizMode, setQuizMode] = useState<"daily" | "kaavya" | null>(null);
+  const [quizKaavyaId, setQuizKaavyaId] = useState<number | undefined>(undefined);
 
   return (
     <main className="mx-auto max-w-[640px] px-4 py-8 pb-24">
@@ -23,7 +28,7 @@ export default function Home() {
       </h1>
 
       {/* Top-level tab navigation */}
-      {(view === "analyze" || view === "library") && (
+      {(view === "analyze" || view === "library" || view === "quiz") && (
         <div className="flex bg-parchment-100 rounded-xl p-1 mb-6">
           <button
             onClick={() => setView("analyze")}
@@ -47,6 +52,17 @@ export default function Home() {
             <FaBook className="text-sm" />
             Library
           </button>
+          <button
+            onClick={() => setView("quiz")}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-colors ${
+              view === "quiz"
+                ? "bg-white shadow-sm text-accent-500"
+                : "text-ink-700 hover:text-ink-800"
+            }`}
+          >
+            <FaBrain className="text-sm" />
+            Quiz
+          </button>
         </div>
       )}
 
@@ -60,6 +76,11 @@ export default function Home() {
             setView("reader");
           }}
           onAddKaavya={() => setView("uploader")}
+          onQuizKaavya={(kaavyaId) => {
+            setQuizMode("kaavya");
+            setQuizKaavyaId(kaavyaId);
+            setView("quiz-session");
+          }}
         />
       )}
 
@@ -77,6 +98,33 @@ export default function Home() {
         <KaavyaReader
           kaavyaId={selectedKaavyaId}
           onBack={() => setView("library")}
+        />
+      )}
+
+      {view === "quiz" && (
+        <>
+          <VocabularyDashboard />
+          <div className="mt-6">
+            <QuizModeSelector
+              onSelectMode={(selectedMode, selectedKaavya) => {
+                setQuizMode(selectedMode);
+                setQuizKaavyaId(selectedKaavya);
+                setView("quiz-session");
+              }}
+            />
+          </div>
+        </>
+      )}
+
+      {view === "quiz-session" && quizMode && (
+        <QuizView
+          mode={quizMode}
+          kaavyaId={quizKaavyaId}
+          onBackToModes={() => {
+            setQuizMode(null);
+            setQuizKaavyaId(undefined);
+            setView("quiz");
+          }}
         />
       )}
     </main>

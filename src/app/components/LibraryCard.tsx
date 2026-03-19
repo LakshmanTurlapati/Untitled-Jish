@@ -2,12 +2,15 @@
 
 import type { Kaavya, ReadingState } from "@/lib/kaavya/types";
 import { FaTrash } from "react-icons/fa";
+import { DueCountBadge } from "./DueCountBadge";
 
 interface LibraryCardProps {
   kaavya: Kaavya;
   readingState?: ReadingState;
+  dueCount?: number;
   onOpen: (id: number) => void;
   onDelete: (id: number) => void;
+  onQuiz?: () => void;
 }
 
 function relativeTime(date: Date): string {
@@ -24,7 +27,7 @@ function relativeTime(date: Date): string {
   return `${diffMonths}mo ago`;
 }
 
-export function LibraryCard({ kaavya, readingState, onOpen, onDelete }: LibraryCardProps) {
+export function LibraryCard({ kaavya, readingState, dueCount, onOpen, onDelete, onQuiz }: LibraryCardProps) {
   const progress = readingState
     ? `Page ${readingState.currentPage} of ${readingState.totalPages}`
     : "Not started";
@@ -43,6 +46,11 @@ export function LibraryCard({ kaavya, readingState, onOpen, onDelete }: LibraryC
     }
   }
 
+  function handleQuiz(e: React.MouseEvent) {
+    e.stopPropagation();
+    onQuiz?.();
+  }
+
   return (
     <div
       onClick={() => onOpen(kaavya.id!)}
@@ -56,7 +64,14 @@ export function LibraryCard({ kaavya, readingState, onOpen, onDelete }: LibraryC
         <FaTrash className="text-sm" />
       </button>
 
-      <h3 className="text-lg font-semibold text-ink-800 pr-6">{kaavya.title}</h3>
+      {/* Due count badge */}
+      {dueCount !== undefined && dueCount > 0 && (
+        <div className="absolute top-3 right-10">
+          <DueCountBadge count={dueCount} />
+        </div>
+      )}
+
+      <h3 className="text-lg font-semibold text-ink-800 pr-16">{kaavya.title}</h3>
 
       {kaavya.author && (
         <p className="text-sm text-ink-700 mt-1">{kaavya.author}</p>
@@ -64,6 +79,16 @@ export function LibraryCard({ kaavya, readingState, onOpen, onDelete }: LibraryC
 
       <p className="text-sm text-ink-700 mt-2">{progress}</p>
       <p className="text-xs text-ink-700 mt-1">{lastActivity}</p>
+
+      {onQuiz && (
+        <button
+          onClick={handleQuiz}
+          aria-label={`Quiz words from ${kaavya.title}`}
+          className="mt-2 text-sm text-accent-600 hover:text-accent-700 font-medium transition-colors"
+        >
+          Quiz this
+        </button>
+      )}
     </div>
   );
 }

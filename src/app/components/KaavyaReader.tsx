@@ -5,6 +5,7 @@ import { FaArrowLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useReader } from "@/lib/kaavya/hooks/useReader";
 import { ReaderPage } from "./ReaderPage";
 import { ShlokaSelector } from "./ShlokaSelector";
+import { VocabPopulateButton } from "./VocabPopulateButton";
 
 interface KaavyaReaderProps {
   kaavyaId: number;
@@ -53,6 +54,7 @@ export function KaavyaReader({ kaavyaId, onBack }: KaavyaReaderProps) {
   const [selectedShloka, setSelectedShloka] = useState<string | null>(null);
   const [showSelector, setShowSelector] = useState(false);
   const [floatingBtn, setFloatingBtn] = useState<{ top: number; left: number } | null>(null);
+  const [populateMessage, setPopulateMessage] = useState<string | null>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
 
   // Keyboard navigation
@@ -153,6 +155,23 @@ export function KaavyaReader({ kaavyaId, onBack }: KaavyaReaderProps) {
         <span className="text-sm text-ink-700 whitespace-nowrap">
           Page {currentPage + 1} of {totalPages}
         </span>
+      </div>
+
+      {/* Vocab populate button */}
+      <div className="flex items-center justify-between px-1 pb-2">
+        <VocabPopulateButton
+          kaavyaId={kaavyaId}
+          kaavyaText={kaavya.rawText}
+          onComplete={(count) => {
+            setPopulateMessage(`${count} words added to quiz`);
+            setTimeout(() => setPopulateMessage(null), 3000);
+          }}
+        />
+        {populateMessage && (
+          <span className="text-sm text-green-600 font-medium animate-[fade-in_200ms_ease]">
+            {populateMessage}
+          </span>
+        )}
       </div>
 
       {/* Reader viewport */}
