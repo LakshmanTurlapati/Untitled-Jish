@@ -118,12 +118,13 @@ Plans:
   3. User can select a shloka, type their interpretation, and receive AI hints/nudges backed by internet-sourced pramaana -- never the direct answer
   4. User can browse their library of uploaded kaavyas and return to any previously uploaded text
   5. All library data and reading state persists in the browser across sessions (IndexedDB)
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
-- [ ] 08-03: TBD
+- [ ] 08-01-PLAN.md — Storage foundation: Dexie IndexedDB schema, type contracts, CRUD stores, PDF extractor, text paginator, reactive library hook
+- [ ] 08-02-PLAN.md — Library UI and uploader: KaavyaLibrary grid, LibraryCard, KaavyaUploader with PDF drag-and-drop and text paste, page routing
+- [ ] 08-03-PLAN.md — Paginated reader: KaavyaReader with Kindle-like page navigation, ReaderPage with Shobhika font, useReader hook with reading state persistence
+- [ ] 08-04-PLAN.md — Shloka interpretation and AI hints: ShlokaSelector, HintPanel, /api/hints endpoint with pramaana-backed system prompt, reader integration
 
 ### Phase 9: Quiz Engine and Spaced Repetition
 **Goal**: Users can build vocabulary through two quiz modes -- daily mixed review across all texts and kaavya-specific word mastery -- with spaced repetition scheduling that quizzes only when they are likely to forget
@@ -172,6 +173,6 @@ Phases execute in numeric order: 8 → 9 → 10
 | 5. Wire Quiz Fallback Distractors | v1.0 | 1/1 | Complete | 2026-03-09 |
 | 6. Duolingo-Style UI Overhaul | v1.0 | 3/3 | Complete | 2026-03-09 |
 | 7. UI Navigation & Polish | v1.0 | 2/2 | Complete | 2026-03-09 |
-| 8. Kaavya Reader and Storage Foundation | v1.1 | 0/? | Not started | - |
+| 8. Kaavya Reader and Storage Foundation | v1.1 | 0/4 | Planned | - |
 | 9. Quiz Engine and Spaced Repetition | v1.1 | 0/? | Not started | - |
 | 10. Gamification and Metrics Dashboard | v1.1 | 0/? | Not started | - |
