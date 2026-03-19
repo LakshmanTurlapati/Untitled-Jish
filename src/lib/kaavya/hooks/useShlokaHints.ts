@@ -36,20 +36,9 @@ export function useShlokaHints(): UseShlokaHintsReturn {
         const { done, value } = await reader.read();
         if (done) break;
         const chunk = decoder.decode(value, { stream: true });
-        // Parse AI SDK data stream format
-        // Lines starting with "0:" contain text chunks (JSON-encoded strings)
-        const lines = chunk.split('\n');
-        for (const line of lines) {
-          if (line.startsWith('0:')) {
-            try {
-              const text = JSON.parse(line.slice(2));
-              accumulated += text;
-              setHints(accumulated);
-            } catch {
-              /* skip non-JSON lines */
-            }
-          }
-        }
+        // Plain text stream from toTextStreamResponse()
+        accumulated += chunk;
+        setHints(accumulated);
       }
     } catch {
       setError('Could not load hints right now. Check your connection and try again.');

@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { AnalysisView } from "./components/AnalysisView";
-import { KaavyaLibrary } from "./components/KaavyaLibrary";
-import { KaavyaUploader } from "./components/KaavyaUploader";
-import { FaSearch, FaBook, FaArrowLeft } from "react-icons/fa";
+import { FaSearch, FaBook } from "react-icons/fa";
+
+// Dynamic imports to avoid SSR/prerender issues with IndexedDB and pdfjs-dist
+const KaavyaLibrary = dynamic(() => import("./components/KaavyaLibrary").then(m => ({ default: m.KaavyaLibrary })), { ssr: false });
+const KaavyaUploader = dynamic(() => import("./components/KaavyaUploader").then(m => ({ default: m.KaavyaUploader })), { ssr: false });
+const KaavyaReader = dynamic(() => import("./components/KaavyaReader").then(m => ({ default: m.KaavyaReader })), { ssr: false });
 
 type AppView = "analyze" | "library" | "uploader" | "reader";
 
@@ -69,17 +73,11 @@ export default function Home() {
         />
       )}
 
-      {view === "reader" && (
-        <div className="text-center py-16">
-          <p className="text-ink-700 mb-4">Reader coming in Plan 03</p>
-          <button
-            onClick={() => setView("library")}
-            className="inline-flex items-center gap-2 text-accent-500 hover:text-accent-600 transition-colors"
-          >
-            <FaArrowLeft className="text-sm" />
-            Back to Library
-          </button>
-        </div>
+      {view === "reader" && selectedKaavyaId && (
+        <KaavyaReader
+          kaavyaId={selectedKaavyaId}
+          onBack={() => setView("library")}
+        />
       )}
     </main>
   );

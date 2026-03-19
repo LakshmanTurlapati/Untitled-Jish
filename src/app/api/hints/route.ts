@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       prompt: `Shloka:\n${shlokaText}\n\nMy interpretation:\n${userInterpretation}\n\nPlease provide hints based on pramaana.`,
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error) {
     return NextResponse.json(
       {

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FaArrowLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useReader } from "@/lib/kaavya/hooks/useReader";
 import { ReaderPage } from "./ReaderPage";
+import { ShlokaSelector } from "./ShlokaSelector";
 
 interface KaavyaReaderProps {
   kaavyaId: number;
@@ -18,17 +19,14 @@ function getVisibleDots(currentPage: number, totalPages: number): (number | "ell
   const dots: (number | "ellipsis")[] = [];
 
   if (currentPage <= 2) {
-    // Near start: show first 5, ellipsis, last
     for (let i = 0; i < 5; i++) dots.push(i);
     dots.push("ellipsis");
     dots.push(totalPages - 1);
   } else if (currentPage >= totalPages - 3) {
-    // Near end: first, ellipsis, last 5
     dots.push(0);
     dots.push("ellipsis");
     for (let i = totalPages - 5; i < totalPages; i++) dots.push(i);
   } else {
-    // Middle: first, ellipsis, prev, current, next, ellipsis, last
     dots.push(0);
     dots.push("ellipsis");
     dots.push(currentPage - 1);
@@ -52,6 +50,11 @@ export function KaavyaReader({ kaavyaId, onBack }: KaavyaReaderProps) {
     prevPage,
   } = useReader(kaavyaId);
 
+  const [selectedShloka, setSelectedShloka] = useState<string | null>(null);
+  const [showSelector, setShowSelector] = useState(false);
+  const [floatingBtn, setFloatingBtn] = useState<{ top: number; left: number } | null>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+
   // Keyboard navigation
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -65,6 +68,43 @@ export function KaavyaReader({ kaavyaId, onBack }: KaavyaReaderProps) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextPage, prevPage]);
+
+  // Text selection handler
+  const handleMouseUp = useCallback(() => {
+    const selection = window.getSelection();
+    const text = selection?.toString().trim();
+
+    if (text && text.length > 10) {
+      setSelectedShloka(text);
+
+      // Position floating button near the selection
+      const range = selection?.getRangeAt(0);
+      if (range && viewportRef.current) {
+        const rect = range.getBoundingClientRect();
+        const viewportRect = viewportRef.current.getBoundingClientRect();
+        setFloatingBtn({
+          top: rect.bottom - viewportRect.top + 8,
+          left: rect.left - viewportRect.left + rect.width / 2,
+        });
+      }
+    } else {
+      // Only clear if not already in selector mode
+      if (!showSelector) {
+        setFloatingBtn(null);
+      }
+    }
+  }, [showSelector]);
+
+  function handleInterpretClick() {
+    setFloatingBtn(null);
+    setShowSelector(true);
+  }
+
+  function handleCloseSelector() {
+    setSelectedShloka(null);
+    setShowSelector(false);
+    setFloatingBtn(null);
+  }
 
   const visibleDots = useMemo(
     () => getVisibleDots(currentPage, totalPages),
@@ -116,11 +156,39 @@ export function KaavyaReader({ kaavyaId, onBack }: KaavyaReaderProps) {
       </div>
 
       {/* Reader viewport */}
-      <div className="h-[70vh] overflow-hidden bg-parchment-50 rounded-xl border border-parchment-200 px-6 lg:px-10 py-8">
+      <div
+        ref={viewportRef}
+        onMouseUp={handleMouseUp}
+        className="relative h-[70vh] overflow-hidden bg-parchment-50 rounded-xl border border-parchment-200 px-6 lg:px-10 py-8"
+      >
         <div key={currentPage} className="animate-[fade-in_300ms_ease]">
           <ReaderPage content={pages[currentPage]} />
         </div>
+
+        {/* Floating "Interpret This" button */}
+        {floatingBtn && selectedShloka && !showSelector && (
+          <button
+            onClick={handleInterpretClick}
+            className="absolute bg-accent-500 text-white text-sm rounded-lg px-3 py-1.5 shadow-lg z-10 hover:bg-accent-600 transition-colors animate-[fade-in_300ms_ease]"
+            style={{
+              top: `${floatingBtn.top}px`,
+              left: `${floatingBtn.left}px`,
+              transform: "translateX(-50%)",
+            }}
+          >
+            Interpret This
+          </button>
+        )}
       </div>
+
+      {/* Shloka interpretation panel */}
+      {showSelector && selectedShloka && (
+        <ShlokaSelector
+          kaavyaId={kaavyaId}
+          selectedText={selectedShloka}
+          onClose={handleCloseSelector}
+        />
+      )}
 
       {/* Bottom navigation bar */}
       <div className="flex items-center justify-between py-4">
