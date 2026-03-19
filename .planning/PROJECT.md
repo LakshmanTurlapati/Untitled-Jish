@@ -39,14 +39,14 @@ Enable users to master Sanskrit vocabulary and comprehend kaavyas independently 
 
 - [x] Kaavya Reader — upload PDF or paste Sanskrit texts, Kindle-like page-by-page reading — Validated in Phase 8
 - [x] AI comprehension assistant — user tests their shloka interpretation, AI gives hints/nudges (never the answer), backed by internet-sourced pramaana — Validated in Phase 8
-- [ ] Quiz Engine — two modes: daily mixed vocabulary review + kaavya-specific word mastery
-- [ ] Spaced repetition — forgetting curve-based quiz scheduling, only prompt when likely to forget
-- [ ] Vocabulary mastery tracking — words learned, words remaining, new words from new shlokas
-- [ ] Mastery timeline estimates — shown after sufficient quiz data, not from the start
-- [ ] Grammar facts in quiz — word breakdown and grammar info in questions, meanings always as MCQ
+- [x] Quiz Engine — two modes: daily mixed vocabulary review + kaavya-specific word mastery — Validated in Phase 9
+- [x] Spaced repetition — forgetting curve-based quiz scheduling, only prompt when likely to forget — Validated in Phase 9
+- [x] Vocabulary mastery tracking — words learned, words remaining, new words from new shlokas — Validated in Phase 9
+- [x] Mastery timeline estimates — shown after sufficient quiz data, not from the start — Validated in Phase 9
+- [x] Grammar facts in quiz — word breakdown and grammar info in questions, meanings always as MCQ — Validated in Phase 9
 - [ ] Personal rank/XP system — progression tiers, words give less XP than kaavyas completed
 - [ ] Metrics & Trends dashboard — forgetting curves, quiz performance, kaavya comprehension, rank progress
-- [ ] All meanings from dictionaries (MW/Apte) or verified internet sources — never generated
+- [x] All meanings from dictionaries (MW/Apte) or verified internet sources — never generated — Validated in Phase 9
 
 ### Out of Scope
 
@@ -89,4 +89,4 @@ Enable users to master Sanskrit vocabulary and comprehend kaavyas independently 
 | Personal rank (not competitive) | No backend/accounts, progression is self-motivated | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 8 complete -- Kaavya Reader and Storage Foundation shipped*
+*Last updated: 2026-03-19 after Phase 9 complete -- Quiz Engine and Spaced Repetition shipped*
