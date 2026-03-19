@@ -24,6 +24,7 @@ export interface VocabItem {
   scheduledDays: number;
   reps: number;
   lapses: number;
+  learningSteps: number;
   state: State;           // New=0, Learning=1, Review=2, Relearning=3
   lastReview?: string;    // ISO date string
   // Timestamps
