@@ -1,0 +1,75 @@
+/**
+ * POST /api/quiz/populate
+ * Analyzes kaavya text and returns EnrichedWord[] for client-side vocabulary population.
+ *
+ * Request body: { text: string, kaavyaId: number }
+ * Response: { words: EnrichedWord[], kaavyaId: number }
+ *
+ * The client receives EnrichedWord[] and calls populateVocabulary() locally
+ * since IndexedDB is client-side only.
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { analyzeText } from '@/lib/analysis/pipeline';
+import { enrichWithMeanings } from '@/lib/analysis/meanings';
+
+const PopulateSchema = z.object({
+  text: z.string().min(1),
+  kaavyaId: z.number().int().positive(),
+});
+
+const MAX_WORDS_PER_CALL = 50;
+
+/**
+ * Split text into chunks by double newlines or shloka boundaries.
+ * Returns an array of non-empty text segments.
+ */
+function chunkText(text: string): string[] {
+  // Split by double newlines (shloka/paragraph boundaries)
+  const chunks = text.split(/\n\s*\n/).filter(c => c.trim().length > 0);
+  // If no splits found, return as single chunk
+  return chunks.length > 0 ? chunks : [text];
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { text, kaavyaId } = PopulateSchema.parse(body);
+
+    // For large texts, chunk and analyze each segment
+    const chunks = chunkText(text);
+    const allEnrichedWords = [];
+
+    for (const chunk of chunks) {
+      const analysisResult = await analyzeText(chunk);
+      const enrichedWords = analysisResult.words.map((word) =>
+        enrichWithMeanings(word)
+      );
+      allEnrichedWords.push(...enrichedWords);
+
+      // Cap total words to avoid timeouts
+      if (allEnrichedWords.length >= MAX_WORDS_PER_CALL) {
+        break;
+      }
+    }
+
+    // Trim to cap
+    const capped = allEnrichedWords.slice(0, MAX_WORDS_PER_CALL);
+
+    return NextResponse.json({ words: capped, kaavyaId });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid request', details: error.issues },
+        { status: 400 }
+      );
+    }
+    const message =
+      error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json(
+      { error: 'Analysis failed', message },
+      { status: 500 }
+    );
+  }
+}
