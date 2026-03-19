@@ -37,8 +37,8 @@ Enable users to master Sanskrit vocabulary and comprehend kaavyas independently 
 
 <!-- Current scope. Building toward these for v1.1. -->
 
-- [ ] Kaavya Reader — upload PDF or paste Sanskrit texts, Kindle-like page-by-page reading
-- [ ] AI comprehension assistant — user tests their shloka interpretation, AI gives hints/nudges (never the answer), backed by internet-sourced pramaana
+- [x] Kaavya Reader — upload PDF or paste Sanskrit texts, Kindle-like page-by-page reading — Validated in Phase 8
+- [x] AI comprehension assistant — user tests their shloka interpretation, AI gives hints/nudges (never the answer), backed by internet-sourced pramaana — Validated in Phase 8
 - [ ] Quiz Engine — two modes: daily mixed vocabulary review + kaavya-specific word mastery
 - [ ] Spaced repetition — forgetting curve-based quiz scheduling, only prompt when likely to forget
 - [ ] Vocabulary mastery tracking — words learned, words remaining, new words from new shlokas
@@ -84,9 +84,9 @@ Enable users to master Sanskrit vocabulary and comprehend kaavyas independently 
 | No authentication | Reduces friction, local storage sufficient for single-user learning | ✓ Good |
 | IAST over IPA | Standard academic romanization, familiar to target audience | ✓ Good |
 | Tesseract.js for OCR | Local JS OCR, no API dependency | ✓ Good |
-| IndexedDB for persistence | Spaced repetition needs persistent state, but no backend needed for single user | — Pending |
-| AI hints not answers | User learns independently, AI validates interpretation with pramaana-backed nudges | — Pending |
+| IndexedDB for persistence | Spaced repetition needs persistent state, but no backend needed for single user | ✓ Good (Phase 8) |
+| AI hints not answers | User learns independently, AI validates interpretation with pramaana-backed nudges | ✓ Good (Phase 8) |
 | Personal rank (not competitive) | No backend/accounts, progression is self-motivated | — Pending |
 
 ---
-*Last updated: 2026-03-18 after v1.1 milestone start*
+*Last updated: 2026-03-19 after Phase 8 complete -- Kaavya Reader and Storage Foundation shipped*
