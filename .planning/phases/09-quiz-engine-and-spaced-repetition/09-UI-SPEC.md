@@ -39,7 +39,7 @@ Declared values (must be multiples of 4):
 | 2xl | 48px | Major section breaks (py-12) |
 | 3xl | 64px | Page-level spacing (not used in this phase) |
 
-Exceptions: Touch targets for quiz option buttons must be minimum 48px tall (p-4 with text achieves this). SRS rating buttons (Again/Hard/Good/Easy) must be minimum 44px wide for tap accuracy.
+Exceptions: Touch targets for quiz option buttons must be minimum 48px tall (p-4 with text achieves this). SRS rating buttons (Again/Hard/Good/Easy) must be minimum 48px wide for tap accuracy.
 
 ---
 
@@ -48,11 +48,11 @@ Exceptions: Touch targets for quiz option buttons must be minimum 48px tall (p-4
 | Role | Size | Weight | Line Height | CSS Class Pattern |
 |------|------|--------|-------------|-------------------|
 | Body | 14px | 400 (regular) | 1.5 | text-sm |
-| Label | 14px | 600 (semibold) | 1.4 | text-sm font-semibold |
+| Label | 14px | 700 (bold) | 1.4 | text-sm font-bold |
 | Heading | 20px | 700 (bold) | 1.2 | text-xl font-bold |
 | Display | 24px | 700 (bold) | 1.2 | text-2xl font-bold |
 
-Sanskrit word prompts in quiz use `font-sanskrit text-2xl` (24px Shobhika). IAST transliteration uses `text-lg italic text-ink-600` (18px). Grammar fact labels use `text-xs font-semibold` (12px) in pill badges.
+Sanskrit word prompts in quiz use `font-sanskrit text-2xl` (24px Shobhika). IAST transliteration uses `text-lg italic text-ink-600` (18px). Grammar fact labels use `text-sm font-bold` (14px) in pill badges.
 
 ---
 
@@ -84,11 +84,11 @@ Accent reserved for: primary CTA buttons ("Start Quiz", "Add Words"), XP display
 |-----------|---------|-------------------|
 | QuizModeSelector | Choose between Daily Mixed and Kaavya-Specific quiz modes | Two side-by-side cards in parchment-100 container, each with icon (FaRandom / FaBook), title, subtitle showing due count, rounded-xl, border-2 parchment-200, active state: border-accent-600 bg-accent-50 |
 | VocabularyDashboard | Mastery tracking overview with word counts and timeline | Rounded-2xl card with stat grid (2x2): Total Words, Due Now, Learning, Mastered. Each stat is a number + label. Mastery timeline appears below stats only after 5+ reviews. |
-| GrammarFactsPill | Display vibhakti/dhatu/gana alongside quiz question | Horizontal row of pills (rounded-full, bg-parchment-100, text-xs font-semibold text-ink-700, px-2 py-0.5). Example: "Noun" "Dvitiya" "Stri" |
-| SRSRatingBar | After answering, rate difficulty (Again/Hard/Good/Easy) | Four horizontally equal buttons at card bottom. Colors: Again=red-500, Hard=amber-500, Good=green-500, Easy=blue-500. Each button shows label + next review interval (e.g., "Good -- 3d"). Height 44px. |
+| GrammarFactsPill | Display vibhakti/dhatu/gana alongside quiz question | Horizontal row of pills (rounded-full, bg-parchment-100, text-sm font-bold text-ink-700, px-2 py-0.5). Example: "Noun" "Dvitiya" "Stri" |
+| SRSRatingBar | After answering, rate difficulty (Again/Hard/Good/Easy) | Four horizontally equal buttons at card bottom. Colors: Again=red-500, Hard=amber-500, Good=green-500, Easy=blue-500. Each button shows label + next review interval (e.g., "Good -- 3d"). Height 48px. |
 | MasteryTimeline | Estimated time to master current vocabulary set | Single line of text below VocabularyDashboard stats: "Estimated mastery: ~X days at current pace". Only rendered when total reviews >= 5. text-sm text-ink-600. |
 | VocabPopulateButton | "Add Words to Quiz" action on reader/library | Rounded-xl bg-accent-600 text-white font-bold button with FaPlus icon. Shows spinner during population. Success state: brief green checkmark animation (check-appear keyframe). |
-| DueCountBadge | Shows number of due cards on quiz tab/mode cards | Rounded-full bg-red-500 text-white text-xs font-bold min-w-[20px] h-5 flex items-center justify-center. Only rendered when dueCount > 0. |
+| DueCountBadge | Shows number of due cards on quiz tab/mode cards | Rounded-full bg-red-500 text-white text-sm font-bold min-w-[20px] h-5 flex items-center justify-center. Only rendered when dueCount > 0. |
 
 ### Modified Components
 
@@ -97,7 +97,7 @@ Accent reserved for: primary CTA buttons ("Start Quiz", "Add Words"), XP display
 | QuizView | Add grammar facts display above options. After answer check, show SRSRatingBar instead of immediate "Continue". Add mode prop ("daily" or "kaavya"). Show all MW/Apte meanings in post-answer feedback section. |
 | page.tsx | Add "Quiz" tab to top-level navigation (FaBrain icon). Quiz tab routes to QuizModeSelector. View state gains "quiz" and "quiz-session" values. |
 | KaavyaReader | Add VocabPopulateButton in reader toolbar. Shows word count added after population completes. |
-| KaavyaLibrary | Add due card count badge on each LibraryCard. Add "Quiz this" quick-action on LibraryCard context. |
+| KaavyaLibrary | Add due card count badge on each LibraryCard. Add "Quiz this" quick-action on LibraryCard context with `aria-label="Quiz words from {kaavya title}"` for accessibility. |
 
 ---
 
