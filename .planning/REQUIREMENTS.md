@@ -45,8 +45,8 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 
 ### Kaavya Reader
 
-- [ ] **READ-01**: User can upload a PDF of a Sanskrit kaavya/purana for reading
-- [ ] **READ-02**: User can paste Sanskrit text as a kaavya document
+- [x] **READ-01**: User can upload a PDF of a Sanskrit kaavya/purana for reading
+- [x] **READ-02**: User can paste Sanskrit text as a kaavya document
 - [ ] **READ-03**: User can read uploaded texts in a Kindle-like page-by-page UI (easy on the eyes)
 - [ ] **READ-04**: User can select a shloka and submit their interpretation for AI validation
 - [ ] **READ-05**: AI searches internet for pramaana and gives hints/nudges about user's interpretation — never the direct answer
@@ -81,8 +81,8 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 
 ### Storage
 
-- [ ] **STOR-01**: Persistent local storage (IndexedDB) for quiz history, vocabulary state, forgetting curves, XP/rank
-- [ ] **STOR-02**: Uploaded kaavya library persisted locally
+- [x] **STOR-01**: Persistent local storage (IndexedDB) for quiz history, vocabulary state, forgetting curves, XP/rank
+- [x] **STOR-02**: Uploaded kaavya library persisted locally
 
 ## Future Requirements
 
@@ -109,14 +109,14 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| READ-01 | Phase 8 | Pending |
-| READ-02 | Phase 8 | Pending |
+| READ-01 | Phase 8 | Complete |
+| READ-02 | Phase 8 | Complete |
 | READ-03 | Phase 8 | Pending |
 | READ-04 | Phase 8 | Pending |
 | READ-05 | Phase 8 | Pending |
 | READ-06 | Phase 8 | Pending |
-| STOR-01 | Phase 8 | Pending |
-| STOR-02 | Phase 8 | Pending |
+| STOR-01 | Phase 8 | Complete |
+| STOR-02 | Phase 8 | Complete |
 | QUIZ-01 | Phase 9 | Pending |
 | QUIZ-02 | Phase 9 | Pending |
 | QUIZ-03 | Phase 9 | Pending |

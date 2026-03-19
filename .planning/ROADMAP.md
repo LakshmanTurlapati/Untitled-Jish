@@ -173,6 +173,6 @@ Phases execute in numeric order: 8 → 9 → 10
 | 5. Wire Quiz Fallback Distractors | v1.0 | 1/1 | Complete | 2026-03-09 |
 | 6. Duolingo-Style UI Overhaul | v1.0 | 3/3 | Complete | 2026-03-09 |
 | 7. UI Navigation & Polish | v1.0 | 2/2 | Complete | 2026-03-09 |
-| 8. Kaavya Reader and Storage Foundation | v1.1 | 0/4 | Planned | - |
+| 8. Kaavya Reader and Storage Foundation | 1/4 | In Progress|  | - |
 | 9. Quiz Engine and Spaced Repetition | v1.1 | 0/? | Not started | - |
 | 10. Gamification and Metrics Dashboard | v1.1 | 0/? | Not started | - |
