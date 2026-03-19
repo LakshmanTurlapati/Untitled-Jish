@@ -109,13 +109,38 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmapper) | | |
+| READ-01 | Phase 8 | Pending |
+| READ-02 | Phase 8 | Pending |
+| READ-03 | Phase 8 | Pending |
+| READ-04 | Phase 8 | Pending |
+| READ-05 | Phase 8 | Pending |
+| READ-06 | Phase 8 | Pending |
+| STOR-01 | Phase 8 | Pending |
+| STOR-02 | Phase 8 | Pending |
+| QUIZ-01 | Phase 9 | Pending |
+| QUIZ-02 | Phase 9 | Pending |
+| QUIZ-03 | Phase 9 | Pending |
+| QUIZ-04 | Phase 9 | Pending |
+| QUIZ-05 | Phase 9 | Pending |
+| QUIZ-06 | Phase 9 | Pending |
+| QUIZ-07 | Phase 9 | Pending |
+| QUIZ-08 | Phase 9 | Pending |
+| QUIZ-09 | Phase 9 | Pending |
+| GAME-01 | Phase 10 | Pending |
+| GAME-02 | Phase 10 | Pending |
+| GAME-03 | Phase 10 | Pending |
+| GAME-04 | Phase 10 | Pending |
+| METR-01 | Phase 10 | Pending |
+| METR-02 | Phase 10 | Pending |
+| METR-03 | Phase 10 | Pending |
+| METR-04 | Phase 10 | Pending |
+| METR-05 | Phase 10 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 22 total
-- Mapped to phases: 0
-- Unmapped: 22 ⚠️
+- Mapped to phases: 22
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-18 after initial definition*
+*Last updated: 2026-03-18 after roadmap creation*

@@ -1,8 +1,9 @@
 # Roadmap: Sanskrit Text Analyzer
 
-## Overview
+## Milestones
 
-This roadmap delivers an end-to-end Sanskrit text analysis web application in four phases. Phase 1 establishes the foundation: project scaffolding, embedded dictionary infrastructure, text input, and IAST transliteration. Phase 2 builds the core NLP analysis pipeline: sandhi splitting, samasa decomposition, morphological analysis, and hybrid dictionary+LLM meanings. Phase 3 layers image upload and Tesseract.js OCR on top of the validated text pipeline. Phase 4 adds study features: vocabulary extraction and MCQ quiz generation. Each phase delivers a coherent, independently verifiable capability.
+- ✅ **v1.0 MVP** - Phases 1-7 (shipped 2026-03-09)
+- 🚧 **v1.1 Sanskrit Learning Platform** - Phases 8-10 (in progress)
 
 ## Phases
 
@@ -12,26 +13,22 @@ This roadmap delivers an end-to-end Sanskrit text analysis web application in fo
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [x] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
-- [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI (completed 2026-03-09)
-- [x] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline (completed 2026-03-09)
-- [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz (completed 2026-03-09)
-- [x] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions (gap closure, completed 2026-03-09)
-- [x] **Phase 6: Duolingo-Style UI Overhaul** - Redesign interface with Duolingo-inspired UX patterns (gamified feel, progress indicators, card-based layouts) using existing color scheme, no new assets (completed 2026-03-09)
-- [x] **Phase 7: UI Navigation & Polish** - Tabbed sections, analysis button gated to page, camera capture, checkmark color alignment (completed 2026-03-09)
+<details>
+<summary>✅ v1.0 MVP (Phases 1-7) - SHIPPED 2026-03-09</summary>
 
-## Phase Details
+- [x] **Phase 1: Foundation and Text Input** - Project scaffold, dictionary infrastructure, Devanagari text input with IAST transliteration
+- [x] **Phase 2: Core Analysis Pipeline** - Sandhi splitting, samasa decomposition, morphological analysis, and hybrid meanings with word breakdown UI
+- [x] **Phase 3: Image Input and OCR** - Image upload with Tesseract.js OCR feeding into the analysis pipeline
+- [x] **Phase 4: Study Features** - Vocabulary extraction with filtering and word-to-meaning MCQ quiz
+- [x] **Phase 5: Wire Quiz Fallback Distractors** - Connect QuizView to /api/distractors so short passages get quiz questions
+- [x] **Phase 6: Duolingo-Style UI Overhaul** - Redesign interface with Duolingo-inspired UX patterns
+- [x] **Phase 7: UI Navigation & Polish** - Tabbed sections, analysis button gated to page, camera capture, checkmark color alignment
 
 ### Phase 1: Foundation and Text Input
 **Goal**: Project scaffold with Shobhika typography, bidirectional IAST transliteration engine, and embedded dictionary infrastructure (MW + Apte via CDSL/SQLite) in a clean, scholar-friendly app shell
 **Depends on**: Nothing (first phase)
 **Requirements**: ANAL-05, UI-01, UI-03
-**Success Criteria** (what must be TRUE):
-  1. Bidirectional IAST transliteration engine converts Devanagari text accurately (tested programmatically)
-  2. App shell renders with Shobhika Devanagari typography and warm academic design tokens
-  3. App works immediately without any login or account creation
-  4. Dictionary definitions (Monier-Williams and Apte) are retrievable for Sanskrit stem forms
-**Plans**: 3 plans
+**Plans**: 3/3 complete
 
 Plans:
 - [x] 01-01-PLAN.md — Project scaffold, test infra, Shobhika font, design tokens, transliteration utility, app shell
@@ -42,13 +39,7 @@ Plans:
 **Goal**: Users get deep grammatical analysis of any Sanskrit text -- sandhi splitting, compound decomposition, morphological breakdown, and hybrid meanings -- displayed in a structured word-by-word view
 **Depends on**: Phase 1
 **Requirements**: ANAL-01, ANAL-02, ANAL-03, ANAL-04, MEAN-01, MEAN-02, MEAN-03, MEAN-04, UI-02
-**Success Criteria** (what must be TRUE):
-  1. User sees sandhi junctions split into individual words with vowel, consonant, and visarga sandhi handled
-  2. User sees samasa compounds decomposed with type classification (tatpurusha, dvandva, bahuvrihi, avyayibhava, karmadharaya, dvigu)
-  3. User sees vibhakti, vacana, linga, and dhatu/gana identification for each word in a structured breakdown view
-  4. User sees both dictionary-sourced definitions and LLM-contextual meanings, clearly distinguished from each other
-  5. Word-by-word breakdown view shows all analysis properties for each word
-**Plans**: 3 plans
+**Plans**: 3/3 complete
 
 Plans:
 - [x] 02-01-PLAN.md — Core analysis pipeline: type contracts, Zod schemas, LLM prompts, sandhi/samasa/morphology with INRIA validation
@@ -59,12 +50,7 @@ Plans:
 **Goal**: Users can photograph or upload printed Devanagari text and get the full analysis pipeline applied automatically
 **Depends on**: Phase 2
 **Requirements**: INPUT-01, INPUT-02, INPUT-03
-**Success Criteria** (what must be TRUE):
-  1. User can paste or type Devanagari text into the app and see it rendered with proper typography, with IAST transliteration displayed
-  2. User can upload an image of printed Devanagari text and see extracted Sanskrit text appear
-  3. Extracted text feeds directly into the analysis pipeline, producing the same results as manual text input
-  4. OCR extraction handles standard printed Devanagari with reasonable accuracy using Tesseract.js with Devanagari traineddata
-**Plans**: 2 plans
+**Plans**: 2/2 complete
 
 Plans:
 - [x] 03-01-PLAN.md — OCR backend: Tesseract.js extraction function and /api/ocr API route with FormData handling
@@ -74,10 +60,7 @@ Plans:
 **Goal**: Users can study vocabulary extracted from analyzed texts through filtered word lists and interactive quizzes
 **Depends on**: Phase 2
 **Requirements**: STDY-01, STDY-02
-**Success Criteria** (what must be TRUE):
-  1. User sees a list of unique words extracted from analyzed text with common particles (ca, tu, hi, eva, api, etc.) filtered out
-  2. User can take a word-to-meaning MCQ quiz generated from extracted vocabulary with plausible distractors
-**Plans**: 2 plans
+**Plans**: 2/2 complete
 
 Plans:
 - [x] 04-01-PLAN.md — Study feature logic: type contracts, vocabulary extraction, quiz generation, fallback distractor API
@@ -87,43 +70,16 @@ Plans:
 **Goal**: QuizView fetches fallback distractors from /api/distractors so short passages (< 4 unique words) can still generate quiz questions
 **Depends on**: Phase 4
 **Requirements**: STDY-02
-**Gap Closure**: Closes integration and flow gaps from v1.0 audit
-**Success Criteria** (what must be TRUE):
-  1. QuizView fetches fallback meanings from GET /api/distractors when vocabulary has fewer than 4 unique meanings
-  2. Fetched fallback meanings are passed to generateQuiz() as fallbackMeanings parameter
-  3. Short passages produce quiz questions instead of "Need at least 4 words" message
-**Plans**: 1 plan
+**Plans**: 1/1 complete
 
 Plans:
 - [x] 05-01-PLAN.md — Wire QuizView to /api/distractors for fallback distractor fetching
 
-## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
-(Note: Phases 3 and 4 both depend on Phase 2 and could execute in either order)
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation and Text Input | 3/3 | Complete | 2026-03-07 |
-| 2. Core Analysis Pipeline | 3/3 | Complete   | 2026-03-09 |
-| 3. Image Input and OCR | 2/2 | Complete   | 2026-03-09 |
-| 4. Study Features | 2/2 | Complete   | 2026-03-09 |
-| 5. Wire Quiz Fallback Distractors | 1/1 | Complete | 2026-03-09 |
-| 6. Duolingo-Style UI Overhaul | 3/3 | Complete   | 2026-03-09 |
-| 7. UI Navigation & Polish | 2/2 | Complete | 2026-03-09 |
-
 ### Phase 6: Duolingo-Style UI Overhaul
-**Goal**: Redesign the interface with Duolingo-inspired UX patterns — gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions — while keeping the existing warm academic color scheme. No new image assets required.
+**Goal**: Redesign the interface with Duolingo-inspired UX patterns -- gamified feel, clear progress indicators, card-based layouts, friendly micro-interactions -- while keeping the existing warm academic color scheme
 **Depends on**: Phase 5
 **Requirements**: UI-01, UI-02
-**Success Criteria** (what must be TRUE):
-  1. Interface uses card-based layouts with clear visual hierarchy inspired by Duolingo
-  2. Analysis flow feels guided and gamified with progress indicators and encouraging feedback
-  3. Quiz experience has Duolingo-style answer selection, feedback animations, and score tracking
-  4. Existing warm academic color scheme (design tokens) is preserved throughout
-  5. No new image/icon assets are introduced — CSS/SVG-only visual enhancements
-**Plans**: 3 plans
+**Plans**: 3/3 complete
 
 Plans:
 - [x] 06-01-PLAN.md — Page layout restructure: minimal header, hero input card, tabs, sticky bottom bar, analysis progress steps
@@ -131,17 +87,91 @@ Plans:
 - [x] 06-03-PLAN.md — Quiz gamification: hearts, XP, streaks, tap-to-select+Check, celebration screen with confetti
 
 ### Phase 7: UI Navigation & Polish
-
-**Goal:** Reorganize the app into tabbed sections, gate the analysis button to its page, add direct camera capture, and align checkmark colors with the app's color scheme
+**Goal**: Reorganize the app into tabbed sections, gate the analysis button to its page, add direct camera capture, and align checkmark colors with the app's color scheme
+**Depends on**: Phase 6
 **Requirements**: UI-01, UI-02, INPUT-02
-**Depends on:** Phase 6
-**Success Criteria** (what must be TRUE):
-  1. Top-level Analyze/Study tabs provide clear page-level navigation
-  2. Sticky Analyze button only appears on the Analyze tab
-  3. Camera capture button enables direct photo taking on mobile
-  4. Progress step checkmarks use accent colors matching the app's palette
-**Plans:** 2/2 plans executed
+**Plans**: 2/2 complete
 
 Plans:
 - [x] 07-01-PLAN.md — Top-level Analyze/Study tab navigation, sticky bar gating, checkmark color fix
 - [x] 07-02-PLAN.md — Camera capture button in ImageUpload with capture=environment attribute
+
+</details>
+
+### 🚧 v1.1 Sanskrit Learning Platform (In Progress)
+
+**Milestone Goal:** Transform the single-shloka analyzer into a full Sanskrit learning platform with kaavya reading, spaced-repetition quizzes, and mastery tracking.
+
+- [ ] **Phase 8: Kaavya Reader and Storage Foundation** - Upload/paste Sanskrit texts, Kindle-like reading UI, AI comprehension hints, IndexedDB persistence layer
+- [ ] **Phase 9: Quiz Engine and Spaced Repetition** - Daily and kaavya-specific quiz modes, forgetting curve scheduling, vocabulary mastery tracking
+- [ ] **Phase 10: Gamification and Metrics Dashboard** - XP/rank progression, forgetting curve visualization, performance trends, mastery timeline
+
+## Phase Details
+
+### Phase 8: Kaavya Reader and Storage Foundation
+**Goal**: Users can upload or paste Sanskrit kaavyas, read them in a comfortable page-by-page interface, test their shloka interpretations with AI-powered pramaana-backed hints, and have their library persist across sessions
+**Depends on**: Phase 7
+**Requirements**: READ-01, READ-02, READ-03, READ-04, READ-05, READ-06, STOR-01, STOR-02
+**Success Criteria** (what must be TRUE):
+  1. User can upload a PDF or paste Sanskrit text and see it stored as a kaavya in their personal library
+  2. User can read any saved kaavya in a Kindle-like page-by-page view that is comfortable for extended reading
+  3. User can select a shloka, type their interpretation, and receive AI hints/nudges backed by internet-sourced pramaana -- never the direct answer
+  4. User can browse their library of uploaded kaavyas and return to any previously uploaded text
+  5. All library data and reading state persists in the browser across sessions (IndexedDB)
+**Plans**: TBD
+
+Plans:
+- [ ] 08-01: TBD
+- [ ] 08-02: TBD
+- [ ] 08-03: TBD
+
+### Phase 9: Quiz Engine and Spaced Repetition
+**Goal**: Users can build vocabulary through two quiz modes -- daily mixed review across all texts and kaavya-specific word mastery -- with spaced repetition scheduling that quizzes only when they are likely to forget
+**Depends on**: Phase 8
+**Requirements**: QUIZ-01, QUIZ-02, QUIZ-03, QUIZ-04, QUIZ-05, QUIZ-06, QUIZ-07, QUIZ-08, QUIZ-09
+**Success Criteria** (what must be TRUE):
+  1. User can populate quiz vocabulary from a specific document or set of shlokas and see all dictionary-sourced meanings (MW/Apte) for each word -- never generated meanings
+  2. User can take daily mixed vocabulary quizzes drawing from all words seen across all kaavyas
+  3. User can take kaavya-specific quizzes focusing on words from a particular text
+  4. Quiz questions include grammar facts (word breakdown, vibhakti, dhatu) alongside meaning MCQs
+  5. Spaced repetition schedules quizzes based on forgetting curves, and mastery timeline estimates appear after sufficient quiz data
+**Plans**: TBD
+
+Plans:
+- [ ] 09-01: TBD
+- [ ] 09-02: TBD
+- [ ] 09-03: TBD
+
+### Phase 10: Gamification and Metrics Dashboard
+**Goal**: Users feel motivated through XP/rank progression and can track their learning with forgetting curve analysis, vocabulary growth trends, and kaavya comprehension metrics
+**Depends on**: Phase 9
+**Requirements**: GAME-01, GAME-02, GAME-03, GAME-04, METR-01, METR-02, METR-03, METR-04, METR-05
+**Success Criteria** (what must be TRUE):
+  1. User earns XP for quiz answers and kaavya completions, with kaavyas worth more than individual words
+  2. User progresses through unlockable rank tiers based on word mastery count and kaavyas read
+  3. User can view forgetting curve visualizations showing how quickly they forget words over different time frames
+  4. User sees a metrics dashboard with vocabulary growth trends, quiz performance, kaavya comprehension tracking, and rank progress
+  5. App provides smart quiz prompting -- notifying only when analysis shows the user is likely to forget
+**Plans**: TBD
+
+Plans:
+- [ ] 10-01: TBD
+- [ ] 10-02: TBD
+
+## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 8 → 9 → 10
+
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation and Text Input | v1.0 | 3/3 | Complete | 2026-03-07 |
+| 2. Core Analysis Pipeline | v1.0 | 3/3 | Complete | 2026-03-09 |
+| 3. Image Input and OCR | v1.0 | 2/2 | Complete | 2026-03-09 |
+| 4. Study Features | v1.0 | 2/2 | Complete | 2026-03-09 |
+| 5. Wire Quiz Fallback Distractors | v1.0 | 1/1 | Complete | 2026-03-09 |
+| 6. Duolingo-Style UI Overhaul | v1.0 | 3/3 | Complete | 2026-03-09 |
+| 7. UI Navigation & Polish | v1.0 | 2/2 | Complete | 2026-03-09 |
+| 8. Kaavya Reader and Storage Foundation | v1.1 | 0/? | Not started | - |
+| 9. Quiz Engine and Spaced Repetition | v1.1 | 0/? | Not started | - |
+| 10. Gamification and Metrics Dashboard | v1.1 | 0/? | Not started | - |
