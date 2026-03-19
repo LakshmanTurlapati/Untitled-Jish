@@ -3,9 +3,9 @@ import { shobhika } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sanskrit Analyzer",
+  title: "Sanskrit Learning Platform",
   description:
-    "Deep grammatical analysis of Sanskrit text — sandhi splitting, samasa decomposition, morphological breakdown, and dictionary-backed meanings.",
+    "Sanskrit text analysis, kaavya reading, and vocabulary building — sandhi splitting, samasa decomposition, morphological breakdown, and dictionary-backed meanings.",
 };
 
 export default function RootLayout({
