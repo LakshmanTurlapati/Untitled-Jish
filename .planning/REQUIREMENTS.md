@@ -48,8 +48,8 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 - [x] **READ-01**: User can upload a PDF of a Sanskrit kaavya/purana for reading
 - [x] **READ-02**: User can paste Sanskrit text as a kaavya document
 - [x] **READ-03**: User can read uploaded texts in a Kindle-like page-by-page UI (easy on the eyes)
-- [ ] **READ-04**: User can select a shloka and submit their interpretation for AI validation
-- [ ] **READ-05**: AI searches internet for pramaana and gives hints/nudges about user's interpretation — never the direct answer
+- [x] **READ-04**: User can select a shloka and submit their interpretation for AI validation
+- [x] **READ-05**: AI searches internet for pramaana and gives hints/nudges about user's interpretation — never the direct answer
 - [x] **READ-06**: User can browse their library of uploaded kaavyas
 
 ### Quiz Engine
@@ -112,8 +112,8 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 | READ-01 | Phase 8 | Complete |
 | READ-02 | Phase 8 | Complete |
 | READ-03 | Phase 8 | Complete |
-| READ-04 | Phase 8 | Pending |
-| READ-05 | Phase 8 | Pending |
+| READ-04 | Phase 8 | Complete |
+| READ-05 | Phase 8 | Complete |
 | READ-06 | Phase 8 | Complete |
 | STOR-01 | Phase 8 | Complete |
 | STOR-02 | Phase 8 | Complete |
