@@ -36,10 +36,10 @@ Declared values (must be multiples of 4):
 | md | 16px | Default element spacing, card padding |
 | lg | 24px | Section padding, reader margins |
 | xl | 32px | Layout gaps between major sections |
-| 2xl | 48px | Page-level vertical breaks |
+| 2xl | 48px | Page-level vertical breaks, touch targets (reader nav arrows) |
 | 3xl | 64px | Reader viewport top/bottom clearance |
 
-Exceptions: Reader page navigation touch targets at 44px min (accessibility requirement for swipe/tap areas).
+Exceptions: None. Reader page navigation touch targets use 48px (exceeds WCAG 44px minimum).
 
 ---
 
@@ -50,12 +50,12 @@ Exceptions: Reader page navigation touch targets at 44px min (accessibility requ
 | Body | 16px | 400 (regular) | 1.5 | --font-sans |
 | Reader body | 20px | 400 (regular) | 2.0 | --font-sanskrit (Shobhika) |
 | Label | 14px | 600 (semibold) | 1.4 | --font-sans |
-| Heading | 24px | 700 (bold) | 1.2 | --font-sans |
+| Heading | 24px | 600 (semibold) | 1.2 | --font-sans |
 
 Notes:
 - Reader body uses Shobhika at 20px with line-height 2.0 for comfortable extended Sanskrit reading (matches research recommendation and existing --spacing-sanskrit: 1.8 token, rounded up for readability).
 - All UI chrome (buttons, labels, metadata) uses system sans-serif.
-- Only 2 weights used: 400 (regular) and 600 (semibold) for UI; 700 (bold) reserved for page headings only.
+- Only 2 weights used: 400 (regular) and 600 (semibold). A 24px heading at semibold reads as a clear heading against 16px regular body text without requiring a third weight.
 
 ---
 
@@ -103,6 +103,8 @@ Accent reserved for: Primary CTA buttons ("Upload Kaavya", "Save to Library", "S
 
 ### Library View (READ-06)
 
+**Focal Point:** The "Add Kaavya" CTA button in the top bar -- draws the user toward adding their first kaavya (empty state) or growing their collection (populated state).
+
 ```
 +------------------------------------------+
 |  [Library]  [+ Add Kaavya]               |  <- Top bar with heading + CTA
@@ -110,7 +112,7 @@ Accent reserved for: Primary CTA buttons ("Upload Kaavya", "Save to Library", "S
 |                                          |
 |  +----------------+  +----------------+  |
 |  | Kaavya Title   |  | Kaavya Title   |  |  <- 2-column grid on desktop
-|  | Author (opt)   |  | Author (opt)   |  |     1-column on mobile
+|  | Author (opt)   |  | Author (opt)   |     1-column on mobile
 |  | Page 3 of 24   |  | Page 1 of 12   |  |
 |  | Last read: 2d  |  | Added: today   |  |
 |  +----------------+  +----------------+  |
@@ -161,6 +163,8 @@ Accent reserved for: Primary CTA buttons ("Upload Kaavya", "Save to Library", "S
 
 ### Reader View (READ-03, READ-04, READ-05)
 
+**Focal Point:** The Sanskrit text block in the center of the reader viewport -- the primary reading surface occupies the visual center with all chrome pushed to edges.
+
 ```
 +------------------------------------------+
 |  [< Library]    Kaavya Title     [pg/pg] |  <- Minimal top bar
@@ -194,7 +198,7 @@ When shloka selected, bottom sheet slides up:
 ```
 
 - Reader viewport: height 70vh, overflow hidden, parchment-50 background
-- Page navigation: arrow buttons (44px touch target), dot indicators
+- Page navigation: arrow buttons (48px touch target), dot indicators
 - Active page dot: accent-500, inactive dots: parchment-200
 - Page turn animation: translateX with 300ms ease transition
 - Interpretation panel: slides up from bottom, parchment-100 background
@@ -300,7 +304,7 @@ No shadcn or third-party registries in use. All components are custom-built foll
 - Dropzone: `role="button"` with `aria-label="Upload PDF file"`
 - Shloka selection floating button: focus-managed, appears on text selection
 - Delete confirmation modal: focus-trapped, Escape to dismiss
-- All interactive elements: minimum 44px touch target
+- All interactive elements: minimum 48px touch target (exceeds WCAG 44px minimum)
 - Reader text: minimum 20px for comfortable reading
 - Color contrast: ink-800 (#2a1f14) on parchment-50 (#fdf8f0) exceeds WCAG AAA (contrast ratio >7:1)
 
