@@ -71,6 +71,7 @@ Recent decisions affecting current work:
 - [v1.1 Roadmap]: IndexedDB for all persistent state (library, quiz history, vocabulary, XP/rank).
 - [v1.1 Roadmap]: AI comprehension hints use internet-sourced pramaana, never direct answers.
 - [Phase 08]: Used Dexie EntityTable typing for type-safe IndexedDB operations
+- [Phase 08-02]: Client-side view state routing in page.tsx for Analyze/Library/Uploader/Reader views
 - [Phase 08]: Debounce reading state saves at 500ms to avoid excessive IndexedDB writes
 
 ### Pending Todos

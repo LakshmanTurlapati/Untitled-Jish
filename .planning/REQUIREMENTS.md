@@ -50,7 +50,7 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 - [x] **READ-03**: User can read uploaded texts in a Kindle-like page-by-page UI (easy on the eyes)
 - [ ] **READ-04**: User can select a shloka and submit their interpretation for AI validation
 - [ ] **READ-05**: AI searches internet for pramaana and gives hints/nudges about user's interpretation — never the direct answer
-- [ ] **READ-06**: User can browse their library of uploaded kaavyas
+- [x] **READ-06**: User can browse their library of uploaded kaavyas
 
 ### Quiz Engine
 
@@ -114,7 +114,7 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 | READ-03 | Phase 8 | Complete |
 | READ-04 | Phase 8 | Pending |
 | READ-05 | Phase 8 | Pending |
-| READ-06 | Phase 8 | Pending |
+| READ-06 | Phase 8 | Complete |
 | STOR-01 | Phase 8 | Complete |
 | STOR-02 | Phase 8 | Complete |
 | QUIZ-01 | Phase 9 | Pending |
