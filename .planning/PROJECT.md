@@ -44,8 +44,8 @@ Enable users to master Sanskrit vocabulary and comprehend kaavyas independently 
 - [x] Vocabulary mastery tracking — words learned, words remaining, new words from new shlokas — Validated in Phase 9
 - [x] Mastery timeline estimates — shown after sufficient quiz data, not from the start — Validated in Phase 9
 - [x] Grammar facts in quiz — word breakdown and grammar info in questions, meanings always as MCQ — Validated in Phase 9
-- [ ] Personal rank/XP system — progression tiers, words give less XP than kaavyas completed
-- [ ] Metrics & Trends dashboard — forgetting curves, quiz performance, kaavya comprehension, rank progress
+- [x] Personal rank/XP system — progression tiers, words give less XP than kaavyas completed — Validated in Phase 10
+- [x] Metrics & Trends dashboard — forgetting curves, quiz performance, kaavya comprehension, rank progress — Validated in Phase 10
 - [x] All meanings from dictionaries (MW/Apte) or verified internet sources — never generated — Validated in Phase 9
 
 ### Out of Scope
