@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.1 Sanskrit Learning Platform (Shipped: 2026-03-20)
+
+**Phases completed:** 3 phases, 10 plans, 22 tasks
+
+**Key accomplishments:**
+
+- Dexie IndexedDB schema with kaavya/readingState/interpretation tables, CRUD stores, PDF text extractor via pdfjs-dist, and reactive library hook
+- Library grid with card view, PDF drag-and-drop uploader with text paste, and top-level Analyze/Library tab navigation
+- Kindle-like paginated reader with Shobhika font rendering, keyboard navigation, page dot indicators, and IndexedDB reading state persistence
+- Shloka text selection with floating "Interpret This" button, interpretation input, and streaming AI hints backed by pramaana using grok-3-mini
+- FSRS spaced repetition wrapper with ts-fsrs v5, Dexie v2 schema for vocab/review tables, and vocabulary population pipeline with dictionary-only meanings
+- Quiz engine with daily/kaavya dual modes, dictionary-only MCQ generation with grammar facts, and POST /api/quiz/populate endpoint for server-side text analysis
+- Complete quiz UI with mode selector, SRS rating bar, grammar facts pills, mastery dashboard, vocabulary population button, and Quiz tab navigation
+- TDD-driven gamification engines: XP computation, 6-tier dual-axis rank system, FSRS-based forgetting curves, vocabulary growth tracking, and comprehension metrics as pure functions with 23 tests
+- Recharts-powered metrics dashboard with rank badge, forgetting curve, vocab growth charts, and smart quiz prompt banner
+- CompactRankBadge + SmartQuizPrompt + MetricsDashboard wired into Quiz tab with XP persistence, floating XP animation, and rank-up celebration
+
+---
+
 ## v1.0 — Sanskrit Text Analyzer (completed 2026-03-09)
 
 **Goal:** End-to-end Sanskrit text analysis — image/text input → OCR → sandhi/samasa/morphology → dictionary+AI meanings → vocabulary quiz.
