@@ -1,24 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "@/lib/kaavya/db/schema";
+import { getAtRiskWords } from "@/lib/gamification/metricsEngine";
 
 interface SmartQuizPromptProps {
-  atRiskCount: number;
   onReviewNow: () => void;
 }
 
-export function SmartQuizPrompt({
-  atRiskCount,
-  onReviewNow,
-}: SmartQuizPromptProps) {
+export function SmartQuizPrompt({ onReviewNow }: SmartQuizPromptProps) {
   const [dismissed, setDismissed] = useState(false);
+
+  const atRiskCount =
+    useLiveQuery(async () => {
+      const items = await db.vocabItems.toArray();
+      return getAtRiskWords(items).length;
+    }) ?? 0;
 
   if (atRiskCount < 5 || dismissed) {
     return null;
   }
 
   return (
-    <div className="rounded-xl bg-accent-500/10 border border-accent-500/30 p-4 flex items-center justify-between">
+    <div className="rounded-xl bg-accent-500/10 border border-accent-500/30 p-4 flex items-center justify-between mb-4">
       <p className="text-sm text-ink-800">
         {atRiskCount} words fading -- review now
       </p>

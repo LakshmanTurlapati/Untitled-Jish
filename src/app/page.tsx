@@ -12,6 +12,9 @@ const KaavyaReader = dynamic(() => import("./components/KaavyaReader").then(m =>
 const QuizModeSelector = dynamic(() => import("./components/QuizModeSelector").then(m => ({ default: m.QuizModeSelector })), { ssr: false });
 const VocabularyDashboard = dynamic(() => import("./components/VocabularyDashboard").then(m => ({ default: m.VocabularyDashboard })), { ssr: false });
 const QuizView = dynamic(() => import("./components/QuizView").then(m => ({ default: m.QuizView })), { ssr: false });
+const MetricsDashboard = dynamic(() => import("./components/MetricsDashboard").then(m => ({ default: m.MetricsDashboard })), { ssr: false });
+const SmartQuizPrompt = dynamic(() => import("./components/SmartQuizPrompt").then(m => ({ default: m.SmartQuizPrompt })), { ssr: false });
+const CompactRankBadge = dynamic(() => import("./components/CompactRankBadge").then(m => ({ default: m.CompactRankBadge })), { ssr: false });
 
 type AppView = "analyze" | "library" | "uploader" | "reader" | "quiz" | "quiz-session";
 
@@ -103,6 +106,16 @@ export default function Home() {
 
       {view === "quiz" && (
         <>
+          <div className="flex justify-end mb-3">
+            <CompactRankBadge />
+          </div>
+          <SmartQuizPrompt
+            onReviewNow={() => {
+              setQuizMode("daily");
+              setQuizKaavyaId(undefined);
+              setView("quiz-session");
+            }}
+          />
           <VocabularyDashboard />
           <div className="mt-6">
             <QuizModeSelector
@@ -112,6 +125,9 @@ export default function Home() {
                 setView("quiz-session");
               }}
             />
+          </div>
+          <div className="mt-6">
+            <MetricsDashboard />
           </div>
         </>
       )}
