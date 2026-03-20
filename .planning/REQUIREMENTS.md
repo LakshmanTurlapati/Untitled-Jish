@@ -69,7 +69,7 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 - [x] **GAME-01**: Personal rank/tier progression system (unlockable levels)
 - [x] **GAME-02**: XP system — words give less XP than kaavyas completed
 - [x] **GAME-03**: Rank updates based on word mastery count and kaavyas/puranas read
-- [ ] **GAME-04**: Game-like feel with dopamine-driven engagement (progress, achievements, streaks)
+- [x] **GAME-04**: Game-like feel with dopamine-driven engagement (progress, achievements, streaks)
 
 ### Metrics & Trends
 
@@ -129,7 +129,7 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 | GAME-01 | Phase 10 | Complete |
 | GAME-02 | Phase 10 | Complete |
 | GAME-03 | Phase 10 | Complete |
-| GAME-04 | Phase 10 | Pending |
+| GAME-04 | Phase 10 | Complete |
 | METR-01 | Phase 10 | Complete |
 | METR-02 | Phase 10 | Complete |
 | METR-03 | Phase 10 | Complete |
