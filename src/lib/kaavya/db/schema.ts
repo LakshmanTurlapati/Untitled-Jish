@@ -1,6 +1,7 @@
 import Dexie, { type EntityTable } from 'dexie';
 import type { Kaavya, ReadingState, ShlokaInterpretation } from '../types';
 import type { VocabItem, ReviewLog } from '@/lib/quiz/types';
+import type { UserStats } from '@/lib/gamification/types';
 
 const db = new Dexie('KaavyaDB') as Dexie & {
   kaavyas: EntityTable<Kaavya, 'id'>;
@@ -8,6 +9,7 @@ const db = new Dexie('KaavyaDB') as Dexie & {
   interpretations: EntityTable<ShlokaInterpretation, 'id'>;
   vocabItems: EntityTable<VocabItem, 'id'>;
   reviewLogs: EntityTable<ReviewLog, 'id'>;
+  userStats: EntityTable<UserStats, 'id'>;
 };
 
 db.version(1).stores({
@@ -22,6 +24,15 @@ db.version(2).stores({
   interpretations: '++id, kaavyaId, createdAt',
   vocabItems: '++id, stem, kaavyaId, state, due',
   reviewLogs: '++id, vocabItemId, rating, reviewedAt',
+});
+
+db.version(3).stores({
+  kaavyas: '++id, title, createdAt',
+  readingStates: '++id, kaavyaId, lastReadAt',
+  interpretations: '++id, kaavyaId, createdAt',
+  vocabItems: '++id, stem, kaavyaId, state, due',
+  reviewLogs: '++id, vocabItemId, rating, reviewedAt',
+  userStats: '++id',
 });
 
 export { db };
