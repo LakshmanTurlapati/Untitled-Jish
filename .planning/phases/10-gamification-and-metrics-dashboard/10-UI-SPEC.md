@@ -52,11 +52,11 @@ Source: Existing VocabularyDashboard uses p-6 (24px), gap-4 (16px). Carried forw
 | Role | Size | Weight | Line Height | Usage |
 |------|------|--------|-------------|-------|
 | Body | 14px (text-sm) | 400 (normal) | 1.5 | Stat labels, chart axis labels, banner body text |
-| Label | 16px (text-base) | 600 (semibold) | 1.5 | Section headings within dashboard, time range pill labels |
+| Label | 16px (text-base) | 700 (bold) | 1.5 | Section headings within dashboard, time range pill labels |
 | Heading | 20px (text-xl) | 700 (bold) | 1.2 | Dashboard section titles ("Forgetting Curve", "Vocabulary Growth") |
-| Display | 24px (text-2xl) | 700 (bold) | 1.2 | Stat card numbers (XP total, rank name, mastered count) |
+| Display | 24px (text-2xl) | 700 (bold) | 1.2 | Stat card numbers (XP total, rank name, mastered count), rank-up celebration rank name |
 
-Note: Display size matches existing VocabularyDashboard stat card numbers (text-2xl font-bold). Rank-up celebration card uses text-3xl (30px) bold for the rank name only.
+2 weights only: 400 (normal) for body text and labels, 700 (bold) for headings, stat numbers, buttons, and emphasis.
 
 Source: Existing VocabularyDashboard pattern (text-2xl font-bold for numbers, text-sm for labels).
 
@@ -86,7 +86,7 @@ Source: Existing VocabularyDashboard pattern (text-2xl font-bold for numbers, te
 | Bronze | accent-500 (#b45309) | Forgetting curve stroke, primary chart line |
 | Green | green-500 (#22c55e) | Mastered state in stacked area, mastered count stat |
 | Amber | amber-500 (#f59e0b) | Learning state in stacked area |
-| Ink | ink-700 (#3d2e1f) at 40% opacity | New state in stacked area |
+| Ink | ink-400 | New state in stacked area |
 | Parchment | parchment-100 (#f9edd8) | Chart background fill |
 
 ### Rank tier badge colors (from RESEARCH.md):
@@ -99,7 +99,7 @@ Source: Existing VocabularyDashboard pattern (text-2xl font-bold for numbers, te
 | Acharya | purple-500 | purple-500 circle with white letter |
 | Mahavidvan | amber-500 | amber-500 circle with white letter |
 
-Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.css color tokens.
+Source: CONTEXT.md chart colors (ink-400 for New state), RESEARCH.md rank tier colors, existing globals.css color tokens.
 
 ---
 
@@ -109,7 +109,7 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 
 | Component | Location | Description |
 |-----------|----------|-------------|
-| RankProgressCard | src/app/components/RankProgressCard.tsx | Current rank badge + XP total + progress bar to next tier |
+| RankProgressCard | src/app/components/RankProgressCard.tsx | **Primary visual anchor/focal point.** Current rank badge + XP total + progress bar to next tier |
 | ForgettingCurveChart | src/app/components/ForgettingCurveChart.tsx | Recharts AreaChart with shaded area showing average recall over days |
 | VocabGrowthChart | src/app/components/VocabGrowthChart.tsx | Recharts stacked AreaChart showing New/Learning/Mastered over time |
 | SmartQuizPrompt | src/app/components/SmartQuizPrompt.tsx | Banner at top of Quiz tab when 5+ words have retrievability < 0.7 |
@@ -120,8 +120,8 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 
 | Component | Changes |
 |-----------|---------|
-| page.tsx | Add "Progress" as 4th top-level tab (FaChartLine icon), dynamic import MetricsDashboard |
-| QuizView.tsx | Persist earned XP to userStats after quiz completion, read initial XP from userStats |
+| page.tsx | No tab changes. Quiz tab continues to render QuizView which now includes MetricsDashboard as a sub-view below VocabularyDashboard |
+| QuizView.tsx | Integrate MetricsDashboard below VocabularyDashboard, persist earned XP to userStats after quiz completion, read initial XP from userStats |
 
 ### Reused Components (no changes)
 
@@ -134,11 +134,12 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 
 ## Interaction Contracts
 
-### Rank Progress Card
+### Rank Progress Card (Primary Visual Anchor)
 - Static display: rank badge circle (40x40px, rounded-full) with Sanskrit first letter centered, tier color background, white letter (or parchment-50 for Shishya tier)
-- XP total displayed as Display typography next to badge
+- XP total displayed as Display typography (24px bold) next to badge
 - Progress bar below: parchment-200 track (h-3, rounded-full), accent-500 fill, percentage width based on XP toward next tier
 - Tier name label below progress bar: "Pandit -- 150/250 XP to Acharya"
+- RankProgressCard is the first element rendered in MetricsDashboard, establishing the visual hierarchy
 
 ### Expandable Stat Cards
 - Default state: 2x2 grid of stat numbers (same as VocabularyDashboard pattern)
@@ -158,7 +159,7 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 
 ### Vocabulary Growth Chart
 - Recharts stacked AreaChart
-- Three stacked areas: New (ink-700 at 40% opacity), Learning (amber-500), Mastered (green-500)
+- Three stacked areas: New (ink-400), Learning (amber-500), Mastered (green-500)
 - X-axis: dates (YYYY-MM-DD formatted as "Mar 1" short labels)
 - Y-axis: word count
 - Each area has fillOpacity 0.6
@@ -167,9 +168,9 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 ### Smart Quiz Prompt Banner
 - Appears at top of Quiz tab content area, above VocabularyDashboard
 - Layout: rounded-xl, bg-accent-500/10 (10% opacity accent background), border border-accent-500/30, p-4
-- Left side: text "X words fading -- review now" in text-sm font-medium text-ink-800
-- Right side: "Review Now" button (bg-accent-600, text-white, rounded-lg, px-4 py-2, text-sm font-semibold)
-- Dismiss: small X button (top-right corner, text-ink-700, hover:text-ink-900)
+- Left side: text "X words fading -- review now" in text-sm font-normal text-ink-800
+- Right side: "Review Now" button (bg-accent-600, text-white, rounded-lg, px-4 py-2, text-sm font-bold)
+- Dismiss: small X button (top-right corner, text-ink-700, hover:text-ink-900, aria-label="Dismiss review reminder")
 - Dismissed state stored in React state only (reappears on next app load)
 - Threshold: only shows when 5+ words have retrievability < 0.7
 
@@ -183,19 +184,37 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 - Triggered when rank changes after quiz completion or kaavya reading completion
 - Reuses existing Confetti component from QuizView
 - Centered card overlay: bg-white rounded-2xl shadow-xl p-8, max-w-sm mx-auto
-- Content: "Rank Up!" in text-xl font-bold text-ink-900, new rank badge (64x64px), Sanskrit rank name in text-3xl font-bold with tier color, English name in text-base text-ink-700
+- Content: "Rank Up!" in text-xl font-bold text-ink-900, new rank badge (64x64px), Sanskrit rank name in text-2xl font-bold with tier color, English name in text-base text-ink-700
 - Auto-dismiss after 3 seconds or tap anywhere to dismiss
 
 ### Time Range Pills
 - Horizontal row of 3 pill buttons: "7d", "14d", "30d"
-- Active pill: bg-accent-600 text-white rounded-full px-3 py-1 text-sm font-medium
-- Inactive pill: bg-parchment-100 text-ink-700 rounded-full px-3 py-1 text-sm font-medium hover:bg-parchment-200
+- Active pill: bg-accent-600 text-white rounded-full px-3 py-1 text-sm font-bold
+- Inactive pill: bg-parchment-100 text-ink-700 rounded-full px-3 py-1 text-sm font-normal hover:bg-parchment-200
 - Default selection: "30d"
 
 ### Kaavya Comprehension Section
 - Simple stat display (not a chart): "X/Y shlokas explored" per kaavya
 - Shown as a list within MetricsDashboard, each kaavya as a row
-- Row: kaavya title (truncated, text-sm font-medium) + "X/Y" fraction (text-sm text-ink-700) + mini progress bar (h-2 rounded-full, green-500 fill)
+- Row: kaavya title (truncated, text-sm font-bold) + "X/Y" fraction (text-sm text-ink-700) + mini progress bar (h-2 rounded-full, green-500 fill)
+
+---
+
+## Dashboard Placement
+
+MetricsDashboard is a sub-view within the Quiz tab, rendered below VocabularyDashboard. This follows the locked CONTEXT.md decision: "Tab navigation in page.tsx: 3 tabs (Analyze, Library, Quiz) -- no new tab needed."
+
+The 3-tab navigation remains unchanged:
+
+| Tab | Icon | Content |
+|-----|------|---------|
+| Analyze (FaSearch) | FaSearch | Analyze view |
+| Library (FaBook) | FaBook | Library view |
+| Quiz (FaBrain) | FaBrain | QuizView with SmartQuizPrompt + VocabularyDashboard + MetricsDashboard |
+
+Smart quiz prompt banner appears at the top of the Quiz tab content area because it is an actionable prompt that leads to starting a quiz session.
+
+Source: CONTEXT.md locked decision on tab navigation.
 
 ---
 
@@ -217,23 +236,6 @@ Source: CONTEXT.md chart colors, RESEARCH.md rank tier colors, existing globals.
 | Progress bar label | "{current rank} -- {XP current}/{XP needed} XP to {next rank}" |
 
 Source: CONTEXT.md banner text decision, project Sanskrit-themed encouragement pattern from QuizView.
-
----
-
-## Navigation Change
-
-| Before (3 tabs) | After (4 tabs) |
-|------------------|----------------|
-| Analyze (FaSearch) | Analyze (FaSearch) |
-| Library (FaBook) | Library (FaBook) |
-| Quiz (FaBrain) | Quiz (FaBrain) |
-| -- | Progress (FaChartLine) |
-
-The 4th "Progress" tab contains MetricsDashboard. This follows the RESEARCH.md recommendation to separate quiz action from reflection/analytics, matching the Duolingo pattern.
-
-Smart quiz prompt banner still appears on the Quiz tab (not Progress tab) because it is an actionable prompt that leads to starting a quiz session.
-
-Source: RESEARCH.md Open Question 1 recommendation.
 
 ---
 
