@@ -66,18 +66,18 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 
 ### Gamification
 
-- [ ] **GAME-01**: Personal rank/tier progression system (unlockable levels)
-- [ ] **GAME-02**: XP system — words give less XP than kaavyas completed
-- [ ] **GAME-03**: Rank updates based on word mastery count and kaavyas/puranas read
+- [x] **GAME-01**: Personal rank/tier progression system (unlockable levels)
+- [x] **GAME-02**: XP system — words give less XP than kaavyas completed
+- [x] **GAME-03**: Rank updates based on word mastery count and kaavyas/puranas read
 - [ ] **GAME-04**: Game-like feel with dopamine-driven engagement (progress, achievements, streaks)
 
 ### Metrics & Trends
 
-- [ ] **METR-01**: Forgetting curve visualization — track how quickly user forgets words over different time frames
-- [ ] **METR-02**: Smart quiz prompting — only notify when analysis shows user is likely to forget
-- [ ] **METR-03**: Kaavya comprehension tracking — how well user understands texts (via AI agent feedback)
-- [ ] **METR-04**: Rank progress and XP needed for next tier
-- [ ] **METR-05**: Vocabulary growth trends — words over time, mastery rate
+- [x] **METR-01**: Forgetting curve visualization — track how quickly user forgets words over different time frames
+- [x] **METR-02**: Smart quiz prompting — only notify when analysis shows user is likely to forget
+- [x] **METR-03**: Kaavya comprehension tracking — how well user understands texts (via AI agent feedback)
+- [x] **METR-04**: Rank progress and XP needed for next tier
+- [x] **METR-05**: Vocabulary growth trends — words over time, mastery rate
 
 ### Storage
 
@@ -126,15 +126,15 @@ Requirements for milestone v1.1 — Sanskrit Learning Platform. Each maps to roa
 | QUIZ-07 | Phase 9 | Complete |
 | QUIZ-08 | Phase 9 | Complete |
 | QUIZ-09 | Phase 9 | Complete |
-| GAME-01 | Phase 10 | Pending |
-| GAME-02 | Phase 10 | Pending |
-| GAME-03 | Phase 10 | Pending |
+| GAME-01 | Phase 10 | Complete |
+| GAME-02 | Phase 10 | Complete |
+| GAME-03 | Phase 10 | Complete |
 | GAME-04 | Phase 10 | Pending |
-| METR-01 | Phase 10 | Pending |
-| METR-02 | Phase 10 | Pending |
-| METR-03 | Phase 10 | Pending |
-| METR-04 | Phase 10 | Pending |
-| METR-05 | Phase 10 | Pending |
+| METR-01 | Phase 10 | Complete |
+| METR-02 | Phase 10 | Complete |
+| METR-03 | Phase 10 | Complete |
+| METR-04 | Phase 10 | Complete |
+| METR-05 | Phase 10 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 22 total

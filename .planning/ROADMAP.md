@@ -156,7 +156,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 10-01-PLAN.md — Gamification data layer with TDD: type contracts, XP engine, rank system, metrics engine, Dexie schema v3
+- [x] 10-01-PLAN.md — Gamification data layer with TDD: type contracts, XP engine, rank system, metrics engine, Dexie schema v3
 - [ ] 10-02-PLAN.md — UI components: Recharts charts, RankProgressCard, SmartQuizPrompt, MetricsDashboard container
 - [ ] 10-03-PLAN.md — Integration wiring: Quiz tab integration, XP persistence, rank-up celebration, floating XP animation
 
@@ -176,4 +176,4 @@ Phases execute in numeric order: 8 → 9 → 10
 | 7. UI Navigation & Polish | v1.0 | 2/2 | Complete | 2026-03-09 |
 | 8. Kaavya Reader and Storage Foundation | v1.1 | 3/4 | In Progress | - |
 | 9. Quiz Engine and Spaced Repetition | v1.1 | 0/3 | Planned | - |
-| 10. Gamification and Metrics Dashboard | v1.1 | 0/3 | Planned | - |
+| 10. Gamification and Metrics Dashboard | v1.1 | 1/3 | In Progress|  |
