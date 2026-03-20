@@ -9,6 +9,10 @@ import { generateQuiz } from "@/lib/study/quiz";
 import { getDueCards, generateQuizQuestions } from "@/lib/quiz/quizEngine";
 import { storableToCard, scheduleReview, cardToStorable, Rating } from "@/lib/quiz/srs";
 import { db } from "@/lib/kaavya/db/schema";
+import { computeQuizSessionXP } from "@/lib/gamification/xpEngine";
+import { getCurrentRank } from "@/lib/gamification/rankSystem";
+import { getMasteryStats } from "@/lib/quiz/quizEngine";
+import type { UserStats } from "@/lib/gamification/types";
 import { GrammarFactsPill } from "./GrammarFactsPill";
 import { SRSRatingBar } from "./SRSRatingBar";
 
@@ -241,6 +245,62 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
   const [vocabItemsMap, setVocabItemsMap] = useState<Map<number, import("@/lib/quiz/types").VocabItem>>(new Map());
   const autoRateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [autoRateWarning, setAutoRateWarning] = useState(false);
+  const [showRankUp, setShowRankUp] = useState<{ show: boolean; rankName: string; sanskritName: string }>({ show: false, rankName: "", sanskritName: "" });
+  const [showXPFloat, setShowXPFloat] = useState(false);
+  const xpPersistedRef = useRef(false);
+
+  // Persist XP to IndexedDB userStats
+  async function persistQuizXP(earnedXP: number): Promise<{ rankedUp: boolean; newRankName: string; newSanskritName: string }> {
+    const stats = await db.userStats.toCollection().first();
+    const newTotalXP = (stats?.totalXP ?? 0) + earnedXP;
+
+    const mastery = await getMasteryStats();
+    const readingStates = await db.readingStates.toArray();
+    const kaavyasRead = readingStates.filter(rs => rs.currentPage === rs.totalPages).length;
+    const newRank = getCurrentRank(mastery.mastered, kaavyasRead);
+
+    const previousRankName = stats?.lastRankName ?? "Shishya";
+    const rankedUp = newRank.name !== previousRankName;
+
+    if (stats?.id) {
+      await db.userStats.update(stats.id, { totalXP: newTotalXP, lastRankName: newRank.name });
+    } else {
+      await db.userStats.add({ totalXP: newTotalXP, lastRankName: newRank.name });
+    }
+
+    return { rankedUp, newRankName: newRank.name, newSanskritName: rankedUp ? newRank.sanskritName : "" };
+  }
+
+  // Floating XP animation on correct answer
+  useEffect(() => {
+    if (gameState.lastAnswerCorrect === true) {
+      setShowXPFloat(true);
+      const timer = setTimeout(() => setShowXPFloat(false), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [gameState.currentIndex, gameState.lastAnswerCorrect]);
+
+  // Persist XP on quiz completion
+  useEffect(() => {
+    if (gameState.phase === "complete" && gameState.xp > 0 && !xpPersistedRef.current) {
+      xpPersistedRef.current = true;
+      persistQuizXP(gameState.xp).then(result => {
+        if (result.rankedUp) {
+          getMasteryStats().then(stats => {
+            db.readingStates.toArray().then(rs => {
+              const kaavyasRead = rs.filter(r => r.currentPage === r.totalPages).length;
+              const rank = getCurrentRank(stats.mastered, kaavyasRead);
+              setShowRankUp({ show: true, rankName: rank.name, sanskritName: rank.sanskritName });
+              setTimeout(() => setShowRankUp({ show: false, rankName: "", sanskritName: "" }), 3000);
+            });
+          });
+        }
+      });
+    }
+    if (gameState.phase !== "complete") {
+      xpPersistedRef.current = false;
+    }
+  }, [gameState.phase, gameState.xp]);
 
   const needsFallback = !isSRSMode && vocabulary.length < 4;
 
@@ -496,6 +556,22 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
     return (
       <div className="rounded-2xl border border-parchment-200 bg-parchment-50 p-8 text-center relative overflow-hidden">
         <Confetti />
+        {showRankUp.show && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/30"
+            onClick={() => setShowRankUp({ show: false, rankName: "", sanskritName: "" })}
+          >
+            <Confetti />
+            <div
+              className="bg-white rounded-2xl shadow-xl p-8 max-w-sm mx-auto text-center"
+              style={{ animation: "check-appear 300ms ease-out" }}
+            >
+              <p className="text-xl font-bold text-ink-900 mb-2">Rank Up!</p>
+              <p className="text-2xl font-bold text-accent-500 mb-1">{showRankUp.sanskritName}</p>
+              <p className="text-base text-ink-700">You are now {showRankUp.rankName} ({showRankUp.sanskritName})</p>
+            </div>
+          </div>
+        )}
         <h3 className="mb-4 text-2xl font-bold text-ink-900">
           {isSRSMode ? "Review Complete!" : "Quiz Complete!"}
         </h3>
@@ -579,8 +655,16 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
             />
           </div>
         </div>
-        <span className="text-accent-600 font-bold text-sm whitespace-nowrap">
+        <span className="relative text-accent-600 font-bold text-sm whitespace-nowrap">
           {xp} XP
+          {showXPFloat && (
+            <span
+              className="absolute -top-1 left-0 text-sm font-bold text-accent-500 pointer-events-none"
+              style={{ animation: "xp-float 800ms ease-out forwards" }}
+            >
+              +10 XP
+            </span>
+          )}
         </span>
       </div>
 
