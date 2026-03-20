@@ -47,8 +47,8 @@ export function ForgettingCurveChart({ data }: ForgettingCurveChartProps) {
               borderRadius: "0.5rem",
               boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
             }}
-            formatter={(value: number) => [`${value}%`, "Recall"]}
-            labelFormatter={(label: number) => `Day ${label}`}
+            formatter={(value) => [`${value}%`, "Recall"]}
+            labelFormatter={(label) => `Day ${label}`}
           />
           <Area
             type="monotone"

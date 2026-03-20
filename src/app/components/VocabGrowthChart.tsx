@@ -35,14 +35,14 @@ export function VocabGrowthChart({ data }: VocabGrowthChartProps) {
           <XAxis dataKey="date" tickFormatter={formatDateLabel} />
           <YAxis />
           <Tooltip
-            labelFormatter={formatDateLabel}
-            formatter={(value: number, name: string) => {
+            labelFormatter={(label) => formatDateLabel(String(label))}
+            formatter={(value, name) => {
               const labels: Record<string, string> = {
                 mastered: "Mastered",
                 learning: "Learning",
                 newCount: "New",
               };
-              return [value, labels[name] || name];
+              return [value, labels[String(name)] || String(name)];
             }}
           />
           <Area
