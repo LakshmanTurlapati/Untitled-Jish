@@ -12,9 +12,11 @@
   <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
   <img src="https://img.shields.io/badge/SQLite-591MB_Dictionary-003B57?logo=sqlite&logoColor=white" alt="SQLite" />
-  <img src="https://img.shields.io/badge/Tests-148_passing-brightgreen?logo=vitest" alt="148 Tests" />
+  <img src="https://img.shields.io/badge/Tests-206_passing-brightgreen?logo=vitest" alt="206 Tests" />
   <img src="https://img.shields.io/badge/OCR-Tesseract.js_7-FF6F00" alt="Tesseract.js" />
   <img src="https://img.shields.io/badge/LLM-Grok_4.1_(AI_SDK)-8B5CF6" alt="Grok via AI SDK" />
+  <img src="https://img.shields.io/badge/Dexie.js-IndexedDB-FF6347" alt="Dexie.js" />
+  <img src="https://img.shields.io/badge/Recharts-3.8-8884D8" alt="Recharts" />
   <img src="https://img.shields.io/badge/Deploy-Fly.io-7B3EE3?logo=flydotio" alt="Fly.io" />
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License" />
 </p>
@@ -37,6 +39,9 @@
 - [Core Analysis Pipeline](#core-analysis-pipeline)
 - [Dictionary System](#dictionary-system)
 - [OCR Engine](#ocr-engine)
+- [Kaavya Library](#kaavya-library)
+- [SRS Quiz System](#srs-quiz-system)
+- [Gamification & Metrics](#gamification--metrics)
 - [Study Features](#study-features)
 - [UI & Design System](#ui--design-system)
 - [API Reference](#api-reference)
@@ -57,6 +62,9 @@ Sanskrit Analyzer takes any Sanskrit text — typed, pasted, or photographed —
 5. **INRIA Validation** — Verifies each word's morphological analysis against a 1.9M stem index from the INRIA Sanskrit Heritage database
 6. **OCR** — Extracts Devanagari text from photos of printed manuscripts using Tesseract.js
 7. **Study Mode** — Vocabulary extraction with particle filtering and gamified MCQ quizzes with hearts, XP, streaks, and confetti
+8. **Kaavya Library** — Upload and read Sanskrit texts (PDF/plain text) with shloka-by-shloka navigation, inline analysis, and contextual hints
+9. **SRS Quiz System** — Spaced repetition scheduling with SM-2 algorithm, vocabulary population from analyzed texts, and adaptive quiz generation
+10. **Gamification** — XP engine with floating animations, 10-tier rank system (Shishya to Maharshi), forgetting curve visualization, and a metrics dashboard with Recharts
 
 ---
 
@@ -66,10 +74,18 @@ Sanskrit Analyzer takes any Sanskrit text — typed, pasted, or photographed —
 ┌─────────────────────────────────────────────────────────────┐
 │                        Browser (React 19)                    │
 │                                                              │
-│  ┌──────────┐  ┌──────────────┐  ┌────────────┐  ┌────────┐│
-│  │ TextInput │  │ ImageUpload  │  │ VocabList  │  │QuizView││
-│  │ + IAST    │  │ (drag-drop)  │  │ (filtered) │  │(gamify)││
-│  └─────┬─────┘  └──────┬───────┘  └────────────┘  └────────┘│
+│  ┌──────────┐  ┌────────────┐  ┌──────────┐  ┌────────────┐│
+│  │ TextInput │  │ ImageUpload│  │ VocabList│  │  QuizView  ││
+│  │ + IAST    │  │ (drag-drop)│  │(filtered)│  │(SRS+gamify)││
+│  └─────┬─────┘  └──────┬─────┘  └──────────┘  └────────────┘│
+│  ┌──────────────┐  ┌───────────────┐  ┌──────────────────┐  │
+│  │KaavyaLibrary │  │ KaavyaReader  │  │ MetricsDashboard │  │
+│  │(upload/browse)│  │(shloka nav)   │  │ (Recharts)       │  │
+│  └──────────────┘  └───────────────┘  └──────────────────┘  │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │         IndexedDB (Dexie.js v3)                       │    │
+│  │  Kaavyas · Reading State · SRS Cards · XP · Ranks    │    │
+│  └──────────────────────────────────────────────────────┘    │
 │        │               │                                     │
 │  ┌─────┴───────────────┴──────────────────────────────────┐  │
 │  │              AnalysisView (Tab Controller)              │  │
@@ -81,7 +97,8 @@ Sanskrit Analyzer takes any Sanskrit text — typed, pasted, or photographed —
 │                   Next.js API Routes                         │
 │                                                              │
 │  POST /api/analyze     POST /api/ocr     GET /api/dictionary │
-│  GET /api/distractors                                        │
+│  GET /api/distractors  GET /api/hints                        │
+│  POST /api/quiz/populate                                     │
 │                                                              │
 │  ┌───────────────────────────────────────────────────────┐   │
 │  │                 Analysis Pipeline                      │   │
@@ -361,6 +378,53 @@ Sanskrit Analyzer uses **Tesseract.js v7** for local, privacy-preserving OCR:
 
 ---
 
+## Kaavya Library
+
+Upload and read Sanskrit texts with shloka-level navigation and integrated analysis.
+
+- **PDF & text upload** — Drag-drop PDF extraction via `pdf.js` or paste plain text
+- **Shloka pagination** — Automatic verse detection and shloka-by-shloka navigation
+- **Inline analysis** — Tap any shloka to run it through the full analysis pipeline
+- **Contextual hints** — AI-generated hints via `/api/hints` for reading comprehension
+- **Reading state** — Progress tracked locally in IndexedDB (Dexie.js) per kaavya
+- **Library management** — Browse, search, and manage uploaded texts with card-based UI
+
+### Storage
+
+All kaavya data, reading state, and vocabulary are persisted client-side using **Dexie.js** (IndexedDB wrapper) with schema versioning (v3). No server-side storage required for user data.
+
+---
+
+## SRS Quiz System
+
+Spaced repetition quizzes built on the SM-2 algorithm for long-term vocabulary retention.
+
+- **Vocabulary population** — Extract words from analyzed texts into the SRS deck via `POST /api/quiz/populate`
+- **SM-2 scheduling** — Interval, ease factor, and repetition count per card following the SuperMemo algorithm
+- **Due card selection** — Quiz only pulls cards that are due for review based on their next review date
+- **Quiz engine** — Generates MCQ questions with intelligent distractor selection from the vocabulary pool
+- **Daily quiz mode** — Review due cards across all studied texts
+- **Kaavya quiz mode** — Review vocabulary from a specific text
+
+---
+
+## Gamification & Metrics
+
+A progression system that rewards consistent study with XP, ranks, and visual feedback.
+
+| Feature | Description |
+|---------|-------------|
+| **XP Engine** | Earn XP per correct answer, with floating +XP animations on the quiz screen |
+| **Rank System** | 10 tiers from Shishya (Beginner) to Maharshi (Great Sage), with rank-up celebrations |
+| **Metrics Dashboard** | Recharts-powered charts showing vocabulary growth over time |
+| **Forgetting Curve** | Visualization of SRS retention decay across the vocabulary deck |
+| **Rank Progress Card** | Current rank badge with progress bar toward next rank |
+| **Smart Quiz Prompt** | Context-aware prompt showing due card count and suggesting review sessions |
+
+All gamification state (XP, rank, streaks) is persisted in IndexedDB alongside SRS data.
+
+---
+
 ## Study Features
 
 ### Vocabulary Extraction
@@ -525,11 +589,40 @@ Random dictionary meanings for quiz distractor generation.
 { "meanings": ["a king", "water", "the sun"] }
 ```
 
+### `GET /api/hints`
+
+Contextual reading hints for a shloka.
+
+**Query Parameters:**
+
+| Param | Required | Description |
+|-------|----------|-------------|
+| `text` | Yes | Sanskrit text to generate hints for |
+
+**Response:** AI-generated contextual hints for reading comprehension.
+
+### `POST /api/quiz/populate`
+
+Populate the SRS vocabulary deck from analyzed text.
+
+**Request:**
+```json
+{
+  "words": [/* EnrichedWord[] from analysis */],
+  "kaavyaId": 1
+}
+```
+
+**Response:**
+```json
+{ "added": 12, "skipped": 3, "total": 15 }
+```
+
 ---
 
 ## Testing
 
-148 tests across 18 test files using **Vitest** with `@testing-library/react`:
+206 tests across 24 test files using **Vitest** with `@testing-library/react`:
 
 ```bash
 # Run all tests
@@ -555,7 +648,13 @@ npx vitest run src/__tests__/quiz-view.test.tsx
 | **OCR** | `ocr.test.ts`, `ocr-api.test.ts` | Tesseract.js extraction |
 | **Vocabulary** | `vocabulary.test.ts` | Particle filtering, dedup |
 | **Quiz** | `quiz.test.ts` | Question generation, distractors |
-| **Components** | `quiz-view.test.tsx`, `word-breakdown.test.tsx`, `vocabulary-list.test.tsx`, `text-input.test.tsx`, `image-upload.test.tsx` | UI interactions, gamification |
+| **SRS** | `srs.test.ts` | SM-2 scheduling, interval calculation |
+| **Quiz Engine** | `quiz-engine.test.ts` | Adaptive quiz generation |
+| **Vocab Populator** | `vocab-populator.test.ts` | Text-to-SRS population |
+| **XP Engine** | `xp-engine.test.ts` | XP calculation, persistence |
+| **Rank System** | `rank-system.test.ts` | Rank tiers, progression |
+| **Metrics Engine** | `metrics-engine.test.ts` | Dashboard data aggregation |
+| **Components** | `quiz-view.test.tsx`, `word-breakdown.test.tsx`, `vocabulary-list.test.tsx`, `text-input.test.tsx`, `image-upload.test.tsx`, `analysis-view-nav.test.tsx` | UI interactions, gamification, navigation |
 | **App Shell** | `app-shell.test.ts` | Layout, header, metadata |
 
 ---
@@ -570,14 +669,25 @@ sanskrit-analyzer/
 │   │   │   ├── AnalysisView.tsx      # Main orchestrator (tabs, sticky bar, progress)
 │   │   │   ├── WordBreakdown.tsx      # Word card (morphology, sandhi, meanings)
 │   │   │   ├── MeaningBadge.tsx       # Colored dot source indicator
-│   │   │   ├── QuizView.tsx           # Gamified quiz (hearts, XP, confetti)
+│   │   │   ├── QuizView.tsx           # Gamified SRS quiz (hearts, XP, confetti)
 │   │   │   ├── VocabularyList.tsx     # Filtered vocabulary cards
-│   │   │   └── ImageUpload.tsx        # Drag-drop OCR upload
+│   │   │   ├── ImageUpload.tsx        # Drag-drop OCR upload
+│   │   │   ├── KaavyaLibrary.tsx     # Text library browser
+│   │   │   ├── KaavyaReader.tsx      # Shloka-by-shloka reader
+│   │   │   ├── KaavyaUploader.tsx    # PDF/text upload component
+│   │   │   ├── MetricsDashboard.tsx  # Recharts metrics overview
+│   │   │   ├── RankProgressCard.tsx  # Rank badge + progress bar
+│   │   │   ├── SmartQuizPrompt.tsx   # Context-aware quiz suggestion
+│   │   │   ├── CompactRankBadge.tsx  # Inline rank indicator
+│   │   │   ├── ForgettingCurveChart.tsx  # SRS retention visualization
+│   │   │   └── VocabGrowthChart.tsx  # Vocabulary growth over time
 │   │   ├── api/
 │   │   │   ├── analyze/route.ts       # POST — full analysis pipeline
 │   │   │   ├── ocr/route.ts           # POST — Tesseract.js extraction
 │   │   │   ├── dictionary/route.ts    # GET — dictionary lookup
-│   │   │   └── distractors/route.ts   # GET — random quiz distractors
+│   │   │   ├── distractors/route.ts   # GET — random quiz distractors
+│   │   │   ├── hints/route.ts         # GET — contextual reading hints
+│   │   │   └── quiz/populate/route.ts # POST — vocabulary population
 │   │   ├── layout.tsx                 # Root layout, Shobhika font
 │   │   ├── page.tsx                   # Home page (minimal header + AnalysisView)
 │   │   └── globals.css                # Design tokens, animations
@@ -600,9 +710,24 @@ sanskrit-analyzer/
 │   │   │   ├── quiz.ts               # MCQ generation + distractor logic
 │   │   │   ├── particles.ts          # Common avyaya word list
 │   │   │   └── types.ts              # VocabularyWord, QuizQuestion types
+│   │   ├── kaavya/
+│   │   │   ├── db/                    # Dexie stores (kaavya, reading state)
+│   │   │   ├── hooks/                 # useKaavyaLibrary, useReader, useShlokaHints
+│   │   │   ├── utils/                 # PDF extraction, text pagination
+│   │   │   └── types.ts              # Kaavya, Shloka, ReadingState types
+│   │   ├── quiz/
+│   │   │   ├── quizEngine.ts          # Adaptive SRS quiz generation
+│   │   │   ├── srs.ts                # SM-2 spaced repetition algorithm
+│   │   │   ├── vocabularyPopulator.ts # Text-to-SRS deck population
+│   │   │   └── types.ts              # SRSCard, QuizSession types
+│   │   ├── gamification/
+│   │   │   ├── xpEngine.ts           # XP calculation and persistence
+│   │   │   ├── rankSystem.ts         # 10-tier rank progression
+│   │   │   ├── metricsEngine.ts      # Dashboard data aggregation
+│   │   │   └── types.ts              # XPEvent, Rank, MetricsSnapshot types
 │   │   ├── transliteration.ts        # IAST/Devanagari/SLP1 conversion
 │   │   └── fonts.ts                  # Shobhika font loader
-│   └── __tests__/                    # 18 test files, 148 tests
+│   └── __tests__/                    # 24 test files, 206 tests
 ├── data/
 │   ├── cdsl/                         # Source XML (MW, AP90, INRIA morph)
 │   └── sanskrit.db                   # Compiled SQLite (591MB)
@@ -629,11 +754,13 @@ sanskrit-analyzer/
 | **Language** | TypeScript 5.8 | Type safety throughout |
 | **LLM** | Grok 4.1 via `@ai-sdk/xai` | Sanskrit grammatical analysis |
 | **AI SDK** | Vercel AI SDK 6 | Structured output with Zod schemas |
-| **Database** | SQLite via `better-sqlite3` | Dictionary & stem index (591MB) |
+| **Server DB** | SQLite via `better-sqlite3` | Dictionary & stem index (591MB) |
+| **Client DB** | Dexie.js (IndexedDB) | Kaavya library, SRS cards, XP, ranks |
+| **Charts** | Recharts 3.8 | Vocabulary growth, forgetting curves, metrics |
 | **OCR** | Tesseract.js 7 | Local Devanagari text extraction |
 | **Transliteration** | `@indic-transliteration/sanscript` | IAST/Devanagari/SLP1 conversion |
 | **Validation** | Zod 4 | Runtime schema validation for LLM output |
-| **Testing** | Vitest 4 + Testing Library | 148 tests across 18 files |
+| **Testing** | Vitest 4 + Testing Library | 206 tests across 24 files |
 | **Font** | Shobhika | Academic Devanagari typography |
 
 ---
