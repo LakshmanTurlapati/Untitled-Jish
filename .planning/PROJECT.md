@@ -8,9 +8,20 @@ A Sanskrit learning platform with three pillars: (1) a Kindle-like Kaavya Reader
 
 Enable users to master Sanskrit vocabulary and comprehend kaavyas independently through quiz-driven spaced repetition, with all meanings backed by pramaana (dictionary/verified sources) -- never conjured.
 
+## Current Milestone: v1.2 Bug Fixes & Stability
+
+**Goal:** Fix all critical bugs across OCR, Library, Quiz, and API layers discovered in comprehensive audit -- make the app actually work end-to-end.
+
+**Target fixes:**
+- OCR: worker initialization, Tesseract.js API, timeout/cancellation
+- Library: data orphaning on delete, date serialization crashes, error handling
+- Quiz: stem deduplication, silent error swallowing, distractor quality
+- API: environment validation, error logging, stream response handling
+- General: memory leaks, React key anti-patterns, race conditions
+
 ## Current State
 
-Shipped v1.1 Sanskrit Learning Platform (2026-03-20). Full learning platform operational with 9,201 LOC TypeScript across 93 files.
+Shipped v1.1 Sanskrit Learning Platform (2026-03-20). Full learning platform operational with 9,201 LOC TypeScript across 93 files. Comprehensive bug audit revealed 46 issues (8 critical, 12 high, 16 medium, 10 low).
 
 **What's live:**
 - Kaavya Reader: PDF upload/paste, Kindle-like pagination, AI comprehension hints with pramaana
@@ -18,7 +29,13 @@ Shipped v1.1 Sanskrit Learning Platform (2026-03-20). Full learning platform ope
 - Gamification: XP/rank system with 6 Sanskrit-themed tiers, forgetting curve charts, vocabulary growth trends
 - Foundation: Tesseract.js OCR, sandhi/samasa/morphology analysis, MW/Apte dictionary (320K entries)
 
-**Known issue:** Kaavya completion detection has off-by-one bug (currentPage 0-indexed vs totalPages 1-indexed). Rank tiers requiring kaavya completions are unreachable until fixed.
+**Known issues (v1.2 audit):**
+- OCR hangs forever (broken Tesseract.js worker init, wrong API for v7)
+- Library page crashes (date serialization, orphaned data on delete)
+- Quiz never populates (stem case mismatch, silent errors)
+- API routes return 500s (missing env validation, no error logging)
+- Memory leaks (Object URLs never revoked, no OCR timeout)
+- Kaavya completion detection off-by-one bug
 
 ## Requirements
 
@@ -43,7 +60,12 @@ Shipped v1.1 Sanskrit Learning Platform (2026-03-20). Full learning platform ope
 
 ### Active
 
-(None -- next milestone requirements TBD via /gsd:new-milestone)
+- [ ] Fix OCR infinite extraction (broken Tesseract.js worker initialization and API usage)
+- [ ] Fix library page crashes (orphaned data, date serialization, missing error handling)
+- [ ] Fix quiz population failures (stem deduplication, silent errors, distractor generation)
+- [ ] Fix API server errors (missing env validation, broken error handling, stream format issues)
+- [ ] Fix memory leaks and resource cleanup (Object URLs, worker lifecycle)
+- [ ] Fix React rendering issues (array index keys, race conditions)
 
 ### Out of Scope
 
@@ -90,5 +112,22 @@ Shipped v1.1 Sanskrit Learning Platform (2026-03-20). Full learning platform ope
 | Recharts for visualization | React-native SVG charts, composable API, no Canvas dependency | Good (Phase 10) |
 | Dictionary-only MCQ meanings | Pramaana requirement -- quiz answers sourced only from MW/Apte, never LLM-generated | Good (Phase 9) |
 
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd:transition`):
+1. Requirements invalidated? -- Move to Out of Scope with reason
+2. Requirements validated? -- Move to Validated with phase reference
+3. New requirements emerged? -- Add to Active
+4. Decisions to log? -- Add to Key Decisions
+5. "What This Is" still accurate? -- Update if drifted
+
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check -- still the right priority?
+3. Audit Out of Scope -- reasons still valid?
+4. Update Context with current state
+
 ---
-*Last updated: 2026-03-20 after v1.1 milestone complete*
+*Last updated: 2026-03-21 after v1.2 milestone started*
