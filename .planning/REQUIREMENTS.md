@@ -57,30 +57,30 @@ None -- this is a bug-fix milestone.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| OCR-01 | Pending | Pending |
-| OCR-02 | Pending | Pending |
-| OCR-03 | Pending | Pending |
-| LIB-01 | Pending | Pending |
-| LIB-02 | Pending | Pending |
-| LIB-03 | Pending | Pending |
-| LIB-04 | Pending | Pending |
-| QUIZ-01 | Pending | Pending |
-| QUIZ-02 | Pending | Pending |
-| QUIZ-03 | Pending | Pending |
-| QUIZ-04 | Pending | Pending |
-| API-01 | Pending | Pending |
-| API-02 | Pending | Pending |
-| API-03 | Pending | Pending |
-| API-04 | Pending | Pending |
-| STAB-01 | Pending | Pending |
-| STAB-02 | Pending | Pending |
-| STAB-03 | Pending | Pending |
+| OCR-01 | Phase 11 | Pending |
+| OCR-02 | Phase 11 | Pending |
+| OCR-03 | Phase 11 | Pending |
+| LIB-01 | Phase 12 | Pending |
+| LIB-02 | Phase 12 | Pending |
+| LIB-03 | Phase 12 | Pending |
+| LIB-04 | Phase 12 | Pending |
+| STAB-03 | Phase 12 | Pending |
+| QUIZ-01 | Phase 13 | Pending |
+| QUIZ-02 | Phase 13 | Pending |
+| QUIZ-03 | Phase 13 | Pending |
+| QUIZ-04 | Phase 13 | Pending |
+| STAB-02 | Phase 13 | Pending |
+| API-01 | Phase 14 | Pending |
+| API-02 | Phase 14 | Pending |
+| API-03 | Phase 14 | Pending |
+| API-04 | Phase 14 | Pending |
+| STAB-01 | Phase 14 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 18 total
-- Mapped to phases: 0
-- Unmapped: 18 (pending roadmap creation)
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-21*
-*Last updated: 2026-03-21 after initial definition*
+*Last updated: 2026-03-21 after roadmap creation*
