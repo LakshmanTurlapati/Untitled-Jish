@@ -1,5 +1,21 @@
 # Milestones
 
+## v1.2 Bug Fixes & Stability (Shipped: 2026-03-22)
+
+**Phases completed:** 4 phases, 7 plans, 13 tasks
+
+**Key accomplishments:**
+
+- Fixed Tesseract.js v7 worker init with correct "san" language code, added 30s AbortController timeout via Promise.race, and eliminated Object URL memory leaks with ref-based cleanup
+- Cascade delete for kaavya child records (vocabItems/reviewLogs) and defensive date coercion in LibraryCard relativeTime
+- Typed PdfExtractionError with 4 classified failure modes and user-visible error feedback for library delete and PDF upload
+- Lowercase stem normalization, distractor-correctAnswer exclusion, and safe SRS null-date deserialization
+- Quiz error surfacing with quizError state for load failures, context-rich SRS rating logging, and per-word partial failure handling in populate API
+- requireEnv utility for missing-var validation, structured error logging in all API catch blocks, await streamText for proper error capture, and actionable LLM schema-mismatch messages
+- Replaced all 8 array-index React keys with stable content-derived keys across 5 components to prevent reconciliation bugs
+
+---
+
 ## v1.1 Sanskrit Learning Platform (Shipped: 2026-03-20)
 
 **Phases completed:** 3 phases, 10 plans, 22 tasks
