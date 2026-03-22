@@ -41,12 +41,31 @@ export async function POST(request: NextRequest) {
     const chunks = chunkText(text);
     const allEnrichedWords = [];
 
+    let failedCount = 0;
+
     for (const chunk of chunks) {
-      const analysisResult = await analyzeText(chunk);
-      const enrichedWords = analysisResult.words.map((word) =>
-        enrichWithMeanings(word)
-      );
-      allEnrichedWords.push(...enrichedWords);
+      try {
+        const analysisResult = await analyzeText(chunk);
+
+        for (const word of analysisResult.words) {
+          try {
+            const enriched = enrichWithMeanings(word);
+            allEnrichedWords.push(enriched);
+          } catch (wordErr) {
+            failedCount++;
+            console.error('Word enrichment failed:', {
+              word: word.original || 'unknown',
+              error: wordErr instanceof Error ? wordErr.message : String(wordErr),
+            });
+          }
+        }
+      } catch (chunkErr) {
+        failedCount++;
+        console.error('Chunk analysis failed:', {
+          chunkLength: chunk.length,
+          error: chunkErr instanceof Error ? chunkErr.message : String(chunkErr),
+        });
+      }
 
       // Cap total words to avoid timeouts
       if (allEnrichedWords.length >= MAX_WORDS_PER_CALL) {
@@ -57,7 +76,7 @@ export async function POST(request: NextRequest) {
     // Trim to cap
     const capped = allEnrichedWords.slice(0, MAX_WORDS_PER_CALL);
 
-    return NextResponse.json({ words: capped, kaavyaId });
+    return NextResponse.json({ words: capped, kaavyaId, failedCount });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
