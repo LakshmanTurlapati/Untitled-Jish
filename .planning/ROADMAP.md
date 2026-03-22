@@ -47,10 +47,10 @@ See .planning/archive/ for completed phase details.
   1. User can upload an image and get extracted Devanagari text without the app hanging indefinitely
   2. If OCR takes too long, user sees a timeout message within 30 seconds and can retry
   3. Navigating away from OCR and returning does not degrade browser performance (no Object URL leaks)
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 11-01: TBD
+- [ ] 11-01-PLAN.md -- Fix Tesseract.js v7 worker init, add 30s timeout, clean up Object URL leaks
 
 ### Phase 12: Library & Data Integrity
 **Goal**: Users can manage their kaavya library without crashes or data corruption -- delete, browse, and handle errors safely
@@ -104,7 +104,7 @@ Phases 11-14 are independent and can execute in any order.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 11. OCR & Resource Cleanup | v1.2 | 0/? | Not started | - |
+| 11. OCR & Resource Cleanup | v1.2 | 0/1 | Planned | - |
 | 12. Library & Data Integrity | v1.2 | 0/? | Not started | - |
 | 13. Quiz Reliability | v1.2 | 0/? | Not started | - |
 | 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |
