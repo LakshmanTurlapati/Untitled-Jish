@@ -23,7 +23,8 @@ export async function getAllKaavyas(): Promise<Kaavya[]> {
 export async function deleteKaavya(id: number): Promise<void> {
   await db.transaction('rw', [db.kaavyas, db.readingStates, db.interpretations, db.vocabItems, db.reviewLogs], async () => {
     // Get vocabItem IDs before deleting them (needed for reviewLog cascade)
-    const vocabIds = await db.vocabItems.where('kaavyaId').equals(id).primaryKeys();
+    const rawIds = await db.vocabItems.where('kaavyaId').equals(id).primaryKeys();
+    const vocabIds = rawIds.filter((k): k is number => k !== undefined);
 
     await db.kaavyas.delete(id);
     await db.readingStates.where('kaavyaId').equals(id).delete();
