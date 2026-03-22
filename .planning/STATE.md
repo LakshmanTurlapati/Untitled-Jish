@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Bug Fixes & Stability
 status: unknown
-stopped_at: Completed 12-01-PLAN.md
-last_updated: "2026-03-22T08:41:41.828Z"
+stopped_at: Completed 12-02-PLAN.md
+last_updated: "2026-03-22T08:42:21.734Z"
 progress:
   total_phases: 4
   completed_phases: 2
@@ -48,6 +48,7 @@ Plan: 2 of 2
 *Updated after each plan completion*
 | Phase 11 P01 | 2min | 2 tasks | 3 files |
 | Phase 12-01 P01 | 1min | 2 tasks | 2 files |
+| Phase 12 P02 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,7 @@ Recent decisions affecting current work:
 - [Phase 11]: Used useRef for Object URL tracking to avoid stale closure issues in handleFile cleanup
 - [Phase 12]: Used primaryKeys() with type-narrowing filter for safe cascade delete ID collection in Dexie
 - [Phase 12]: relativeTime returns 'unknown' for invalid dates rather than throwing, as graceful degradation for IndexedDB serialization issues
+- [Phase 12]: Used PdfExtractionError class with kind discriminator for type-safe catch handling in PDF extraction
 
 ### Pending Todos
 
@@ -75,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T08:41:41.826Z
-Stopped at: Completed 12-01-PLAN.md
+Last session: 2026-03-22T08:42:21.732Z
+Stopped at: Completed 12-02-PLAN.md
 Resume file: None

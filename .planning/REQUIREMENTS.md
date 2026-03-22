@@ -17,8 +17,8 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 - [x] **LIB-01**: Deleting a kaavya removes all associated vocabItems and reviewLogs
 - [x] **LIB-02**: Library cards render without date serialization crashes
-- [ ] **LIB-03**: Library operations show error feedback instead of crashing silently
-- [ ] **LIB-04**: PDF extraction errors display specific, actionable messages
+- [x] **LIB-03**: Library operations show error feedback instead of crashing silently
+- [x] **LIB-04**: PDF extraction errors display specific, actionable messages
 
 ### Quiz
 
@@ -62,8 +62,8 @@ None -- this is a bug-fix milestone.
 | OCR-03 | Phase 11 | Complete |
 | LIB-01 | Phase 12 | Complete |
 | LIB-02 | Phase 12 | Complete |
-| LIB-03 | Phase 12 | Pending |
-| LIB-04 | Phase 12 | Pending |
+| LIB-03 | Phase 12 | Complete |
+| LIB-04 | Phase 12 | Complete |
 | STAB-03 | Phase 12 | Complete |
 | QUIZ-01 | Phase 13 | Pending |
 | QUIZ-02 | Phase 13 | Pending |
