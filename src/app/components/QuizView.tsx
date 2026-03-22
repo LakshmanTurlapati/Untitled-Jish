@@ -242,6 +242,7 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
   const [loadingFallbacks, setLoadingFallbacks] = useState(false);
   const [srsLoading, setSrsLoading] = useState(isSRSMode);
   const [srsEmpty, setSrsEmpty] = useState(false);
+  const [quizError, setQuizError] = useState<string | null>(null);
   const [vocabItemsMap, setVocabItemsMap] = useState<Map<number, import("@/lib/quiz/types").VocabItem>>(new Map());
   const autoRateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [autoRateWarning, setAutoRateWarning] = useState(false);
@@ -338,8 +339,9 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
         }));
 
         dispatch({ type: "START", questions: unified });
-      } catch {
-        setSrsEmpty(true);
+      } catch (err) {
+        console.error('Quiz load failed:', err);
+        setQuizError('Failed to load quiz questions. Please try again.');
       }
       setSrsLoading(false);
     }
@@ -446,8 +448,12 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
           state: currentItem.state,
           reviewedAt: new Date().toISOString(),
         });
-      } catch {
-        // Continue even if DB update fails
+      } catch (err) {
+        console.error('SRS rating update failed:', {
+          vocabItemId: question.vocabItemId,
+          rating,
+          error: err,
+        });
       }
 
       dispatch({ type: "NEXT" });
@@ -501,6 +507,22 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
   // --- SRS loading/empty states ---
   if (isSRSMode && srsLoading) {
     return <p className="text-sm text-ink-600">Loading quiz...</p>;
+  }
+
+  if (isSRSMode && quizError) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-sm text-red-700 mb-4">{quizError}</p>
+        {onBackToModes && (
+          <button
+            onClick={onBackToModes}
+            className="rounded-xl bg-ink-800 text-parchment-50 font-bold px-8 py-3 border-b-4 border-ink-900 active:border-b-2 active:translate-y-[2px] transition-all duration-75"
+          >
+            Back to Modes
+          </button>
+        )}
+      </div>
+    );
   }
 
   if (isSRSMode && srsEmpty) {
