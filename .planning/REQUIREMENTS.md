@@ -22,9 +22,9 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 ### Quiz
 
-- [ ] **QUIZ-01**: Vocabulary population deduplicates stems correctly (case-normalized)
+- [x] **QUIZ-01**: Vocabulary population deduplicates stems correctly (case-normalized)
 - [x] **QUIZ-02**: Quiz loading and rating errors are logged and surfaced to users
-- [ ] **QUIZ-03**: Distractor generation never uses the correct answer as a distractor
+- [x] **QUIZ-03**: Distractor generation never uses the correct answer as a distractor
 - [x] **QUIZ-04**: Batch word processing handles partial failures without losing all results
 
 ### API
@@ -37,7 +37,7 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 ### Stability
 
 - [ ] **STAB-01**: React lists use stable unique keys instead of array indices
-- [ ] **STAB-02**: SRS card type casting handles null dates safely
+- [x] **STAB-02**: SRS card type casting handles null dates safely
 - [x] **STAB-03**: Dexie transactions include all accessed stores
 
 ## Future Requirements
@@ -65,11 +65,11 @@ None -- this is a bug-fix milestone.
 | LIB-03 | Phase 12 | Complete |
 | LIB-04 | Phase 12 | Complete |
 | STAB-03 | Phase 12 | Complete |
-| QUIZ-01 | Phase 13 | Pending |
+| QUIZ-01 | Phase 13 | Complete |
 | QUIZ-02 | Phase 13 | Complete |
-| QUIZ-03 | Phase 13 | Pending |
+| QUIZ-03 | Phase 13 | Complete |
 | QUIZ-04 | Phase 13 | Complete |
-| STAB-02 | Phase 13 | Pending |
+| STAB-02 | Phase 13 | Complete |
 | API-01 | Phase 14 | Pending |
 | API-02 | Phase 14 | Pending |
 | API-03 | Phase 14 | Pending |
