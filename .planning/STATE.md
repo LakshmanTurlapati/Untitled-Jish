@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Bug Fixes & Stability
 status: unknown
-stopped_at: Completed 13-01-PLAN.md
-last_updated: "2026-03-22T08:56:59.959Z"
+stopped_at: Completed 14-02-PLAN.md
+last_updated: "2026-03-22T09:04:38.983Z"
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 7
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Enable users to master Sanskrit vocabulary and comprehend kaavyas independently through quiz-driven spaced repetition, with all meanings backed by pramaana.
-**Current focus:** Phase 13 — quiz-reliability
+**Current focus:** Phase 14 — api-rendering-stability
 
 ## Current Position
 
-Phase: 14
-Plan: Not started
+Phase: 14 (api-rendering-stability) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Plan: Not started
 | Phase 12 P02 | 2min | 2 tasks | 3 files |
 | Phase 13 P02 | 1min | 2 tasks | 2 files |
 | Phase 13 P01 | 1min | 2 tasks | 3 files |
+| Phase 14 P02 | 1min | 1 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Recent decisions affecting current work:
 - [Phase 13]: Per-word try/catch in batch API for partial failure resilience with failedCount in response
 - [Phase 13]: Used flatMap over all MW/Apte definitions for richer MCQ distractor pool
 - [Phase 13]: Applied boundary 'as Card' cast on return object for safe ts-fsrs interop instead of per-field double-cast
+- [Phase 14]: Used content-derived keys (stem, iast, original) for dynamic lists and prefixed-index keys for static decorative arrays
 
 ### Pending Todos
 
@@ -83,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T08:53:33.674Z
-Stopped at: Completed 13-01-PLAN.md
+Last session: 2026-03-22T09:04:38.981Z
+Stopped at: Completed 14-02-PLAN.md
 Resume file: None

@@ -98,7 +98,7 @@ Plans:
 
 Plans:
 - [ ] 14-01-PLAN.md -- Add env validation, error logging with context, streaming await fix, and LLM error detail
-- [ ] 14-02-PLAN.md -- Replace all React array index keys with stable content-derived keys across 5 components
+- [x] 14-02-PLAN.md -- Replace all React array index keys with stable content-derived keys across 5 components
 
 ## Progress
 
@@ -110,4 +110,4 @@ Phases 11-14 are independent and can execute in any order.
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
 | 12. Library & Data Integrity | v1.2 | 2/2 | Complete    | 2026-03-22 |
 | 13. Quiz Reliability | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 14. API & Rendering Stability | v1.2 | 0/2 | Not started | - |
+| 14. API & Rendering Stability | v1.2 | 1/2 | In Progress|  |

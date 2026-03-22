@@ -36,7 +36,7 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 ### Stability
 
-- [ ] **STAB-01**: React lists use stable unique keys instead of array indices
+- [x] **STAB-01**: React lists use stable unique keys instead of array indices
 - [x] **STAB-02**: SRS card type casting handles null dates safely
 - [x] **STAB-03**: Dexie transactions include all accessed stores
 
@@ -74,7 +74,7 @@ None -- this is a bug-fix milestone.
 | API-02 | Phase 14 | Pending |
 | API-03 | Phase 14 | Pending |
 | API-04 | Phase 14 | Pending |
-| STAB-01 | Phase 14 | Pending |
+| STAB-01 | Phase 14 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 18 total
