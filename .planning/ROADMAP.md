@@ -62,10 +62,11 @@ Plans:
   3. When a library operation fails, user sees a specific error message instead of a blank screen or silent failure
   4. PDF extraction failures show actionable messages telling the user what went wrong
   5. Database operations that touch multiple stores either fully succeed or fully roll back
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 12-01: TBD
+- [ ] 12-01-PLAN.md -- Fix deleteKaavya cascade to vocabItems/reviewLogs, fix date serialization crash in LibraryCard
+- [ ] 12-02-PLAN.md -- Add error handling to library delete, add typed PDF extraction errors with specific messages
 
 ### Phase 13: Quiz Reliability
 **Goal**: Users can take quizzes that populate correctly, show meaningful errors, and never present broken answer choices
@@ -105,6 +106,6 @@ Phases 11-14 are independent and can execute in any order.
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
-| 12. Library & Data Integrity | v1.2 | 0/? | Not started | - |
+| 12. Library & Data Integrity | v1.2 | 0/2 | Not started | - |
 | 13. Quiz Reliability | v1.2 | 0/? | Not started | - |
 | 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |
