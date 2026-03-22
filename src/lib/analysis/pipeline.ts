@@ -11,6 +11,7 @@ import { buildAnalysisPrompt } from "./prompts";
 import { parseSandhiFromLLM } from "./sandhi";
 import { parseSamasaFromLLM } from "./samasa";
 import { enrichWithStemIndex } from "./morphology";
+import { requireEnv } from "@/lib/api/env";
 import type { AnalysisResult, AnalyzedWord } from "./types";
 
 /**
@@ -28,6 +29,9 @@ import type { AnalysisResult, AnalyzedWord } from "./types";
  * @throws Error if LLM returns null/undefined output
  */
 export async function analyzeText(text: string): Promise<AnalysisResult> {
+  // Validate API key before making any LLM calls
+  requireEnv("XAI_API_KEY");
+
   // Step 1: LLM analysis with structured output
   const { output } = await generateText({
     model: xai("grok-4-1-fast-non-reasoning"),
@@ -36,7 +40,9 @@ export async function analyzeText(text: string): Promise<AnalysisResult> {
   });
 
   if (!output) {
-    throw new Error("Failed to generate analysis: LLM returned no output");
+    throw new Error(
+      "LLM analysis failed: structured output was null. The model may have returned content that did not match the expected schema (FullAnalysisSchema). Check the prompt and schema compatibility."
+    );
   }
 
   // Step 2: Enrich each word with sandhi/samasa parsing and INRIA validation

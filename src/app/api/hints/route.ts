@@ -10,6 +10,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { streamText } from "ai";
 import { xai } from "@ai-sdk/xai";
+import { requireEnv } from "@/lib/api/env";
 
 const SHLOKA_HINT_SYSTEM_PROMPT = `You are a Sanskrit kaavya study companion.
 Your role is to help students develop their own understanding of shlokas.
@@ -30,6 +31,8 @@ Keep each hint to 1-2 sentences.`;
 
 export async function POST(request: NextRequest) {
   try {
+    requireEnv("XAI_API_KEY");
+
     const body = await request.json();
     const { shlokaText, userInterpretation } = body;
 
@@ -55,7 +58,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = streamText({
+    const result = await streamText({
       model: xai("grok-3-mini"),
       system: SHLOKA_HINT_SYSTEM_PROMPT,
       prompt: `Shloka:\n${shlokaText}\n\nMy interpretation:\n${userInterpretation}\n\nPlease provide hints based on pramaana.`,
@@ -63,6 +66,10 @@ export async function POST(request: NextRequest) {
 
     return result.toTextStreamResponse();
   } catch (error) {
+    console.error("Hints API error:", {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json(
       {
         error:
