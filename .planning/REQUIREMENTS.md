@@ -15,8 +15,8 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 ### Library
 
-- [ ] **LIB-01**: Deleting a kaavya removes all associated vocabItems and reviewLogs
-- [ ] **LIB-02**: Library cards render without date serialization crashes
+- [x] **LIB-01**: Deleting a kaavya removes all associated vocabItems and reviewLogs
+- [x] **LIB-02**: Library cards render without date serialization crashes
 - [ ] **LIB-03**: Library operations show error feedback instead of crashing silently
 - [ ] **LIB-04**: PDF extraction errors display specific, actionable messages
 
@@ -38,7 +38,7 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 - [ ] **STAB-01**: React lists use stable unique keys instead of array indices
 - [ ] **STAB-02**: SRS card type casting handles null dates safely
-- [ ] **STAB-03**: Dexie transactions include all accessed stores
+- [x] **STAB-03**: Dexie transactions include all accessed stores
 
 ## Future Requirements
 
@@ -60,11 +60,11 @@ None -- this is a bug-fix milestone.
 | OCR-01 | Phase 11 | Complete |
 | OCR-02 | Phase 11 | Complete |
 | OCR-03 | Phase 11 | Complete |
-| LIB-01 | Phase 12 | Pending |
-| LIB-02 | Phase 12 | Pending |
+| LIB-01 | Phase 12 | Complete |
+| LIB-02 | Phase 12 | Complete |
 | LIB-03 | Phase 12 | Pending |
 | LIB-04 | Phase 12 | Pending |
-| STAB-03 | Phase 12 | Pending |
+| STAB-03 | Phase 12 | Complete |
 | QUIZ-01 | Phase 13 | Pending |
 | QUIZ-02 | Phase 13 | Pending |
 | QUIZ-03 | Phase 13 | Pending |

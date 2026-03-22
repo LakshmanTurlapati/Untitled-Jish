@@ -33,7 +33,7 @@ See .planning/archive/ for completed phase details.
 **Milestone Goal:** Fix all critical bugs across OCR, Library, Quiz, and API layers -- make the app work end-to-end without crashes, hangs, or silent failures.
 
 - [x] **Phase 11: OCR & Resource Cleanup** - Fix Tesseract.js worker init, add timeout/cancellation, clean up memory leaks (completed 2026-03-22)
-- [ ] **Phase 12: Library & Data Integrity** - Fix data orphaning, date crashes, error handling, and transaction safety
+- [x] **Phase 12: Library & Data Integrity** - Fix data orphaning, date crashes, error handling, and transaction safety (completed 2026-03-22)
 - [ ] **Phase 13: Quiz Reliability** - Fix stem dedup, error surfacing, distractor generation, and SRS type safety
 - [ ] **Phase 14: API & Rendering Stability** - Fix env validation, error logging, streaming format, and React key anti-patterns
 
@@ -65,8 +65,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 12-01-PLAN.md -- Fix deleteKaavya cascade to vocabItems/reviewLogs, fix date serialization crash in LibraryCard
-- [ ] 12-02-PLAN.md -- Add error handling to library delete, add typed PDF extraction errors with specific messages
+- [x] 12-01-PLAN.md -- Fix deleteKaavya cascade to vocabItems/reviewLogs, fix date serialization crash in LibraryCard
+- [x] 12-02-PLAN.md -- Add error handling to library delete, add typed PDF extraction errors with specific messages
 
 ### Phase 13: Quiz Reliability
 **Goal**: Users can take quizzes that populate correctly, show meaningful errors, and never present broken answer choices
@@ -106,6 +106,6 @@ Phases 11-14 are independent and can execute in any order.
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
-| 12. Library & Data Integrity | v1.2 | 0/2 | Not started | - |
+| 12. Library & Data Integrity | v1.2 | 2/2 | Complete   | 2026-03-22 |
 | 13. Quiz Reliability | v1.2 | 0/? | Not started | - |
 | 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |
