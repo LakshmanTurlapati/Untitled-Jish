@@ -13,9 +13,11 @@ interface LibraryCardProps {
   onQuiz?: () => void;
 }
 
-function relativeTime(date: Date): string {
+function relativeTime(date: Date | string): string {
+  const d = date instanceof Date ? date : new Date(date);
+  if (isNaN(d.getTime())) return "unknown";
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
+  const diffMs = now.getTime() - d.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffDays === 0) return "today";
