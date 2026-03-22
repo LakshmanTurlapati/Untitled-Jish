@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Bug Fixes & Stability
 status: unknown
-stopped_at: Completed 12-02-PLAN.md
-last_updated: "2026-03-22T08:45:25.556Z"
+stopped_at: Completed 13-01-PLAN.md
+last_updated: "2026-03-22T08:53:33.676Z"
 progress:
   total_phases: 4
-  completed_phases: 2
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 3
+  total_plans: 5
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Enable users to master Sanskrit vocabulary and comprehend kaavyas independently through quiz-driven spaced repetition, with all meanings backed by pramaana.
-**Current focus:** Phase 12 — library-data-integrity
+**Current focus:** Phase 13 — quiz-reliability
 
 ## Current Position
 
-Phase: 13
-Plan: Not started
+Phase: 13 (quiz-reliability) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -49,6 +49,8 @@ Plan: Not started
 | Phase 11 P01 | 2min | 2 tasks | 3 files |
 | Phase 12-01 P01 | 1min | 2 tasks | 2 files |
 | Phase 12 P02 | 2min | 2 tasks | 3 files |
+| Phase 13 P02 | 1min | 2 tasks | 2 files |
+| Phase 13 P01 | 1min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -65,6 +67,10 @@ Recent decisions affecting current work:
 - [Phase 12]: Used primaryKeys() with type-narrowing filter for safe cascade delete ID collection in Dexie
 - [Phase 12]: relativeTime returns 'unknown' for invalid dates rather than throwing, as graceful degradation for IndexedDB serialization issues
 - [Phase 12]: Used PdfExtractionError class with kind discriminator for type-safe catch handling in PDF extraction
+- [Phase 13]: Error state renders before empty state so loading failures are not masked as no words due
+- [Phase 13]: Per-word try/catch in batch API for partial failure resilience with failedCount in response
+- [Phase 13]: Used flatMap over all MW/Apte definitions for richer MCQ distractor pool
+- [Phase 13]: Applied boundary 'as Card' cast on return object for safe ts-fsrs interop instead of per-field double-cast
 
 ### Pending Todos
 
@@ -77,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T08:42:21.732Z
-Stopped at: Completed 12-02-PLAN.md
+Last session: 2026-03-22T08:53:33.674Z
+Stopped at: Completed 13-01-PLAN.md
 Resume file: None

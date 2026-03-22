@@ -34,7 +34,7 @@ See .planning/archive/ for completed phase details.
 
 - [x] **Phase 11: OCR & Resource Cleanup** - Fix Tesseract.js worker init, add timeout/cancellation, clean up memory leaks (completed 2026-03-22)
 - [x] **Phase 12: Library & Data Integrity** - Fix data orphaning, date crashes, error handling, and transaction safety (completed 2026-03-22)
-- [ ] **Phase 13: Quiz Reliability** - Fix stem dedup, error surfacing, distractor generation, and SRS type safety
+- [x] **Phase 13: Quiz Reliability** - Fix stem dedup, error surfacing, distractor generation, and SRS type safety (completed 2026-03-22)
 - [ ] **Phase 14: API & Rendering Stability** - Fix env validation, error logging, streaming format, and React key anti-patterns
 
 ## Phase Details
@@ -81,8 +81,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 13-01-PLAN.md -- Fix stem case normalization, distractor validation, and SRS null date handling
-- [ ] 13-02-PLAN.md -- Add error surfacing to QuizView and partial failure handling to populate API
+- [x] 13-01-PLAN.md -- Fix stem case normalization, distractor validation, and SRS null date handling
+- [x] 13-02-PLAN.md -- Add error surfacing to QuizView and partial failure handling to populate API
 
 ### Phase 14: API & Rendering Stability
 **Goal**: API routes return meaningful responses instead of 500 errors, and the UI renders without React warnings or visual glitches
@@ -108,5 +108,5 @@ Phases 11-14 are independent and can execute in any order.
 |-------|-----------|----------------|--------|-----------|
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
 | 12. Library & Data Integrity | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 13. Quiz Reliability | v1.2 | 0/2 | Not started | - |
+| 13. Quiz Reliability | v1.2 | 2/2 | Complete   | 2026-03-22 |
 | 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |

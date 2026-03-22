@@ -23,9 +23,9 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 ### Quiz
 
 - [ ] **QUIZ-01**: Vocabulary population deduplicates stems correctly (case-normalized)
-- [ ] **QUIZ-02**: Quiz loading and rating errors are logged and surfaced to users
+- [x] **QUIZ-02**: Quiz loading and rating errors are logged and surfaced to users
 - [ ] **QUIZ-03**: Distractor generation never uses the correct answer as a distractor
-- [ ] **QUIZ-04**: Batch word processing handles partial failures without losing all results
+- [x] **QUIZ-04**: Batch word processing handles partial failures without losing all results
 
 ### API
 
@@ -66,9 +66,9 @@ None -- this is a bug-fix milestone.
 | LIB-04 | Phase 12 | Complete |
 | STAB-03 | Phase 12 | Complete |
 | QUIZ-01 | Phase 13 | Pending |
-| QUIZ-02 | Phase 13 | Pending |
+| QUIZ-02 | Phase 13 | Complete |
 | QUIZ-03 | Phase 13 | Pending |
-| QUIZ-04 | Phase 13 | Pending |
+| QUIZ-04 | Phase 13 | Complete |
 | STAB-02 | Phase 13 | Pending |
 | API-01 | Phase 14 | Pending |
 | API-02 | Phase 14 | Pending |
