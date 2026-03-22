@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface ImageUploadProps {
   onTextExtracted: (text: string) => void;
@@ -10,8 +10,32 @@ export function ImageUpload({ onTextExtracted }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+  const previewRef = useRef<string | null>(null);
+
+  // Revoke Object URL on component unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (previewRef.current) {
+        URL.revokeObjectURL(previewRef.current);
+        previewRef.current = null;
+      }
+    };
+  }, []);
+
+  // Elapsed time counter during OCR extraction
+  useEffect(() => {
+    if (!isUploading) {
+      setElapsedSeconds(0);
+      return;
+    }
+    const intervalId = setInterval(() => {
+      setElapsedSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [isUploading]);
 
   async function handleFile(file: File) {
     // Validate file type
@@ -26,7 +50,14 @@ export function ImageUpload({ onTextExtracted }: ImageUploadProps) {
       return;
     }
 
-    setPreview(URL.createObjectURL(file));
+    // Revoke previous Object URL to prevent memory leaks
+    if (previewRef.current) {
+      URL.revokeObjectURL(previewRef.current);
+    }
+    const newUrl = URL.createObjectURL(file);
+    previewRef.current = newUrl;
+    setPreview(newUrl);
+
     setIsUploading(true);
     setError(null);
 
@@ -115,7 +146,7 @@ export function ImageUpload({ onTextExtracted }: ImageUploadProps) {
 
       {isUploading && (
         <p className="mt-2 text-sm text-ink-600 animate-pulse">
-          Extracting text...
+          Extracting text... ({elapsedSeconds}s)
         </p>
       )}
 
