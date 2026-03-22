@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { FaFilePdf } from "react-icons/fa";
-import { extractTextFromPdf } from "@/lib/kaavya/utils/pdfExtractor";
+import { extractTextFromPdf, PdfExtractionError } from "@/lib/kaavya/utils/pdfExtractor";
 import { saveKaavya } from "@/lib/kaavya/db/kaavyaStore";
 
 interface KaavyaUploaderProps {
@@ -28,10 +28,13 @@ export function KaavyaUploader({ onSaved, onCancel }: KaavyaUploaderProps) {
       const text = await extractTextFromPdf(file);
       setRawText(text);
       setExtractedPreview(text);
-    } catch {
-      setError(
-        "Could not extract text from this PDF. The file may be scanned or image-based. Try pasting the text directly instead."
-      );
+    } catch (err) {
+      console.error('PDF extraction failed:', err);
+      if (err instanceof PdfExtractionError) {
+        setError(err.message);
+      } else {
+        setError('Could not extract text from this PDF. Please try a different file or paste the text directly.');
+      }
     } finally {
       setIsExtracting(false);
     }

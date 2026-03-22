@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useKaavyaLibrary } from "@/lib/kaavya/hooks/useKaavyaLibrary";
 import { deleteKaavya } from "@/lib/kaavya/db/kaavyaStore";
@@ -17,6 +18,7 @@ interface KaavyaLibraryProps {
 
 export function KaavyaLibrary({ onOpenKaavya, onAddKaavya, onQuizKaavya }: KaavyaLibraryProps) {
   const { kaavyas, isLoading } = useKaavyaLibrary();
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const readingStates = useLiveQuery(
     () => db.readingStates.toArray()
@@ -44,7 +46,13 @@ export function KaavyaLibrary({ onOpenKaavya, onAddKaavya, onQuizKaavya }: Kaavy
   }
 
   async function handleDelete(id: number) {
-    await deleteKaavya(id);
+    setDeleteError(null);
+    try {
+      await deleteKaavya(id);
+    } catch (err) {
+      console.error('Failed to delete kaavya:', err);
+      setDeleteError('Could not delete this kaavya. Please try again.');
+    }
   }
 
   if (isLoading) {
@@ -113,6 +121,9 @@ export function KaavyaLibrary({ onOpenKaavya, onAddKaavya, onQuizKaavya }: Kaavy
           Add Kaavya
         </button>
       </div>
+      {deleteError && (
+        <p className="mb-4 text-sm text-red-600">{deleteError}</p>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {kaavyas.map((kaavya) => (
           <LibraryCard
