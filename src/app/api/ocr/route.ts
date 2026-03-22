@@ -47,9 +47,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ text });
   } catch (error) {
-    return NextResponse.json(
-      { error: "OCR extraction failed" },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "OCR extraction failed";
+    console.error("OCR extraction failed:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
