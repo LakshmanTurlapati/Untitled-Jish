@@ -79,8 +79,8 @@ export function WordBreakdown({ word }: WordBreakdownProps) {
           </span>
           {samasa.components && samasa.components.length > 0 && (
             <div className="mt-1 flex flex-wrap gap-2 text-sm text-ink-700">
-              {samasa.components.map((comp, i) => (
-                <span key={i} className="inline-flex items-center gap-1">
+              {samasa.components.map((comp) => (
+                <span key={`${comp.iast}-${comp.meaning}`} className="inline-flex items-center gap-1">
                   <span className="font-medium">{comp.iast}</span>
                   <span className="text-xs text-ink-600">({comp.meaning})</span>
                 </span>

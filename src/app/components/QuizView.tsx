@@ -48,7 +48,7 @@ function Hearts({ count, max = 3 }: { count: number; max?: number }) {
     <div className="flex gap-1" data-testid="hearts">
       {Array.from({ length: max }, (_, i) => (
         <svg
-          key={i}
+          key={`heart-${i}`}
           viewBox="0 0 24 24"
           className={`h-6 w-6 ${i < count ? "text-red-500" : "text-parchment-200"}`}
           fill="currentColor"
@@ -80,7 +80,7 @@ function Confetti() {
     const color = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
     return (
       <div
-        key={i}
+        key={`confetti-${i}`}
         className={`absolute h-1 w-1 rounded-full ${color} pointer-events-none`}
         style={{
           left: `${left}%`,
@@ -780,8 +780,8 @@ export function QuizView({ words, onBackToText, mode, kaavyaId, onBackToModes }:
                 All meanings (MW/Apte)
               </h4>
               <ul className="list-disc list-inside text-sm text-ink-600 space-y-0.5">
-                {question.allMeanings.map((meaning, idx) => (
-                  <li key={idx}>{meaning}</li>
+                {question.allMeanings.map((meaning) => (
+                  <li key={meaning}>{meaning}</li>
                 ))}
               </ul>
             </div>

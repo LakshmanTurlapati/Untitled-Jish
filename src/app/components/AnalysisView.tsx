@@ -122,7 +122,7 @@ export function AnalysisView() {
               const isComplete = completedSteps > i;
               const isCurrent = completedSteps === i;
               return (
-                <div key={i} className="flex items-center gap-3">
+                <div key={step} className="flex items-center gap-3">
                   {isComplete ? (
                     <span
                       className="flex h-6 w-6 items-center justify-center rounded-full bg-accent-600 text-white text-xs"
@@ -161,7 +161,7 @@ export function AnalysisView() {
       {hasResults && (
         <div className="mt-6 space-y-4">
           {analysisResult.map((word, index) => (
-            <WordBreakdown key={index} word={word} />
+            <WordBreakdown key={`${word.original}-${word.iast}-${index}`} word={word} />
           ))}
         </div>
       )}

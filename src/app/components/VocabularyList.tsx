@@ -45,9 +45,9 @@ export function VocabularyList({ words }: VocabularyListProps) {
 
   return (
     <div className="space-y-3">
-      {vocabulary.map((word, index) => (
+      {vocabulary.map((word) => (
         <div
-          key={index}
+          key={word.stem || word.original}
           className="rounded-2xl border border-parchment-200 bg-parchment-50 p-4"
         >
           <div className="flex items-baseline gap-2">

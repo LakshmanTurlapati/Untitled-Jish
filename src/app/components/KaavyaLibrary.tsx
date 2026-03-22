@@ -70,7 +70,7 @@ export function KaavyaLibrary({ onOpenKaavya, onAddKaavya, onQuizKaavya }: Kaavy
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => (
             <div
-              key={i}
+              key={`skeleton-${i}`}
               className="h-32 rounded-lg bg-parchment-100 animate-pulse"
             />
           ))}
