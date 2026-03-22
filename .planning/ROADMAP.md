@@ -78,10 +78,11 @@ Plans:
   3. MCQ distractors never include the correct answer as one of the wrong choices
   4. Processing a batch of words where some fail still returns results for the words that succeeded
   5. SRS card scheduling works correctly even when review date fields are null or missing
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 13-01: TBD
+- [ ] 13-01-PLAN.md -- Fix stem case normalization, distractor validation, and SRS null date handling
+- [ ] 13-02-PLAN.md -- Add error surfacing to QuizView and partial failure handling to populate API
 
 ### Phase 14: API & Rendering Stability
 **Goal**: API routes return meaningful responses instead of 500 errors, and the UI renders without React warnings or visual glitches
@@ -107,5 +108,5 @@ Phases 11-14 are independent and can execute in any order.
 |-------|-----------|----------------|--------|-----------|
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
 | 12. Library & Data Integrity | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 13. Quiz Reliability | v1.2 | 0/? | Not started | - |
+| 13. Quiz Reliability | v1.2 | 0/2 | Not started | - |
 | 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |
