@@ -58,8 +58,8 @@ export function storableToCard(data: StorableCard): Card {
     lapses: data.lapses,
     learning_steps: data.learning_steps,
     state: data.state,
-    last_review: data.last_review ? new Date(data.last_review) : undefined as unknown as Date,
-  };
+    last_review: data.last_review ? new Date(data.last_review) : undefined,
+  } as Card;
 }
 
 export { Rating, State } from 'ts-fsrs';
