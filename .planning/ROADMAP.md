@@ -35,7 +35,7 @@ See .planning/archive/ for completed phase details.
 - [x] **Phase 11: OCR & Resource Cleanup** - Fix Tesseract.js worker init, add timeout/cancellation, clean up memory leaks (completed 2026-03-22)
 - [x] **Phase 12: Library & Data Integrity** - Fix data orphaning, date crashes, error handling, and transaction safety (completed 2026-03-22)
 - [x] **Phase 13: Quiz Reliability** - Fix stem dedup, error surfacing, distractor generation, and SRS type safety (completed 2026-03-22)
-- [ ] **Phase 14: API & Rendering Stability** - Fix env validation, error logging, streaming format, and React key anti-patterns
+- [x] **Phase 14: API & Rendering Stability** - Fix env validation, error logging, streaming format, and React key anti-patterns (completed 2026-03-22)
 
 ## Phase Details
 
@@ -97,7 +97,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 14-01-PLAN.md -- Add env validation, error logging with context, streaming await fix, and LLM error detail
+- [x] 14-01-PLAN.md -- Add env validation, error logging with context, streaming await fix, and LLM error detail
 - [x] 14-02-PLAN.md -- Replace all React array index keys with stable content-derived keys across 5 components
 
 ## Progress
@@ -110,4 +110,4 @@ Phases 11-14 are independent and can execute in any order.
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
 | 12. Library & Data Integrity | v1.2 | 2/2 | Complete    | 2026-03-22 |
 | 13. Quiz Reliability | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 14. API & Rendering Stability | v1.2 | 1/2 | In Progress|  |
+| 14. API & Rendering Stability | v1.2 | 2/2 | Complete   | 2026-03-22 |

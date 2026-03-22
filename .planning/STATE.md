@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Bug Fixes & Stability
 status: unknown
-stopped_at: Completed 14-02-PLAN.md
-last_updated: "2026-03-22T09:04:38.983Z"
+stopped_at: Completed 14-01-PLAN.md
+last_updated: "2026-03-22T09:06:06.659Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -52,6 +52,7 @@ Plan: 2 of 2
 | Phase 13 P02 | 1min | 2 tasks | 2 files |
 | Phase 13 P01 | 1min | 2 tasks | 3 files |
 | Phase 14 P02 | 1min | 1 tasks | 5 files |
+| Phase 14-01 P01 | 2min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,8 @@ Recent decisions affecting current work:
 - [Phase 13]: Used flatMap over all MW/Apte definitions for richer MCQ distractor pool
 - [Phase 13]: Applied boundary 'as Card' cast on return object for safe ts-fsrs interop instead of per-field double-cast
 - [Phase 14]: Used content-derived keys (stem, iast, original) for dynamic lists and prefixed-index keys for static decorative arrays
+- [Phase 14-01]: Hoisted text variable in analyze route for catch-block logging access
+- [Phase 14-01]: Used detail field instead of message field in API error responses for consistency
 
 ### Pending Todos
 
@@ -85,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:04:38.981Z
-Stopped at: Completed 14-02-PLAN.md
+Last session: 2026-03-22T09:06:06.657Z
+Stopped at: Completed 14-01-PLAN.md
 Resume file: None

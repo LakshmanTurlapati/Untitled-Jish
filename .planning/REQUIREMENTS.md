@@ -29,10 +29,10 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 ### API
 
-- [ ] **API-01**: Missing environment variables (XAI_API_KEY) detected at startup with clear error
-- [ ] **API-02**: All API routes log errors with context before returning 500s
-- [ ] **API-03**: Streaming endpoint (/api/hints) returns correct SSE format on errors
-- [ ] **API-04**: LLM output validation provides actionable error details
+- [x] **API-01**: Missing environment variables (XAI_API_KEY) detected at startup with clear error
+- [x] **API-02**: All API routes log errors with context before returning 500s
+- [x] **API-03**: Streaming endpoint (/api/hints) returns correct SSE format on errors
+- [x] **API-04**: LLM output validation provides actionable error details
 
 ### Stability
 
@@ -70,10 +70,10 @@ None -- this is a bug-fix milestone.
 | QUIZ-03 | Phase 13 | Complete |
 | QUIZ-04 | Phase 13 | Complete |
 | STAB-02 | Phase 13 | Complete |
-| API-01 | Phase 14 | Pending |
-| API-02 | Phase 14 | Pending |
-| API-03 | Phase 14 | Pending |
-| API-04 | Phase 14 | Pending |
+| API-01 | Phase 14 | Complete |
+| API-02 | Phase 14 | Complete |
+| API-03 | Phase 14 | Complete |
+| API-04 | Phase 14 | Complete |
 | STAB-01 | Phase 14 | Complete |
 
 **Coverage:**
