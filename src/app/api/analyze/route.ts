@@ -11,9 +11,10 @@ import { analyzeText } from "@/lib/analysis/pipeline";
 import { enrichWithMeanings } from "@/lib/analysis/meanings";
 
 export async function POST(request: NextRequest) {
+  let text: unknown;
   try {
     const body = await request.json();
-    const { text } = body;
+    text = body.text;
 
     // Validate input
     if (!text || typeof text !== "string" || text.trim() === "") {
@@ -39,8 +40,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Unknown error";
+    console.error("Analyze API error:", {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      textLength: typeof text === "string" ? text.length : "invalid",
+    });
     return NextResponse.json(
-      { error: "Analysis failed", message },
+      { error: "Analysis failed", detail: message },
       { status: 500 }
     );
   }

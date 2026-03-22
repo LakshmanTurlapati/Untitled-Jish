@@ -86,8 +86,12 @@ export async function POST(request: NextRequest) {
     }
     const message =
       error instanceof Error ? error.message : 'Unknown error';
+    console.error("Quiz populate API error:", {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json(
-      { error: 'Analysis failed', message },
+      { error: 'Analysis failed', detail: message },
       { status: 500 }
     );
   }
