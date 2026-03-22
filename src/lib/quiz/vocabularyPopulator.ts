@@ -45,7 +45,7 @@ export async function populateVocabulary(
     const storable = cardToStorable(card);
 
     toAdd.push({
-      stem: word.morphology.stem,
+      stem: word.morphology.stem.toLowerCase(),
       original: word.original,
       iast: word.iast,
       kaavyaId,

@@ -62,10 +62,10 @@ export function generateQuizQuestions(
       linga: item.linga,
     };
 
-    // Build distractor pool from other vocabItems' first dictionary definition
+    // Build distractor pool from other vocabItems' ALL dictionary definitions
     const distractorPool = allVocab
       .filter(v => v.stem !== item.stem)
-      .map(v => v.mwDefinitions[0] || v.apteDefinitions[0])
+      .flatMap(v => [...v.mwDefinitions, ...v.apteDefinitions])
       .filter((d): d is string => !!d && d !== correctAnswer);
 
     // Remove duplicates from distractor pool
@@ -84,21 +84,27 @@ export function generateQuizQuestions(
       ];
     }
     if (distractors.length < 3) {
-      // Last resort: pad with stem
+      // Last resort: pad with stem (guard against stem === correctAnswer)
       while (distractors.length < 3) {
-        distractors.push(item.stem);
+        distractors.push(item.stem !== correctAnswer ? item.stem : `(${item.iast})`);
       }
     }
 
     const options = [correctAnswer, ...distractors];
-    shuffleArray(options);
+    // Safety: remove any distractor that somehow matches correctAnswer
+    const safeOptions = options.filter((opt, idx) => idx === 0 || opt !== correctAnswer);
+    // Re-pad if filtering removed options
+    while (safeOptions.length < 4) {
+      safeOptions.push(item.stem !== correctAnswer ? item.stem : `(${item.iast})`);
+    }
+    shuffleArray(safeOptions);
 
     questions.push({
       vocabItemId: item.id!,
       word: { original: item.original, iast: item.iast },
       grammarFacts,
       correctAnswer,
-      options,
+      options: safeOptions,
       allMeanings,
     });
   }
