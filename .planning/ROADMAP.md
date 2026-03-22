@@ -94,10 +94,11 @@ Plans:
   3. The /api/hints streaming endpoint returns proper SSE format even when errors occur mid-stream
   4. LLM output that fails validation produces error messages identifying what was wrong with the response
   5. React lists (vocabulary items, kaavya cards, quiz options) use stable unique keys -- no console warnings
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 14-01: TBD
+- [ ] 14-01-PLAN.md -- Add env validation, error logging with context, streaming await fix, and LLM error detail
+- [ ] 14-02-PLAN.md -- Replace all React array index keys with stable content-derived keys across 5 components
 
 ## Progress
 
@@ -109,4 +110,4 @@ Phases 11-14 are independent and can execute in any order.
 | 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete    | 2026-03-22 |
 | 12. Library & Data Integrity | v1.2 | 2/2 | Complete    | 2026-03-22 |
 | 13. Quiz Reliability | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |
+| 14. API & Rendering Stability | v1.2 | 0/2 | Not started | - |
