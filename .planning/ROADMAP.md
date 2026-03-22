@@ -32,7 +32,7 @@ See .planning/archive/ for completed phase details.
 
 **Milestone Goal:** Fix all critical bugs across OCR, Library, Quiz, and API layers -- make the app work end-to-end without crashes, hangs, or silent failures.
 
-- [ ] **Phase 11: OCR & Resource Cleanup** - Fix Tesseract.js worker init, add timeout/cancellation, clean up memory leaks
+- [x] **Phase 11: OCR & Resource Cleanup** - Fix Tesseract.js worker init, add timeout/cancellation, clean up memory leaks (completed 2026-03-22)
 - [ ] **Phase 12: Library & Data Integrity** - Fix data orphaning, date crashes, error handling, and transaction safety
 - [ ] **Phase 13: Quiz Reliability** - Fix stem dedup, error surfacing, distractor generation, and SRS type safety
 - [ ] **Phase 14: API & Rendering Stability** - Fix env validation, error logging, streaming format, and React key anti-patterns
@@ -50,7 +50,7 @@ See .planning/archive/ for completed phase details.
 **Plans**: 1 plan
 
 Plans:
-- [ ] 11-01-PLAN.md -- Fix Tesseract.js v7 worker init, add 30s timeout, clean up Object URL leaks
+- [x] 11-01-PLAN.md -- Fix Tesseract.js v7 worker init, add 30s timeout, clean up Object URL leaks
 
 ### Phase 12: Library & Data Integrity
 **Goal**: Users can manage their kaavya library without crashes or data corruption -- delete, browse, and handle errors safely
@@ -104,7 +104,7 @@ Phases 11-14 are independent and can execute in any order.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 11. OCR & Resource Cleanup | v1.2 | 0/1 | Planned | - |
+| 11. OCR & Resource Cleanup | v1.2 | 1/1 | Complete   | 2026-03-22 |
 | 12. Library & Data Integrity | v1.2 | 0/? | Not started | - |
 | 13. Quiz Reliability | v1.2 | 0/? | Not started | - |
 | 14. API & Rendering Stability | v1.2 | 0/? | Not started | - |

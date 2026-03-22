@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Bug Fixes & Stability
-status: ready_to_plan
-stopped_at: "Roadmap created for v1.2 milestone"
-last_updated: "2026-03-21"
+status: unknown
+stopped_at: Completed 11-01-PLAN.md
+last_updated: "2026-03-22T08:30:13.670Z"
 progress:
   total_phases: 4
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
 ---
 
 # Project State
@@ -19,20 +19,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Enable users to master Sanskrit vocabulary and comprehend kaavyas independently through quiz-driven spaced repetition, with all meanings backed by pramaana.
-**Current focus:** v1.2 Bug Fixes & Stability -- Phase 11 (OCR & Resource Cleanup)
+**Current focus:** Phase 11 — ocr-resource-cleanup
 
 ## Current Position
 
-Phase: 11 of 14 (OCR & Resource Cleanup)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-03-21 -- Roadmap created for v1.2 milestone
-
-Progress: [░░░░░░░░░░] 0%
+Phase: 11 (ocr-resource-cleanup) — EXECUTING
+Plan: 1 of 1
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0 (v1.2)
 - Average duration: -
 - Total execution time: 0 hours
@@ -44,10 +41,12 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: -
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 11 P01 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -59,6 +58,8 @@ Recent decisions affecting current work:
 - [v1.2]: Bug-fix milestone driven by comprehensive 46-issue audit across all app layers.
 - [v1.2 Roadmap]: All 4 phases are independent -- can execute in any order since bugs are in separate subsystems.
 - [v1.2 Roadmap]: STAB requirements distributed to related functional phases (STAB-02 with Quiz, STAB-03 with Library, STAB-01 with API/Rendering).
+- [Phase 11]: Used Promise.race with AbortController for OCR timeout since worker.recognize() has no native cancellation
+- [Phase 11]: Used useRef for Object URL tracking to avoid stale closure issues in handleFile cleanup
 
 ### Pending Todos
 
@@ -71,6 +72,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21
-Stopped at: Roadmap created for v1.2 milestone
+Last session: 2026-03-22T08:30:13.668Z
+Stopped at: Completed 11-01-PLAN.md
 Resume file: None

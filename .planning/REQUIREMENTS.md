@@ -9,9 +9,9 @@ Requirements for bug-fix milestone. Each maps to roadmap phases.
 
 ### OCR
 
-- [ ] **OCR-01**: User can extract text from images without infinite hangs (fix Tesseract.js worker init)
-- [ ] **OCR-02**: OCR extraction completes or times out within 30 seconds with user feedback
-- [ ] **OCR-03**: Object URLs are cleaned up to prevent memory leaks
+- [x] **OCR-01**: User can extract text from images without infinite hangs (fix Tesseract.js worker init)
+- [x] **OCR-02**: OCR extraction completes or times out within 30 seconds with user feedback
+- [x] **OCR-03**: Object URLs are cleaned up to prevent memory leaks
 
 ### Library
 
@@ -57,9 +57,9 @@ None -- this is a bug-fix milestone.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| OCR-01 | Phase 11 | Pending |
-| OCR-02 | Phase 11 | Pending |
-| OCR-03 | Phase 11 | Pending |
+| OCR-01 | Phase 11 | Complete |
+| OCR-02 | Phase 11 | Complete |
+| OCR-03 | Phase 11 | Complete |
 | LIB-01 | Phase 12 | Pending |
 | LIB-02 | Phase 12 | Pending |
 | LIB-03 | Phase 12 | Pending |
